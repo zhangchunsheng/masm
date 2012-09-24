@@ -1,0 +1,10 @@
+<div id="postblog">
+        <div class="img"><img src="{avatar uid=$smarty.session.uid size=middle}" alt="{$smarty.session.username}" class="face"/></div>
+        <div class="pop">
+     {if $yb.addtext_switch ==1} <li><a href="{spUrl c=add a=text}" class="text">文字</a></li> <li class="ln"></li>{/if}
+    {if $yb.addmusic_switch ==1} <li><a href="{spUrl c=add a=music}" class="music">音乐</a></li><li class="ln"></li>{/if}
+    {if $yb.addimg_switch ==1} <li><a href="{spUrl c=add a=image}" class="photo">图片</a></li><li class="ln"></li>{/if}
+    {if $yb.addvideo_switch ==1}<li><a  href="{spUrl c=add a=video}" class="video">视频</a></li><li class="ln"></li>{/if}
+    <!--<li><a href="#" class="link">其他</a></li>-->    
+      </div>
+    </div>

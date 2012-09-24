@@ -1,0 +1,84 @@
+@charset "utf-8";
+/* login page code by 幻の羽翼 copyright  */
+/*reset*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{padding:0;margin:0;}
+fieldset, img{border:0;}
+table{border-collapse: collapse;border-spacing:0;}
+ol,ul{list-style: none;}
+address,caption,cite,code,dfn,em,strong,th,var{font-weight:normal;font-style:normal;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-weight: normal;font-size: 100%;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;}
+/**resetend**/
+body{ background:url(../comm/bg_line.png) repeat-x #C0DEED; font-family:'微软雅黑'; font-size:12px}
+#wrap{width:100%; background:url();}
+#main{ width:900px; margin:0 auto; position:relative}
+#logo{padding-top:60px;}
+#lbtn{background:url(../login/login_lbtn.png) no-repeat; width:243px; height:95px; position:absolute; top:-20px;right:10px; right:10px;}
+#rbtn{background:url(../login/reg_lbtn.png) no-repeat; width:243px; height:95px; position:absolute; top:-20px;right:10px;}
+#lbtn a,#rbtn a{ display:block; text-decoration:none; margin:25px 0px 0px 123px; color:#348EB9; font-size:18px}
+
+/*登陆框、注册字段*/
+#logbox { margin-bottom:100px; width:500px; height:230px; overflow:hidden}
+#logbox h1{font-size:20px; margin-bottom:10px; color:#2586B3; font-weight:bold;text-shadow:1px 1px 1px #FFF}
+#loginarea .filed{ margin-right: 15px; _margin-right: 5px;width:180px; float:left; position:relative}
+#loginarea .filed label.nocontent {visibility: visible;}
+#loginarea .filed label {color: #AEAEAE; cursor: text; font-size: 16px; left: 10px;top:10px; position: absolute;}
+#loginarea .filed .input{ width:175px;}
+#loginarea .filedBtn{width:80px;float:left}
+#loginarea .filedBtn .subBtn{ width:87px; height:42px; overflow:hidden; background:url(../login/login.png) no-repeat; border:0; margin-top:-1px;_margin-top:1px;cursor:pointer;}
+#loginarea .filedBtn .loading{width:87px; height:42px; background:url(../comm/loading.gif) no-repeat; border:0; background-position:5px}
+#loginarea .remember td{ padding-top:2px; padding-left:2px;color:#2586B3;}
+#loginarea .remember a,#loginarea .remember a:visited{color:#2586B3; text-decoration:none;transition: color .25s linear;}
+#loginarea .remember a:hover{color:#0d4d6c;transition: color .25s linear;}
+
+#loginarea .input,#regbox .input{height:40px; font-size:20px; line-height:40px; padding-left:10px; border:1px solid #adadad;background:#fff;border-radius:5px;box-shadow:0 0 1px rgba(173,173,173,0.4),inset 0 0 3px #adadad;}
+#loginarea .input:focus,#regbox .input:focus{border:1px solid #7aae9f;background:#fff;border-radius:5px;box-shadow:0 0 1px rgba(173,173,173,0.4),inset 0 0 5px #f7f54a;}
+
+#loginarea .warn{border-color:#fd9898 !important;background-color:#fff7f7 !important;}
+
+/*注册框*/
+#regbox{ background:url(../login/regbg.png) no-repeat; width:647px; height:427px;}
+#regbox #regarea{padding:30px;}
+#regbox #regarea h1{font-size:22px; padding-left:12px; letter-spacing:5px;color:#4597BE}
+#regbox #regarea .filed{ margin:18px 10px 18px 0px; width:340px; position:relative}
+#regbox #regarea .filed label{height:40px; line-height:40px;width:80px; overflow:hidden; font-size:18px; color:#4597BE; text-align:center;letter-spacing:20px; float:left}
+#regbox #regarea .filed .input{ width:233px;float:left;}
+#regbox #regarea .filed .regBtn{width:140px; height:42px; overflow:hidden;  background:url(../login/regbtn.png) no-repeat; border:0; cursor:pointer;}
+#regbox #regarea .filed .regcurr{width:25px; height:26px;background:url(../login/reg_cur.png) no-repeat; position:absolute; left:180px; top:9px}
+#regbox #regarea .filed .loading{width:32px; height:32px;background:url(../comm/loadsmall.gif) no-repeat; position:absolute; left:180px; top:12px}
+/*气球*/
+#BalloonA{position:absolute;z-index:-10; right:-61px; background:url(../login/BalloonA.png) no-repeat; width:278px; height:379px; display:none}
+#BalloonB{position:absolute;z-index:-10; background:url(../login/BalloonB.png) no-repeat; left:30px; top:360px;width:115px; height:156px; display:none}
+
+/*合作登陆*/
+#openconnent{ clear:both; margin-top:20px}
+#openconnent #area{ margin:10px 0px;}
+#openconnent h1{color:#4597BE; font-weight:bold}
+
+#openconnent #area li{display:block; width:126px; height:24px; text-align:center; float:left; margin-right:10px; margin-bottom:10px}
+#openconnent #area li a {line-height:42px; color:#6F79FF; text-decoration:none; }
+#openconnent #area li a:hover{color:#06F}
+
+/*ie6*/
+.ie6{font-size:12px; line-height:1.5em; font-family:'宋体'; color:#006}
+.ie6 h1{font-size:18px; padding:5px 0px;color:#2586B3; font-weight:bold;text-shadow:1px 1px 1px #FFF; font-family:'微软雅黑'}
+
+/*footer*/
+#footer{ background:url(../login/cloud.png) repeat-x; min-height:99px; clear:both}
+#copyright{ width:900px; margin:0 auto; font-size:14px; text-align:center; color:#2F8CB8}
+#copyright .nav{ text-align:center;}
+#copyright .nav li{ display:inline; margin-right:15px}
+#copyright .nav li a,#copyright .copy a{color:#2F8CB8;text-decoration:none;text-shadow: 1px 1px 1px #FFFFFF;transition: color .25s linear;}
+#copyright .nav li a:hover,#copyright .copy a:hover{color:#0d4d6c;transition: color .25s linear;}
+#copyright .copy{font-size:12px; margin:5px 0px; clear:both}
+
+#errmsg{ font-size:12px; color:#FB1C4E; margin-left:5px;}
+/*plugin public*/
+.backToTop { display: none; width: 18px; line-height: 1.2; padding: 5px 0; background-color: #000; color: #fff;font-size: 12px;text-align: center;
+    position: fixed; _position: absolute; right: 10px; bottom: 200px; _bottom: "auto"; cursor: pointer; opacity: .6; filter: Alpha(opacity=60);
+}
+
+.clearfix{zoom:1}
+.clearfix:after{content:"";display:block;height:0;line-height:0;font-size:0;visibility:hidden;clear:both}

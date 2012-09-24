@@ -1,0 +1,137 @@
+@charset "utf-8";
+/* CSS Document */
+
+.message {
+	background: none repeat scroll 0 0 #E3E3EA;
+	padding: 20px;
+}
+body, table, td {
+	color: #3A4273;
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 12px;
+	line-height: 20px;
+}
+.altbg1 {
+	background: none repeat scroll 0 0 #E3E3EA;
+}
+.altbg2 {
+	background: none repeat scroll 0 0 #EEEEF6;
+}
+a {
+	color: #3A4273;
+	text-decoration: none
+}
+a:hover {
+	color: #3A4273;
+	text-decoration: underline
+}
+body, table, td {
+	color: #3A4273;
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 12px;
+	line-height: 20px;
+	scrollbar-base-color: #E3E3EA;
+	scrollbar-arrow-color: #5C5C8D
+}
+.input {
+	color: #085878;
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 12px;
+	background-color: #3366CC;
+	Border-radius:15px;
+	color: #FFFFFF;
+	padding:5px 30px;
+	scrollbar-base-color: #E3E3EA;
+	scrollbar-arrow-color: #5C5C8D
+}
+.ipt { padding:10px;box-shadow:5px 5px 5px #CCC; }
+.install {
+	font-family: Arial, Verdana;
+	font-size: 20px;
+	font-weight: bold;
+	color: #000000
+}
+.message {
+	background: #E3E3EA;
+	padding: 20px;
+}
+.altbg1 {
+	background: #E3E3EA;
+}
+.altbg2 {
+	background: #EEEEF6;
+}
+.header td {
+	color: #FFFFFF;
+	background-color: #3366CC;
+	text-align: center;
+}
+.option td {
+	text-align: center;
+}
+.redfont {
+	color: #FF0000;
+}
+
+
+.submit input, .button, .button-secondary {
+    -moz-box-sizing: content-box;
+    border: 1px solid #BBBBBB;
+    border-radius: 15px 15px 15px 15px;
+    color: #464646;
+    cursor: pointer;
+    font-family: "Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size: 14px !important;
+    line-height: 16px;
+    padding: 6px 12px;
+    text-decoration: none;
+}
+.button:hover, .button-secondary:hover, .submit input:hover {
+    border-color: #666666;
+    color: #000000;
+}
+.button, .submit input, .button-secondary {
+    background:#F2F2F2;
+}
+.button:active, .submit input:active, .button-secondary:active {
+    background: #EEEEEE;
+}
+ 
+.form-table {
+    border-collapse: collapse;
+    margin-top: 1em;
+    width: 100%;
+}
+.form-table td {
+    border-bottom: 8px solid #FFFFFF;
+    font-size: 12px;
+    margin-bottom: 9px;
+    padding: 10px;
+}
+.form-table th {
+    border-bottom: 8px solid #FFFFFF;
+    font-size: 13px;
+    padding: 16px 10px 10px;
+    text-align: left;
+    vertical-align: top;
+    width: 130px;
+}
+.form-table tr {
+    background: none repeat scroll 0 0 #F3F3F3;
+}
+.form-table code {
+    font-size: 18px;
+    line-height: 18px;
+}
+.form-table p {
+    font-size: 11px;
+    margin: 4px 0 0;
+}
+.form-table input {
+    font-size: 15px;
+    line-height: 20px;
+    padding: 2px;
+}
+.form-table th p {
+    font-weight: normal;
+}

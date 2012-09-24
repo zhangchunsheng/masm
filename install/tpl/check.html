@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>云边开源轻博客系统安装向导</title>
+<link href="image/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="420" height="100" align="left" valign="top" scope="col"><img src="image/logo.png" width="420" height="100" alt="logo" /></th>
+    <th width="480" align="left" valign="middle" scope="col"> * 检查系统的安装环境</th>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" scope="col">
+    <table width="100%" cellspacing="1" border="0" bgcolor="#3366CC" align="center"  style="box-shadow:0 0 5px #06C;">
+        <tbody>
+          <tr bgcolor="#3366CC">
+            <td width="32%" style="color: #FFFFFF; padding:10px">提示信息</td>
+          </tr>
+          <tr>
+            <td class="message"><li>将压缩包中 yunbian 目录下全部文件和目录上传到服务器。</li>
+              <li>如果您使用非 WINNT 系统请修改以下属性：<br>
+                &nbsp; &nbsp; <b>./tpm</b> 目录 777;&nbsp; &nbsp; <b>./attachs</b> 目录 777;&nbsp; &nbsp; <b>./customavatars</b> 目录 777;&nbsp; &nbsp; <b>./avatar</b> 目录 777;</li>
+              <li>确认 URL 中 /attachs,/avatar 可以访问服务器目录 ./attachs,/avatar 内容。</li>
+              <li>如果config.php文件不可写，请自行修改该文件上传到论坛根目录下。</li>
+              <li>如果目录可写检查失败，或系统配置检查失败则无法安装系统，请勿强行安装。</li></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="height:10px"></div>
+      <table width="100%"  cellspacing="1" border="0" bgcolor="#3366CC" align="center"  style="box-shadow:0 0 5px #06C;">
+        <tbody>
+          <tr class="header">
+            <td height="28"></td>
+            <td>Yunbian 所需配置</td>
+            <td>Yunbian 推荐配置</td>
+            <td>当前服务器</td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">操作系统</td>
+            <td class="altbg2">不限</td>
+            <td class="altbg1">UNIX/Linux/FreeBSD</td>
+            <td class="altbg2"><?php echo PHP_OS; ?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">PHP 版本</td>
+            <td class="altbg2">5.2+</td>
+            <td class="altbg1">5.3+</td>
+            <td class="altbg2"><?php if(PHP_VERSION < '5.2'){echo '不支持！请升级到php5.2+';}else{echo PHP_VERSION;}?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">附件上传</td>
+            <td 3="" class="altbg2">不限</td>
+            <td class="altbg1">允许</td>
+            <td class="altbg2"><?php echo getUploadState(); ?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">数据库扩展</td>
+            <td class="altbg2">mysql</td>
+            <td class="altbg1">pdo</td>
+            <td class="altbg2"><?php echo implode(',',getDatabase()); ?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">图像扩展</td>
+            <td class="altbg2">gd2</td>
+            <td class="altbg1">gd2</td>
+            <td class="altbg2"><?php echo gdVersion(); ?>&nbsp;</td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">Curl扩展</td>
+            <td class="altbg2">curl</td>
+            <td class="altbg1">curl</td>
+            <td class="altbg2"><?php echo getCurlstate(); ?></td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <div style="height:10px"></div>
+      <table width="100%"  cellspacing="1" border="0" bgcolor="#3366CC" align="center" style="box-shadow:0 0 5px #06C;">
+        <tbody>
+          <tr class="header">
+            <td width="35%" height="28" align="center">目录可写检查</td>
+            <td width="41%">&nbsp;</td>
+            <td width="24%">当前状态</td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">./</td>
+            <td class="altbg1">需要可写</td>
+            <td class="altbg2"><?php if(is_writable(APP_PATH.'/')){echo '可写';}else{echo '不可写,无法创建配置文件';}?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">./tmp</td>
+            <td class="altbg1">需要可写</td>
+            <td class="altbg2"><?php echo ckeckwrite(dir_writeable(APP_PATH.'/tmp'));?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">./avatar</td>
+            <td class="altbg1">需要可写</td>
+            <td class="altbg2"><?php echo ckeckwrite(dir_writeable(APP_PATH.'/avatar'));?></td>
+          </tr>
+          <tr class="option">
+            <td class="altbg1">./attachs</td>
+            <td class="altbg1">需要可写</td>
+            <td class="altbg2"><?php echo ckeckwrite(dir_writeable(APP_PATH.'/attachs'));?></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="height:10px"></div>
+      <table width="100%"  cellspacing="1" border="0" bgcolor="#3366CC" align="center"  style="box-shadow:0 0 5px #06C;">
+        <tbody>
+          <tr class="header">
+            <td width="74%" class="altbg1">建议您取消以下几个文件夹的web访问权利,并将其转向至404界面</td>
+            <td width="26%" class="altbg2">建议</td>
+          </tr>
+
+          <tr class="option">
+            <td align="left" class="altbg1">./controller</td>
+            <td class="altbg2">取消WEB访问</td>
+          </tr>
+          <tr class="option">
+            <td align="left" class="altbg1">./model</td>
+            <td class="altbg2">取消WEB访问</td>
+          </tr>
+          <tr class="option">
+            <td align="left" class="altbg1">./init</td>
+            <td class="altbg2">取消WEB访问</td>
+          </tr>
+           <tr class="option">
+            <td align="left" class="altbg1">./tmp</td>
+            <td class="altbg2">取消WEB访问</td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <th height="102" colspan="2" align="right" valign="middle" scope="col">
+    <input type="button" name="button2" id="button2" value="上一步"  onclick="window.location.href='index.php?step=2'" class="input"/>
+    <input type="button" name="button" id="button" value="确认无警告>>继续安装"  onclick="window.location.href='index.php?step=4'" class="input"/></th>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<title>{$yb.site_title} - {$yb.site_titlepre} - Power by 云边轻博</title>
+<meta name="author" content="{$yb.author}" />
+<meta name="description" content="{$yb.site_desc}" />
+<meta name="keywords" content="{$yb.site_keyword}" />
+{include file="require_js.html" login=yes}
+<link href="{$url}/tpl/image/css/login.css" rel="stylesheet" type="text/css" class="cssfx"/>
+<link rel="shortcut icon" href="{$url}/tpl/image/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+<div id="wrap">
+
+  <div id="main">
+	<div id="lbtn"><a href="{spUrl c=main}">登陆</a></div>
+    <div id="logo"><a href="{spUrl c=main}"><img src="{$url}/tpl/image/logo.png" width="248" height="81" alt="logo" /></a></div> <div id="BalloonA"></div><div id="BalloonB"></div>
+     <div style="height:65px; clear:both"></div>
+
+  <table border="0" align="center" cellpadding="0" cellspacing="0" id="regbox">
+      <tr>
+        <td width="386" rowspan="2" valign="top">
+         <form action="{spUrl c=main a=reg}" method="post">
+        <div id="regarea">
+              <h1>注册{$yb.site_title}账号</h1>
+              {if $errmsg}
+                <div id="errmsg">{$errmsg}</div>
+                {/if}
+
+              <div class="filed clearfix"><label class="nocontent">邮箱</label>
+              	<input type="text"  name="email" class="input" tabindex="1" value="{$smarty.post.email}" title="请使用自己邮箱,使用他人邮箱被举报将会删除该账号">
+                </div>
+              <div class="filed clearfix"><label class="nocontent">密码</label>
+              <input type="password"  name="password" class="input" tabindex="2" value="{$smarty.post.password}" title="请输入密码"></div>
+              <div class="filed clearfix"><label class="nocontent">重复</label>
+              <input type="password"  name="password2" class="input" tabindex="3" value="{$smarty.post.password2}" title="请重复输入密码"></div>
+              <div class="filed clearfix" style="margin-bottom:0px"><label class="nocontent">昵称</label>
+              <input type="text"  name="username" class="input" tabindex="4" value="{$smarty.post.username}" title="请输入昵称"></div>
+
+
+              {if $yb.regCodeSwitch !='close'}
+            <div class="filed clearfix" style="margin:0px">
+            <label class="nocontent"><img src="{spUrl c=main a=vcode t=$time}" class="vericode"  onclick="javascript:reloadcode(this,this.src);" title="看不清楚，换一张" style="cursor:pointer;" /></label>
+            <input name="verifycode" type="text" id="verifycode"  class="input" size="8" maxlength="4"  /></div>
+            {/if}
+
+               <div class="filed clearfix"><label class="nocontent"></label>
+               <input class="regBtn" type="button" name="do"  value="" tabindex="5" onClick="checkReg()" /><span class="regcurr"></span></div>
+        </div>
+        <input type="hidden" name="doing" value="true" />
+        <input type="hidden" value="{$callback}" name="callback">
+        </form>
+        </td>
+        <td height="53"> <div><span><a href="{spUrl c=site a=service}" target="_blank">注册将视为您同意服务条款</a></span> </div>
+          &nbsp;</td>
+      </tr>
+      <tr>
+        <td width="261" valign="top">
+          {if $yb.openlogin_qq_open == 1 || $yb.openlogin_weib_open == 1}
+      <div id="openconnent">
+      <h1>用合作账户登陆</h1>
+          <div id="area">
+              {if $yb.openlogin_qq_open == 1}
+              <li><a href="javascript:void(0)" onClick="openconnect('{spUrl c=openconnect a=qq}')"><img src="tpl/image/qq_login.png" border="0" style="margin-top:10px"/></a></li>
+              {/if}
+              {if $yb.openlogin_weib_open == 1}
+              <li> <a href="javascript:void(0)" onClick="openconnect('{spUrl c=openconnect a=weibo}')"><img src="tpl/image/weib_login.png" border="0" style="margin-top:10px"/></a></li>
+              {/if}
+          </div>
+      </div>
+       {/if}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+  <div id="footer"></div>
+  <div id="copyright">
+    	<div class="nav clearfix">
+        	<li><a href="{spUrl c=site a=about}">关于云边</a></li>
+            <li><a href="{spUrl c=site a=call}">联系我们</a></li>
+            <li><a href="{spUrl c=site a=help}">获取帮助</a></li>
+            <li><a href="{spUrl c=site a=service}">服务条款</a></li>
+            <li><a href="{spUrl c=site a=privacy}">隐私政策</a></li>
+            <li><a href="#">程序下载</a></li>
+         </div>
+        <div class="copy">
+         <a href="http://www.thinksaas.cn/index.php/group/group/groupid-129" target="_blank">Powered by {$yb.soft} <b>{$yb.version}</b> </a>&nbsp;2011-2012 {$yb.site_icp} {$yb.site_count}</small></div>
+  </div>
+
+
+</div>
+<script>
+<!--
+{literal}
+// login and reg
+$(document).ready(function(){
+	if($('#email').val() != ''){$('#email').parent().find('label').hide();}
+	if($('#password').val() != ''){$('#password').parent().find('label').hide();}
+	if($('#loginarea #verifycode').val() != ''){$('#loginarea #verifycode').parent().find('label').hide();}
+
+	setTimeout(function(){$('#BalloonB').fadeIn('slow');},800)
+	setTimeout(function(){ $('#BalloonA').fadeIn('slow');},1100)
+})
+
+function reloadcode(obj,url)
+{
+	obj.src = url+ '&nowtime=' + new Date().getTime();
+}
+
+
+function checkReg()
+{
+	$('.regcurr').addClass('loading');
+	$("input[name='do']").attr('disabled', true);
+	$('form').submit();
+
+}
+
+
+var offset = 2247;
+var backgroundheight = offset;
+function scrollbackground() {
+    offset = (offset < 1) ? offset + (backgroundheight - 1) : offset - 1;
+    $('#footer').css('background-position', offset + "px");
+    setTimeout(function() {
+        scrollbackground()
+    },
+    100)
+};
+scrollbackground();
+{/literal}
+-->
+</script>
+</body>
+</html>
+
+
+
+
+

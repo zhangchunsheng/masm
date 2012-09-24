@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>云边开源轻博客系统安装向导</title>
+<link href="image/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form action="index.php?step=7" method="post">
+<table width="900" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <th width="420" height="100" align="left" valign="top" scope="col"><img src="image/logo.png" width="420" height="100" alt="logo" /></th>
+    <th width="480" align="left" valign="middle" scope="col"> * 最后设置</th>
+  </tr>
+  <tr>
+    <td colspan="2" align="left" scope="col">
+    <?php  if($err != ''){ ?>
+    <table width="100%" cellspacing="1" border="0" bgcolor="#3366CC" align="center"  style="box-shadow:0 0 5px #06C;">
+        <tbody>
+          <tr bgcolor="#3366CC">
+            <td width="32%" style="color: #FFFFFF; padding:10px">提示信息</td>
+          </tr>
+          <tr>
+            <td class="message"><li><?php echo  $err;?><br>
+              </li></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="height:10px"></div>
+      <?php } ?>
+
+
+	<p>请在下面输入网站信息</p>
+
+	<table width="100%" class="form-table">
+	  <tbody>
+	    <tr>
+	      <th width="19%" scope="row"><label for="site_title">网站标题：</label></th>
+	      <td width="20%"><input type="text" value="<?php echo postDefault('site_title','云边轻博客'); ?>" size="25" name="site_title" class="ipt"></td>
+	      <td width="61%">也是你的网站名称</td>
+	      </tr>
+
+	    <tr>
+	      <th scope="row"><label for="site_subtitle">网站副标题：</label></th>
+	      <td><input type="text" value="<?php echo postDefault('site_titlepre','欢迎访问云边轻博客'); ?>" size="25" name="site_titlepre" class="ipt"></td>
+	      <td>用于首页副标题，紧跟网站标题之后</td>
+	      </tr>
+
+
+	    </tbody>
+	  </table>
+
+
+
+<p>请在下面输入管理员信息</p>
+
+	<table width="100%" class="form-table">
+		<tbody>
+		<tr>
+			<th width="19%" scope="row"><label for="email">登录Email：</label></th>
+			<td width="20%"><input type="text" value="<?php echo postDefault('email',''); ?>" size="25" name="email" class="ipt"></td>
+			<td width="61%">你用来登录和最高管理的账户</td>
+		</tr>
+
+		<tr>
+			<th scope="row"><label for="password">登录密码：</label></th>
+			<td><input type="text" value="<?php echo postDefault('password',''); ?>" size="25" name="password" class="ipt"></td>
+			<td>您的登录密码</td>
+		</tr>
+
+        <tr>
+			<th scope="row"><label for="password">重复密码：</label></th>
+			<td><input type="text" value="<?php echo postDefault('password2',''); ?>" size="25" name="password2" class="ipt"></td>
+			<td>重复您的登录密码</td>
+		</tr>
+
+
+	</tbody>
+	</table>
+    <p>系统配置</p>
+    <table width="100%" class="form-table">
+		<tbody>
+		<tr>
+			<th width="20%" scope="row"><label for="email">伪静态设置</label></th>
+			<td width="23%">开启
+			  <input name="rewrite" type="radio"  value="1" />
+			  关闭
+			  <input name="rewrite"  type="radio" value="0" checked="checked" /></td>
+			<td width="57%">是否开启伪静态(需要Apache支持且仅支持apache)</td>
+		</tr>
+
+		<tr>
+			<th scope="row"><label for="salt">系统salt：</label></th>
+			<td><input type="text" value="<?php echo getSalt(); ?>" size="32" name="salt" class="ipt"></td>
+			<td>全局密码加密密钥，安装后不能修改,否则全站不能登录</td>
+		</tr>
+
+	</tbody>
+	</table>
+
+
+
+    <div style="height:10px"></div></td>
+  </tr>
+  <tr>
+    <th height="102" colspan="2" align="right" valign="middle" scope="col"><input type="submit" name="final" id="button" value="完成安装" class="input"/></th>
+  </tr>
+</table>
+</form>
+</body>
+</html>

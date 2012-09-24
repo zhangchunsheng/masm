@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-cn" class="no-js">
+<head>
+<meta charset="utf-8" />
+<title>{$yb.site_title} - {$yb.site_titlepre} - Powered by 云边轻博</title>
+<meta name="author" content="{$yb.author}" />
+<meta name="description" content="{$yb.site_desc}" />
+<meta name="keywords" content="{$yb.site_keyword}" />
+{include file="require_js.html" login=yes}
+<link href="{$url}/tpl/image/css/login.css" rel="stylesheet" type="text/css"  class="cssfx"/>
+<link rel="shortcut icon" href="{$url}/tpl/image/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+<div id="wrap">
+
+  <div id="main">
+	<div id="rbtn"><a href="{spUrl c=main a=reg}">注册</a></div>
+    <div id="logo"><a href="{spUrl c=main}"><img src="{$url}/tpl/image/logo.png" width="248" height="81" alt="logo" /></a></div> <div id="BalloonA"></div><div id="BalloonB"></div>
+    <div style="height:150px; clear:both">
+    <!--[if lte IE 6]>
+    	<div class="ie6">
+        <h1>请不要再使用IE6</h1>
+        <div>虽然我们试图努力让各个浏览器的浏览效果达到最佳，但是IE6我们实在无能为力。<br />
+        我们的开发人员花了大量时间来保证IE6的界面不乱，但无法保证所有功能都能正常使用。<br />
+        因此我们建议您更换掉已经淘汰很久的IE6浏览器。<br />
+        您可以使用 ie7,ie8,ie9,firefox,chrome,opera,safari</div>
+        </div>
+        <![endif]-->
+    </div>
+    <table width="500" border="0" align="center" cellpadding="0" cellspacing="0" id="logbox">
+      <tr>
+        <td>
+              <h1>登陆{$yb.site_title}网</h1>
+          <form action="{spUrl c=main a=login}" method="post" onSubmit="return checkLogin()">
+        {if $errmsg}
+        <div id="errmsg">{$errmsg}</div>
+        {/if}
+                <input type="hidden" value="{$callback}" name="callback">
+                <input type="hidden" value="" name="formKey">
+                <div id="loginarea">
+                    <div class="filed">
+                    	<label for="email" class="nocontent">邮箱</label>
+                        <input type="text" id="email" name="email" class="input round" tabindex="1" value="{if $smarty.post.email}{$smarty.post.email}{else}{$email}{/if}">
+                    </div>
+                    <div class="filed"><label for="password" class="nocontent">密码</label><input type="password" id="password" class="input round" value="{$smarty.post.password}" name="password" tabindex="2"></div>
+                    <div class="filedBtn"><input class="subBtn" type="submit" name="submit"  value="&nbsp;" /></div><div class="clear"></div>
+                    <table width="400" border="0" cellspacing="0" cellpadding="0" class="remember">
+                      <tr>
+                        <td width="190"> <input name="savename" type="checkbox" id="savename" value="1" checked="checked" title="保存账号"/><label for="savename" >记住账号</label></td>
+                        <td  align="left" valign="middle">  <!--<a href="#">忘记密码?</a>--></td>
+                      </tr>
+                    </table>
+                   {if $yb.loginCodeSwitch != 'close'}
+                    <table width="400" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="195">
+                        <div class="filed"><label for="verifycode" class="nocontent">验证码</label><input type="text" id="verifycode" class="input"  name="verifycode" tabindex="3"></div></td>
+                        <td width="205" align="left" valign="middle">
+                        <img src="{spUrl c=main a=vcode t=$time}" class="vericode" onClick="javascript:reloadcode(this,this.src);" title="看不清楚，换一张" style="cursor:pointer;" /></td>
+                      </tr>
+                    </table>
+                   {/if}
+             </div>
+
+       {if $yb.openlogin_qq_open == 1 || $yb.openlogin_weib_open == 1}
+      <div id="openconnent">
+      <h1>用合作账户登陆</h1>
+          <div id="area">
+              {if $yb.openlogin_qq_open == 1}
+              <li><a href="{spUrl c=openconnect a=qq}"><img src="tpl/image/qq_login.png" border="0" style="margin-top:10px"/></a></li>
+              {/if}
+              {if $yb.openlogin_weib_open == 1}
+              <li> <a href="{spUrl c=openconnect a=weibo}"><img src="tpl/image/weib_login.png" border="0" style="margin-top:10px"/></a></li>
+              {/if}
+          </div>
+      </div>
+       {/if}
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+	<div id="footer"></div>
+	<div id="copyright">
+		<div class="nav clearfix">
+			<li><a href="{spUrl c=site a=about}">关于云边</a></li>
+			<li><a href="{spUrl c=site a=call}">联系我们</a></li>
+			<li><a href="{spUrl c=site a=help}">获取帮助</a></li>
+			<li><a href="{spUrl c=site a=service}">服务条款</a></li>
+			<li><a href="{spUrl c=site a=privacy}">隐私政策</a></li>
+		</div>
+		<div class="copy"><a href="http://www.thinksaas.cn/index.php/group/group/groupid-129" target="_blank">Powered by {$yb.soft} <b>{$yb.version}</b> </a>&nbsp;2011-2012 {$yb.site_icp} {$yb.site_count}</small></div>
+	</div>
+
+
+</div>
+<script>
+<!--
+{literal}
+// login and reg
+$(document).ready(function(){
+	if($('#email').val() != ''){$('#email').parent().find('label').hide();}
+	if($('#password').val() != ''){$('#password').parent().find('label').hide();}
+	if($('#loginarea #verifycode').val() != ''){$('#loginarea #verifycode').parent().find('label').hide();}
+	$('#email,#password,#loginarea #verifycode').focus(function(){
+		$(this).parent().find('label').hide();
+	}).blur(function(){
+		if($(this).val() ==''){$(this).parent().find('label').show();}
+	})
+
+	setTimeout(function(){$('#BalloonB').fadeIn('slow');},800);
+	setTimeout(function(){ $('#BalloonA').fadeIn('slow');},1100);
+
+	$('#email').keyup(function(){if ($(this).hasClass('warn')) {$(this).removeClass('warn');}});
+	$('#password').keyup(function(){if ($(this).hasClass('warn')) {$(this).removeClass('warn');}});
+})
+
+function reloadcode(obj,url)
+{
+	obj.src = url+ '&nowtime=' + new Date().getTime();
+}
+
+
+function checkLogin()
+{
+	if ($('#email').val() == ''){ $('#email').addClass('warn',500);}
+	if ($('#password').val() == ''){ $('#password').addClass('warn',500);}
+	if (($('#email').val() == '') || ($('#password').val() == '')) return false;
+	$('.subBtn').addClass('loading');
+	return true;
+}
+
+/*var offset = 2247;
+var backgroundheight = offset;
+function scrollbackground() {
+    offset = (offset < 1) ? offset + (backgroundheight - 1) : offset - 1;
+    $('#footer').css('background-position', offset + "px");
+    setTimeout(function() {
+        scrollbackground()
+    },
+    100)
+};
+scrollbackground();*/
+{/literal}
+-->
+</script>
+</body>
+</html>
+
+
+
+
+

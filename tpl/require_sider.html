@@ -1,0 +1,95 @@
+<!--右侧菜单组件-->
+
+
+
+
+{if $smarty.session.uid !=''}
+
+
+  {if !$in_tagindex}
+
+  <div id="search"><input type="text" value="搜索标签,发现兴趣" class="ipt"><input type="button" class="btn" value="" onClick="searchTag()"></div>
+  <div class="hr"></div>
+  <div id="sidetop">
+    <div class="myfollow"><a href="{spUrl c=main}">我关注{$user.flow}个博客</a></div>
+    <div class="showfollow"><a href="{spUrl c=user a=myfollow}">管理我的关注</a></div>
+   </div>
+
+    <div id="dasbard">
+        <div class="item"><a href="{spUrl c=user a=mylikes}">我的最爱</a><span>{$user.likenum}</span></div>
+        <div class="item"><a href="{spUrl c=user a=mypost}">我发布的</a><span>{$user.num}</span></div>
+         <div class="item"><a href="{spUrl c=user a=myreplay}">我回复的</a></div>
+    </div>
+      <div class="hr"></div>
+  {/if}
+
+
+    {if $in_tagindex}
+
+         {if $favatag}
+             <div id="menu">
+             <li class="end"><a href="{spUrl c=main a=index}" title="返回首页">返回首页</a></li>
+             {foreach from=$favatag item=d}
+             	{if $d.tag.title == $tagname}
+                 <li class="current"><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{ybtime time=$d.tag.updates}">{$d.tag.title}</a><span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
+                {else}
+                <li><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{ybtime time=$d.tag.updates}">{$d.tag.title}</a><span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
+                {/if}
+
+            {/foreach}
+              <div class="clear"></div>
+            </div>
+            {else}
+             <div id="menu">
+              <li class="end"><a href="{spUrl c=main a=recommend}">没有关注标签,发现一下吧</a></li>
+              <div class="clear"></div>
+            </div>
+         {/if}
+    {else}
+    	{if $favatag}
+             <div id="menu">
+             {foreach from=$favatag item=d}
+              <li><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{ybtime time=$d.tag.updates}">{$d.tag.title}</a> <span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
+            {/foreach}
+             <li class="end"><a href="{spUrl c=blog a=tag}">查看更多标签</a></li>
+              <div class="clear"></div>
+            </div>
+            {else}
+             <div id="menu">
+              <li class="end"><a href="{spUrl c=main a=recommend}">没有关注标签,发现一下吧</a></li>
+              <div class="clear"></div>
+            </div>
+        {/if}
+    {/if}
+
+	<div class="clear"></div>
+ {/if}
+
+
+	<!--_-<div class="hr"></div>
+   <div class="list">
+   <h1>欢迎访问云边</h1>
+    <a href="http://www.thinksaas.cn/index.php/group/group/groupid-129"><img width="250" alt="" src="{$url}/tpl/image/nologin.png"></a>
+     <div class="footer">免费·开源轻博客系统</div>
+    </div>---_-->
+
+
+
+
+  <!-- <nav class="list">
+   	 <h1>推荐阅读  <span>  </span> <a id="rec_focusTa" href="javascript:void(0)">关注Ta</a>  转发</h1>
+    <a href="#"><img width="250" alt="" src="http://ww4.sinaimg.cn/mw600/7af8cdd4jw1dip5jnp6bmj.jpg"></a>
+     <footer><a href="#">看看Ta的作品</a></footer>
+    </nav>-->
+
+   <!-- <nav class="list">
+   	 <h1>音乐推荐  <span>  </span> <a id="rec_focusTa" href="javascript:void(0)">关注Ta</a>  转发</h1>
+    <embed width="250" height="62" type="application/x-mplayer2"src="http://zhangmenshiting.baidu.com/data/music/4698391/%E5%BD%93%E6%88%91%E5%94%B1%E8%B5%B7%E8%BF%99%E9%A6%96%E6%AD%8C.mp3" autostart="true" enablecontextmenu="false" classid="clsid:6bf52a52-394a-11d3-b153-00c04f79faa6"></embed>
+     <footer><a href="#">看看Ta的作品</a></footer>
+    </nav>-->
+
+
+
+
+
+
