@@ -26,5 +26,6 @@
 	require(SP_PATH . "/Extensions/thFunctions.php");
 	import(APP_PATH . "/controller/top.php"); //TOP全局控制器
 	header("Content-type: text/html; charset=utf-8");
+	print_r($yb);
 	spRun();
 ?>
