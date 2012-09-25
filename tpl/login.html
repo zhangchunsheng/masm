@@ -11,7 +11,6 @@
 		<link rel="shortcut icon" href="{$url}/tpl/image/favicon.ico" type="image/x-icon" />
 	</head>
 	<body>
-		{print_r($yb)}
 		<div id="wrap">
 			<div id="main">
 				<div id="rbtn"><a href="{spUrl c=main a=reg}">注册</a></div>
@@ -31,7 +30,7 @@
 				<table width="500" border="0" align="center" cellpadding="0" cellspacing="0" id="logbox">
 					<tr>
 						<td>
-							<h1>登陆{$yb.site_title}网</h1>
+							<h1>登陆{$yb.site_title}</h1>
 							<form action="{spUrl c=main a=login}" method="post" onSubmit="return checkLogin()">
 								{if $errmsg}
 								<div id="errmsg">{$errmsg}</div>
@@ -88,13 +87,13 @@
 			<div id="footer"></div>
 			<div id="copyright">
 				<div class="nav clearfix">
-					<li><a href="{spUrl c=site a=about}">关于云边</a></li>
+					<li><a href="{spUrl c=site a=about}">关于烙馍网</a></li>
 					<li><a href="{spUrl c=site a=call}">联系我们</a></li>
 					<li><a href="{spUrl c=site a=help}">获取帮助</a></li>
 					<li><a href="{spUrl c=site a=service}">服务条款</a></li>
 					<li><a href="{spUrl c=site a=privacy}">隐私政策</a></li>
 				</div>
-				<div class="copy"><a href="http://www.thinksaas.cn/index.php/group/group/groupid-129" target="_blank">Powered by {$yb.soft} <b>{$yb.version}</b> </a>&nbsp;2011-2012 {$yb.site_icp} {$yb.site_count}</small></div>
+				<div class="copy"><a href="http://www.luomor.com">{$yb.soft}</a>&copy;2011-2012</div>
 			</div>
 		</div>
 		<script>

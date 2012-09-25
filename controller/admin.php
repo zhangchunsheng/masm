@@ -38,7 +38,7 @@ class admin extends top
 	{
 		if($this->spArgs('submit'))
 		{
-			spClass('db_setting')->saveConfig($this->spArgs('val'));
+			spClass('site_setting')->saveConfig($this->spArgs('val'));
 			
 			$this->jump(spUrl('admin','system',array('ac'=>'ok')));
 		}
@@ -49,7 +49,7 @@ class admin extends top
 		}
 			
 	
-		$this->conf = spClass('db_setting')->getConfig();
+		$this->conf = spClass('site_setting')->getConfig();
 		$this->curr_system = ' id="current"';
 		$this->display('admin/system.html');
 	}

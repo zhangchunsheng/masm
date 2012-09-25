@@ -6,7 +6,7 @@
 	 */
 	define('APP_PATH', dirname(__FILE__));
 	define('IN_APP', TRUE);
-	define("SP_PATH", APP_PATH . '/init');
+	define("SP_PATH", APP_PATH . '/speedPHP');
 	date_default_timezone_set('PRC');
 	session_name('luomor');
 	$lefttime = 24 * 3600;
@@ -26,6 +26,5 @@
 	require(SP_PATH . "/Extensions/thFunctions.php");
 	import(APP_PATH . "/controller/top.php"); //TOP全局控制器
 	header("Content-type: text/html; charset=utf-8");
-	print_r($yb);
 	spRun();
 ?>
