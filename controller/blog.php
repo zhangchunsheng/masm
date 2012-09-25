@@ -120,7 +120,7 @@ class blog extends top
 			}
 			
 			echo '<div class="rowLine"></div><li id="feed_'.$d['id'].'"><span class="pic"><a href="'.$this->url.'/'.$d['user']['domain'].'" target="_blank"><img width="18" height="18" src="'.avatar($prga).'" alt=""></a></span>
-			<p><a href="'.$this->url.'/'.$d['user']['domain'].'" target="_blank">'.$d['user']['username'].'</a>'.$msg.'<span>('.ybtime(array('time'=>$d['time'])).')</span>
+			<p><a href="'.$this->url.'/'.$d['user']['domain'].'" target="_blank">'.$d['user']['username'].'</a>'.$msg.'<span>('.parseTime(array('time'=>$d['time'])).')</span>
 			'.$reply.$del.'
 			</p>
 		</li>';	

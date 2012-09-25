@@ -1,0 +1,106 @@
+{include file="require_header.html"}
+{if $show == 'about'}
+<div id="article">
+	<div class="box" style="margin-left:0px; width:600px">
+		<div class="site">
+			<div class="h1">关于烙馍网</div>
+			<div class="info">
+				<h2>关于烙馍</h2>
+				<p>烙馍 （luǒ mō），正宗徐州方言读“裸摸”，谐音其实是“捋摸”（有典故） 。烙馍来自于江苏徐州。烙馍作为一种源自徐州的面食，已有着2000多年的历史了。因为交通便利，这种面食在中原地区广为流传，郑州、洛阳、安徽更有多种变形。韩信转述妇人的“捋捋摸摸就成啦”的典故是读音正统。</p>
+			</div>
+			<div class="info">
+				<h2>我们是烙馍网</h2>
+				<p>我们关注于美食，关注于地方小吃</p>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{if $show =='help'}
+<div id="article">
+	<div class="box" style="margin-left:0px; width:600px">
+		<div class="site">
+			<div class="h1">使用帮助</div>
+			<div class="info">
+				<h2>发布内容</h2>
+				<p>登陆后点击右侧 文字链接，即可进入发布文字功能。可输入内容，并可插入单张图片</p>
+			</div>
+			<div class="info">
+				<h2>发布音乐</h2>
+				<p>登陆后点击右侧 音乐，即可进入发布音乐功能。您可以选择网络音乐 和 本地上传两种方式。</p>
+				<p>网络音乐引用地址可以输入虾米、雅燃音乐、音悦台、优酷、土豆、6间房、腾讯播客、新浪博客、56.com等诸多网站播放地址。 也可以直接粘贴网络后缀为mp3的歌曲。</p>
+				<p>本地上传您可以上传本地的MP3文件，但请注意的是您需要拥有该媒体的著作权，也就是说您自己录或者制作的音乐皆可，但不能上传网络上不属于您的版权的音乐。如果被查出或举报或版权纠纷我们将不负任何责任，并且删除该媒体资源。</p>
+			</div>
+			<div class="info">
+				<h2>发布图片</h2>
+				<p>您可以同时上传最多20张照片作为博客内容，并且也可以编写介绍。</p>
+			</div>
+			<div class="info">
+				<h2>发布视频</h2>
+				<p>视频引用地址可以输入虾米、雅燃音乐、音悦台、优酷、土豆、6间房、腾讯播客、新浪博客、56.com等诸多网站播放地址。建议您可以将录制好的视频传至以上媒体然后填写引用地址。</p>
+				<p>同时您也可以编写介绍</p>
+			</div>
+			<div class="info">
+				<h2>关于标签</h2>
+				<p>不管发布任何内容您都需要填写至少一个标签，轻博内容将根据标签来进行区分。因此填写一个或多个合适的标签是非常不错的选择。</p>
+			</div>
+			<div class="info">
+				<h2>关注和喜欢</h2>
+				<p>加为关注的用户将会在您的首页显示最新发布动态</p>
+				<p>加为喜欢的博客可方便您在右侧导航中快速的查找</p>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{if $show =='call'}
+<div id="article">
+	<div class="box" style="margin-left:0px; width:600px">
+		<div class="site">
+			<div class="h1">联系我们</div>
+			<div class="info">
+				<p>博客 http://www.studyandthinkthendoit.com/</p>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{if $show =='service'}
+<div id="article">
+	<div class="box" style="margin-left:0px; width:600px">
+		<div class="site">
+			<div class="h1">服务条款</div>
+			<div class="info">
+				
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{if $show == 'privacy'}
+<div id="article">
+	<div class="box" style="margin-left:0px; width:600px">
+		<div class="site">
+			<div class="h1">隐私政策</div>
+			<div class="info">
+				<h2>隐私政策</h2>
+			</div>
+			<div class="info">
+				<h2>法律声明</h2>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+<div id="about">
+	<ul>
+		<li class="top {$curr_about}"><a href="{spUrl c=masm a=about}"><span></span>关于烙馍网</a></li>
+		<li class="{$curr_help}"><a href="{spUrl c=masm a=help}"><span></span>使用帮助</a></li>
+		<li class="{$curr_call}"><a href="{spUrl c=masm a=call}"><span></span>联系我们</a></li>
+		<li class="{$curr_service}"><a href="{spUrl c=masm a=service}"><span></span>服务条款</a></li>
+		<li class="{$curr_privacy}"><a href="{spUrl c=masm a=privacy}"><span></span>隐私申明</a> </li>
+		<li class="bottom"><a href="{goUserHome uid=1}"><span></span>官方博客</a> </li>
+	</ul>
+	<div class="clear"></div>
+</div>
+{include file="require_footer.html"}

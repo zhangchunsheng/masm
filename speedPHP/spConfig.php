@@ -102,5 +102,6 @@
 			
 		'include_path' => array(
 			APP_PATH . '/include',
+			APP_PATH . '/common'
 		), // 用户程序扩展类载入路径
 	);

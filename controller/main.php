@@ -18,9 +18,9 @@
 			//followId 为关注id 如果不为空,则我关注
 
 			$sql = "SELECT b. * , k.id AS likeid , f.id AS followid ,m.username,m.domain
-							FROM `".DBPRE."blog` AS b LEFT JOIN `".DBPRE."likes` AS k ON ( b.bid = k.bid AND k.uid ='$uid' )
-							LEFT JOIN `".DBPRE."follow` AS f ON ( b.uid = f.touid and f.uid = '$uid' )
-							LEFT JOIN `".DBPRE."member`  as m on b.uid = m.uid where b.open = 1 ";
+							FROM `" . DBPRE . "blog` AS b LEFT JOIN `" . DBPRE . "likes` AS k ON ( b.bid = k.bid AND k.uid ='$uid' )
+							LEFT JOIN `" . DBPRE . "follow` AS f ON ( b.uid = f.touid and f.uid = '$uid' )
+							LEFT JOIN `" . DBPRE . "member`  as m on b.uid = m.uid where b.open = 1 ";
 
 			if($this -> user['flow'] >= 15) {
 				$sql .= "and  b.uid in ($this->followuid,$uid) and b.open=1 ORDER BY b.time desc";

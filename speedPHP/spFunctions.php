@@ -6,24 +6,24 @@
 	/**
 	 * spRun  执行用户代码
 	 */
-	function spRun(){
+	function spRun() {
 		GLOBAL $__controller, $__action;
 		// 对路由进行自动执行相关操作
 		spLaunch("router_prefilter");
 		// 对将要访问的控制器类进行实例化
-		$handle_controller = spClass($__controller, null, $GLOBALS['G_SP']["controller_path"].'/'.$__controller.".php");
+		$handle_controller = spClass($__controller, null, $GLOBALS['G_SP']["controller_path"] . '/' . $__controller . ".php");
 		// 调用控制器出错将调用路由错误处理函数
-		if(!is_object($handle_controller) || !method_exists($handle_controller, $__action)){
+		if(!is_object($handle_controller) || !method_exists($handle_controller, $__action)) {
 			eval($GLOBALS['G_SP']["dispatcher_error"]);
 			exit;
 		}
 		// 路由并执行用户代码
-		$handle_controller->$__action();
+		$handle_controller -> $__action();
 		// 控制器程序运行完毕，进行模板的自动输出
-		if(FALSE != $GLOBALS['G_SP']['view']['auto_display']){
-			$__tplname = $__controller.$GLOBALS['G_SP']['view']['auto_display_sep'].
-					$__action.$GLOBALS['G_SP']['view']['auto_display_suffix']; // 拼装模板路径
-			$handle_controller->auto_display($__tplname);
+		if($GLOBALS['G_SP']['view']['auto_display'] != FALSE) {
+			$__tplname = $__controller . $GLOBALS['G_SP']['view']['auto_display_sep'] .
+					$__action . $GLOBALS['G_SP']['view']['auto_display_suffix']; // 拼装模板路径
+			$handle_controller -> auto_display($__tplname);
 		}
 		// 对路由进行后续相关操作
 		spLaunch("router_postfilter");
@@ -36,17 +36,27 @@
 	 * @param output    是否将内容输出
 	 * @param show_trace    是否将使用spError对变量进行追踪输出
 	 */
-	function dump($vars, $output = TRUE, $show_trace = FALSE){
+	function dump($vars, $output = TRUE, $show_trace = FALSE) {
 		// 部署模式下同时不允许查看调试信息的情况，直接退出。
-		if(TRUE != SP_DEBUG && TRUE != $GLOBALS['G_SP']['allow_trace_onrelease'])return;
-		if( TRUE == $show_trace ){ // 显示变量运行路径
+		if(SP_DEBUG != TRUE && $GLOBALS['G_SP']['allow_trace_onrelease'] != TRUE)
+			return;
+		if($show_trace == TRUE) { // 显示变量运行路径
 			$content = spError(htmlspecialchars(print_r($vars, true)), TRUE, FALSE);
-		}else{
+		} else {
 			$content = "<div align=left><pre>\n" . htmlspecialchars(print_r($vars, true)) . "\n</pre></div>\n";
 		}
-		if(TRUE != $output) { return $content; } // 直接返回，不输出。
-		   echo "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>{$content}</body></html>";
-		   return;
+		if($output != TRUE) {
+			return $content;
+		} // 直接返回，不输出。
+		echo "<html>
+				<head>
+					<meta charset=\"utf-8\">
+				</head>
+				<body>
+					{$content}
+				</body>
+			</html>";
+		return;
 	}
 
 	/**
@@ -222,16 +232,16 @@
 	 */
 	function T($w) {
 		$method = $GLOBALS['G_SP']["lang"][spController::getLang()];
-		if(!isset($method) || 'default' == $method){
+		if(!isset($method) || $method == "default") {
 			return $w;
-		}elseif( function_exists($method) ){
-			return ( $tmp = call_user_func($method, $w) ) ? $tmp : $w;
-		}elseif( is_array($method) ){
-			return ( $tmp = spClass($method[0])->{$method[1]}($w) ) ? $tmp : $w;
-		}elseif( file_exists($method) ){
+		} elseif(function_exists($method)) {
+			return ($tmp = call_user_func($method, $w)) ? $tmp : $w;
+		} elseif(is_array($method)) {
+			return ($tmp = spClass($method[0]) -> {$method[1]}($w)) ? $tmp : $w;
+		} elseif(file_exists($method)) {
 			$dict = require($method);
 			return isset($dict[$w]) ? $dict[$w] : $w;
-		}else{
+		} else {
 			return $w;
 		}
 	}
@@ -281,8 +291,7 @@
 	 * @param dir    目录路径
 	 * @param mode    文件权限
 	 */
-	function __mkdirs($dir, $mode = 0777)
-	{
+	function __mkdirs($dir, $mode = 0777) {
 		if (!is_dir($dir)) {
 			__mkdirs(dirname($dir), $mode);
 			return @mkdir($dir, $mode);
@@ -297,8 +306,7 @@
 	 *
 	 * @param ext_node_name    扩展配置名
 	 */
-	function spExt($ext_node_name)
-	{
+	function spExt($ext_node_name) {
 		return (empty($GLOBALS['G_SP']['ext'][$ext_node_name])) ? FALSE : $GLOBALS['G_SP']['ext'][$ext_node_name];
 	}
 
@@ -310,8 +318,7 @@
 	 * @param alias    函数在模板内的别名
 	 * @param callback_function    回调的函数或方法
 	 */
-	function spAddViewFunction($alias, $callback_function)
-	{
+	function spAddViewFunction($alias, $callback_function) {
 		return $GLOBALS['G_SP']["view_registered_functions"][$alias] = $callback_function;
 	}
 
@@ -330,13 +337,14 @@
 	 *                    表名称，db_spdb_full_tblname = false，这时候框架将使用db配置中的表前缀prefix。
 	 * @param pk    主键（可选），忽略主键的时候，将获取表第一个字段作为主键（通常都是）
 	 */
-	function spDB($tbl_name, $pk = null){
+	function spDB($tbl_name, $pk = null) {
 		$modelObj = spClass("spModel");
-		$modelObj->tbl_name = (TRUE == $GLOBALS['G_SP']["db_spdb_full_tblname"]) ? $tbl_name :	$GLOBALS['G_SP']['db']['prefix'] . $tbl_name;
-		if( !$pk ){ // 主键通过数据库驱动getTable来获取
-			@list($pk) = $modelObj->_db->getTable($modelObj->tbl_name);$pk = $pk['Field'];
+		$modelObj -> tbl_name = ($GLOBALS['G_SP']["db_spdb_full_tblname"] == TRUE) ? $tbl_name : $GLOBALS['G_SP']['db']['prefix'] . $tbl_name;
+		if(!$pk) { // 主键通过数据库驱动getTable来获取
+			@list($pk) = $modelObj -> _db -> getTable($modelObj -> tbl_name);
+			$pk = $pk['Field'];
 		}
-		$modelObj->pk = $pk;
+		$modelObj -> pk = $pk;
 		return $modelObj;
 	}
 
@@ -346,17 +354,19 @@
 	 * 兼容在未配置JSON扩展的情况下使用Services_JSON类
 	 *
 	 */
-	if ( !function_exists('json_decode') ){
-		function json_decode($content, $assoc=false){
-			if ( $assoc ){
-				return spClass("Services_JSON",SERVICES_JSON_LOOSE_TYPE)->decode($content);
+	if (!function_exists('json_decode')) {
+		function json_decode($content, $assoc = false) {
+			if ($assoc) {
+				return spClass("Services_JSON", SERVICES_JSON_LOOSE_TYPE) -> decode($content);
 			} else {
-				return spClass("Services_JSON")->decode($content);
+				return spClass("Services_JSON") -> decode($content);
 			}
 		}
 	}
-	if ( !function_exists('json_encode') ){
-		function json_encode($content){return spClass("Services_JSON")->encode($content);}
+	if (!function_exists('json_encode')) {
+		function json_encode($content) {
+			return spClass("Services_JSON") -> encode($content);
+		}
 	}
 
 	/**
@@ -365,13 +375,13 @@
 	 * @param preconfig    默认配置
 	 * @param useconfig    用户配置
 	 */
-	function spConfigReady( $preconfig, $useconfig = null){
+	function spConfigReady($preconfig, $useconfig = null) {
 		$nowconfig = $preconfig;
-		if (is_array($useconfig)){
-			foreach ($useconfig as $key => $val){
-				if (is_array($useconfig[$key])){
+		if(is_array($useconfig)) {
+			foreach($useconfig as $key => $val) {
+				if(is_array($useconfig[$key])) {
 					@$nowconfig[$key] = is_array($nowconfig[$key]) ? spConfigReady($nowconfig[$key], $useconfig[$key]) : $useconfig[$key];
-				}else{
+				} else {
 					@$nowconfig[$key] = $val;
 				}
 			}

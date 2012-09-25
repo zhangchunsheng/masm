@@ -23,7 +23,7 @@
 	}
 	require(APP_PATH . "/config.php"); //载入配置文件
 	require(SP_PATH . "/init.php");
-	require(SP_PATH . "/Extensions/thFunctions.php");
+	require(APP_PATH . "/common/functions.php");
 	import(APP_PATH . "/controller/base.php");
 	header("Content-type: text/html; charset=utf-8");
 	spRun();
