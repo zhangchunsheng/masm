@@ -14,18 +14,18 @@ class db_theme extends spModel
 	
 	function getByDomain($domain)
 	{
-		return spClass('db_member')->find(array('domain'=>$domain),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
+		return spClass('member')->find(array('domain'=>$domain),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
 	}
 	
 	function getByUid($uid)
 	{
-		return spClass('db_member')->find(array('uid'=>$uid),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
+		return spClass('member')->find(array('uid'=>$uid),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
 	}
 	
 	function getByBid($bid)
 	{
 		$rs = spClass('db_blog')->find(array('bid'=>$bid),'','uid');
-		return spClass('db_member')->find(array('uid'=>$rs['uid']),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
+		return spClass('member')->find(array('uid'=>$rs['uid']),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
 	}
 	
 	/*更新扩展字段并删除之前的内容*/

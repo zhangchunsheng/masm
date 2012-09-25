@@ -15,7 +15,7 @@ class db_notice extends spModel
              'type' => 'hasone',   // 关联类型，这里是一对一关联  
             'map' => 'user',    // 关联的标识  
              'mapkey' => 'foruid', // 本表与对应表关联的字段名  
-             'fclass' => 'db_member', // 对应表的类名  
+             'fclass' => 'member', // 对应表的类名  
             'fkey' => 'uid',    // 对应表中关联的字段名
 			'field'=>'uid,username,domain ',//你要限制的字段     
             'enabled' => true     // 启用关联  
@@ -70,8 +70,8 @@ class db_notice extends spModel
 	function sendReplay($imuid,$uid,$msga,$bid)
 	{
 		if($imuid == $_SESSION['uid']) {return true;}
-		$rs = spClass('db_member')->find(array('uid'=>$uid));
-		$for = spClass('db_member')->find(array('uid'=>$imuid));
+		$rs = spClass('member')->find(array('uid'=>$uid));
+		$for = spClass('member')->find(array('uid'=>$imuid));
 		if($rs['m_rep'] != 1) return true;
 		$title = '亲爱'.$rs['username'].',您在'.$GLOBALS['YB']['site_title'].'的轻博客回复通知';
 		$uri = pathinfo($GLOBALS['uri']);
@@ -89,7 +89,7 @@ class db_notice extends spModel
 	/*发送注册邮件*/
 	function sendRegisgtr($uid)
 	{
-		$rs = spClass('db_member')->find(array('uid'=>$uid));
+		$rs = spClass('member')->find(array('uid'=>$uid));
 		$title = '亲爱的会员,这是一封来自'.$GLOBALS['YB']['site_title'].'的注册通知';
 		$tpl = '<p>亲爱的会员：</p><p>您使用邮箱：'.$rs['email'].',在'.$GLOBALS['YB']['site_title'].'注册,祝您使用愉快。</p><p>'.date('Y-m-d H:i',time()).'</p>';
 		$body = $this->sendmailTemplate($title,$tpl);
@@ -99,8 +99,8 @@ class db_notice extends spModel
 	/*发送私信*/
 	function sendPm($imuid,$uid,$info)
 	{
-		$rs = spClass('db_member')->find(array('uid'=>$uid));
-		$for = spClass('db_member')->find(array('uid'=>$imuid));
+		$rs = spClass('member')->find(array('uid'=>$uid));
+		$for = spClass('member')->find(array('uid'=>$imuid));
 		if($rs['m_pm'] != 1) return true;
 		$title = '亲爱'.$rs['username'].',您收到了来自'.$GLOBALS['YB']['site_title'].'的私信通知';
 		$uri = pathinfo($GLOBALS['uri']);
@@ -116,8 +116,8 @@ class db_notice extends spModel
 	/*发送关注邮件*/
 	function sendFollow($uid,$imuid)
 	{
-		$rs = spClass('db_member')->find(array('uid'=>$uid));
-		$for = spClass('db_member')->find(array('uid'=>$imuid));
+		$rs = spClass('member')->find(array('uid'=>$uid));
+		$for = spClass('member')->find(array('uid'=>$imuid));
 		if($rs['m_fow'] != 1) return true;
 		$title = '亲爱'.$rs['username'].',您收到了来自'.$GLOBALS['YB']['site_title'].'的关注通知';
 		$uri = pathinfo($GLOBALS['uri']);

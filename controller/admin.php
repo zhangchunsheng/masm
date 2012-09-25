@@ -81,7 +81,7 @@ class admin extends top
 	{
 		if($this->spArgs('mod') == 'info')	
 		{
-			$this->info = spClass('db_member')->find(array('uid'=>$this->spArgs('uid')));
+			$this->info = spClass('member')->find(array('uid'=>$this->spArgs('uid')));
 			$this->display('admin/user_info.html');exit;
 		}
 	
@@ -94,9 +94,9 @@ class admin extends top
 			$where = '';
 		}
 		
-		$this->user = spClass('db_member')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'uid desc');
-		$this->pager = spClass('db_member')->spPager()->pagerHtml('admin','user' );
-		$this->countuser = spClass('db_member')->findCount();
+		$this->user = spClass('member')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'uid desc');
+		$this->pager = spClass('member')->spPager()->pagerHtml('admin','user' );
+		$this->countuser = spClass('member')->findCount();
 		$this->curr_user = ' id="current"';
 		$this->display('admin/user.html');
 	}

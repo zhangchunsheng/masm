@@ -113,15 +113,15 @@
 		$site_uri = 'http://' . $_SERVER["HTTP_HOST"] . '/' . $site_uri;
 	}
 
-	$GLOBALS['YB'] = $siteconfig;
-	$GLOBALS['YB']['version'] = '1.0';
-	$GLOBALS['YB']['soft'] = '烙馍网';
-	$GLOBALS['YB']['url'] = 'http://www.studyandthinkthendoit.com/';
-	$GLOBALS['YB']['email'] = '';
-	$GLOBALS['YB']['copyright'] = 'luomor.com';
-	$GLOBALS['YB']['year'] = '2012 - '.date('Y',time());
-	$GLOBALS['YB']['author'] = '烙馍网';
-	$GLOBALS['YB']['uri'] =  $site_uri;
+	$GLOBALS['LUOMOR'] = $siteconfig;
+	$GLOBALS['LUOMOR']['version'] = '1.0';
+	$GLOBALS['LUOMOR']['soft'] = '烙馍网';
+	$GLOBALS['LUOMOR']['url'] = 'http://www.studyandthinkthendoit.com/';
+	$GLOBALS['LUOMOR']['email'] = '';
+	$GLOBALS['LUOMOR']['copyright'] = 'luomor.com';
+	$GLOBALS['LUOMOR']['year'] = '2012 - '.date('Y',time());
+	$GLOBALS['LUOMOR']['author'] = '烙馍网';
+	$GLOBALS['LUOMOR']['uri'] =  $site_uri;
 	$GLOBALS['uri'] = $site_uri;
 
 	// 自动执行用户代码

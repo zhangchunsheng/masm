@@ -19,7 +19,7 @@ class user extends top
 	function setting()
 	{
 
-		$this->user = spClass('db_member')->find(array('uid'=>$_SESSION['uid'])); //用户信息
+		$this->user = spClass('member')->find(array('uid'=>$_SESSION['uid'])); //用户信息
 		$this->tags = spClass('db_category')->findCate(); //获取系统级别标签
 		$this->__parse_mytag($this->user['blogtag']); //获取我的标签
 		
@@ -165,7 +165,7 @@ class user extends top
 		{
 			$this->islook = true;
 			$foruid  = intval($this->spArgs('look'));
-			$this->foruser = spClass('db_member')->find(array('uid'=>$foruid),'','uid,username'); //我和谁的对话
+			$this->foruser = spClass('member')->find(array('uid'=>$foruid),'','uid,username'); //我和谁的对话
 			$where = " sys=0 and( ( uid = '{$_SESSION['uid']}' and foruid =  '$foruid') or ( uid =  '$foruid' and foruid='{$_SESSION['uid']}'))";
 			$this->read = spClass('db_notice')->spLinker()->findAll($where,'time desc');
 			spClass('db_notice')->update(array('foruid'=>$foruid,'uid'=>$_SESSION['uid'],'sys'=>0),array('isread'=>1));
@@ -221,10 +221,10 @@ class user extends top
 		
 
 		if(utf8_strlen($this->spArgs('niname')) < 2 || utf8_strlen($this->spArgs('niname')) > 10){js_err('昵称最短2位最长10位'); }
-		$niname = spClass('db_member')->find(array('username'=>$this->spArgs('niname')),'','uid,username');
+		$niname = spClass('member')->find(array('username'=>$this->spArgs('niname')),'','uid,username');
 		if(is_array($niname) && $niname['uid'] != $_SESSION['uid']){js_err('该昵称已被使用'); } //判断昵称是否被使用
 		if(utf8_strlen($this->spArgs('domain')) < 4 || utf8_strlen($this->spArgs('domain')) > 15){ js_err('个性域名最短4位最长15位'); }
-		$domain = spClass('db_member')->find(array('domain'=>$this->spArgs('domain')),'','uid,domain');
+		$domain = spClass('member')->find(array('domain'=>$this->spArgs('domain')),'','uid,domain');
 		if(is_array($domain) && $domain['uid'] != $_SESSION['uid']){ js_err('个性域名已被使用');} //判断个性域名是否被使用
 		if($this->spArgs('tag') != '')
 		{
@@ -253,7 +253,7 @@ class user extends top
 	
 
 	
-		if(spClass('db_member')->update(array('uid'=>$_SESSION['uid']),$row))
+		if(spClass('member')->update(array('uid'=>$_SESSION['uid']),$row))
 		{
 			$_SESSION['username'] = htmlspecialchars($this->spArgs('niname'));
 			$_SESSION['domain'] = $this->spArgs('domain');
@@ -272,7 +272,7 @@ class user extends top
 			$rs = spClass('db_notice')->noticePm($this->spArgs());echo $rs;exit;
 		}
 		$uid = intval($this->spArgs('uid'));
-		$this->rs = spClass('db_member')->find(array('uid'=>$uid),'','uid,username');
+		$this->rs = spClass('member')->find(array('uid'=>$uid),'','uid,username');
 		$this->display('user_mail_ajax.html');	
 	}
 	
@@ -300,7 +300,7 @@ class user extends top
 		if($this->spArgs('pwd1') != $this->spArgs('pwd2')){ exit('两次密码不一致');}
 		if(strlen($this->spArgs('pwd1')) <6) {exit('新密码必须大于6位');}
 		
-		$user = spClass('db_member')->findBy('uid',$_SESSION['uid']);
+		$user = spClass('member')->findBy('uid',$_SESSION['uid']);
 		$localpwd = password_encode($this->spArgs('pwd'),$user['salt']);
 	
 			if($user['password'] != $localpwd){
@@ -310,8 +310,8 @@ class user extends top
 				$salt = randstr();
 				$password = password_encode($this->spArgs('pwd1'),$salt);
 				$row = array('password' => $password, 'salt' =>$salt );	
-				spClass('db_member')->update(array('uid'=>$_SESSION['uid']),$row);
-				if(1 >= spClass('db_member')->affectedRows() )
+				spClass('member')->update(array('uid'=>$_SESSION['uid']),$row);
+				if(1 >= spClass('member')->affectedRows() )
 				{
 				exit('ok');	
 				}else{

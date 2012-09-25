@@ -63,7 +63,7 @@ function run_update()
 	foreach($sqlArr as $k=>$v)
 	{
 		$msg .= '更新数据表：'.$v;
-		if(spClass('db_member')->runSql($v))
+		if(spClass('member')->runSql($v))
 		{
 			$msg .= ' 成功<br />';
 		}else{

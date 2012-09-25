@@ -240,7 +240,7 @@ class userblog extends top
 	{
 		$bid = intval($this->spArgs('bid'));
 		$sql = "select m.username,m.uid,m.domain,l.* from ".DBPRE."likes as l LEFT JOIN  ".DBPRE."member as m on l.uid = m.uid where l.bid = '$bid' order by l.time desc limit 0,26";
-		$rs =  spClass('db_member')->findSql($sql);
+		$rs =  spClass('member')->findSql($sql);
 		$count = spClass('db_likes')->findCount( array('bid'=>$bid) );
 		$data['rs'] = $rs;
 		$data['count'] = $count;

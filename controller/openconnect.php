@@ -40,7 +40,7 @@ class openconnect extends top
 			{
 				if($this->spArgs('type') != 'login')
 				{
-					$userobj = spClass('db_member'); //验证注册
+					$userobj = spClass('member'); //验证注册
 					$userobj->verifier = $userobj->verifier_openConnect_Reg; 
 					if( false == $userobj->spVerifier($this->spArgs()) ){  
 						$uid = $userobj->userReg($this->spArgs());
@@ -57,7 +57,7 @@ class openconnect extends top
 						$this->errmsg_arr = $userobj->spVerifier($this->spArgs());	
 					}
 				}else{
-					$userobj = spClass('db_member'); //验证登陆
+					$userobj = spClass('member'); //验证登陆
 					$userobj->verifier = $userobj->verifier_openConnect_Login; 
 					if( false == $userobj->spVerifier($this->spArgs()) ){ 
 						$params = array('openid' => $_SESSION['qq']['openid'],
@@ -144,7 +144,7 @@ class openconnect extends top
 		$_SESSION['username'] = $result['username'];
 		$_SESSION['admin'] = $result['admin'];
 		$local = ip2name($ip);
-		spClass('db_member')->update(array('uid'=>$result['uid']),array('logtime'=>time(),'logip'=>$ip,'local'=>$local));
+		spClass('member')->update(array('uid'=>$result['uid']),array('logtime'=>time(),'logip'=>$ip,'local'=>$local));
 		$this->_getActionToken($result['uid']);	
 	}
 	
@@ -152,7 +152,7 @@ class openconnect extends top
 	private function activeLogin($params)
 	{
 		spClass('db_memberex')->create($params);
-		$result = spClass('db_member')->find(array('uid'=>$params['uid']));
+		$result = spClass('member')->find(array('uid'=>$params['uid']));
 		$this->setLoginInfo($result,$params['uid']);
 		
 	}

@@ -1,74 +1,74 @@
 <?php
-defined('IN_APP') or die('Access Denied.');
-define('APP_NAME', '/github/masm/masm/');
+	defined('IN_APP') or die('Access Denied.');
+	define('APP_NAME', '/github/masm/masm/');
 
-///需要设置是否为2级目录， 头像 和上传flash 需要调用那2个地址
-/*系统公用配置文件位置*
-/*安装日期 2012年 09月 24日 19:59*/
+	///需要设置是否为2级目录， 头像和上传flash 需要调用那2个地址
+	/*
+	 *系统公用配置文件位置
+	 *安装日期 2012年 09月 24日 19:59
+	 */
 
-$spConfig = array(
+	$spConfig = array(
+		'luomor' =>array(
+			'loginCodeSwitch' => 'close',//登陆验证开关 打开请写open
+			'regCodeSwitch' => 'close', //注册验证开关 打开请写open
+		),
 
-	'yb' =>array(
-		'loginCodeSwitch'=>'close',//登陆验证开关 打开请写open
-		'regCodeSwitch'=>'close', //注册验证开关 打开请写open
-	),
-
-	 'mode' => 'debug',  //系统启动模式 debug 调试模式 release 部署模式
-	 'dispatcher_error' => "err404();", // 定义处理路由错误的函数
-	 'encodestring' =>'c38b5c2800b6aac2e7b9bc8a6503986f',
-	  "db" => array(
+		'mode' => 'debug',  //系统启动模式 debug 调试模式 release 部署模式
+		'dispatcher_error' => "err404();", // 定义处理路由错误的函数
+		'encodestring' => 'c38b5c2800b6aac2e7b9bc8a6503986f',
+		"db" => array(
 		  'host' => 'localhost', // 数据库地址
 		  'login' => 'root',
 		  'password' => 'root',
-		  'database' => 'yunbian',
-		  'prefix'  => 'th_',
+		  'database' => 'luomor',
+		  'prefix'  => 'luomor_',
 		  'db_driver_path' => SP_PATH.'/Drivers/mysql.php',
- 	 ),
- 	 'launch' => array(
-				  
-				  'function_access' => array(array('spAccessCache','db')),
-			  ),
-  	 'ext' => array(
-	 	 	// 以下是Url_ReWrite的设置
-	 		'spUrlRewrite' => array(
+		),
+		'launch' => array(
+			'function_access' => array(array('spAccessCache', 'db')),
+		),
+		'ext' => array(
+			// 以下是Url_ReWrite的设置
+			'spUrlRewrite' => array(
 				'hide_default' => true, // 隐藏默认的main/index名称，但这前提是需要隐藏的默认动作是无GET参数的
 				'suffix' => '',
 				'sep' =>'/',
 				'map' => array(
-					 'index' => 'main@index',
-					 'recommend'=>'main@recommend',
-					 'discovery'=>'main@discovery',
-					 'now'      =>'main@now',
-       				 'register' => 'main@reg', 
-					 'login' => 'main@login',
-					 'tag' => 'blog@tag',
-					 'pm'=>'user@pm',
-					 'myfollow'=>'user@myfollow',
-					 'mypost'=>'user@mypost',
-					 'mylikes'=>'user@mylikes',
-					 'myreplays'=>'user@myreplay',
-					 'mynotices'=>'user@mynotice',
-					 'edit' => 'add@edit',
-					 'logout' => 'main@logout',
-					 'custom'=>'userblog@customize',
-					 'read' =>'userblog@show', //显示博客
-					 '@' => 'userblog@index',   //泛解析
-     			),
+					'index' => 'main@index',
+					'recommend'=>'main@recommend',
+					'discovery'=>'main@discovery',
+					'now'      =>'main@now',
+					'register' => 'main@reg', 
+					'login' => 'main@login',
+					'tag' => 'blog@tag',
+					'pm'=>'user@pm',
+					'myfollow'=>'user@myfollow',
+					'mypost'=>'user@mypost',
+					'mylikes'=>'user@mylikes',
+					'myreplays'=>'user@myreplay',
+					'mynotices'=>'user@mynotice',
+					'edit' => 'add@edit',
+					'logout' => 'main@logout',
+					'custom'=>'userblog@customize',
+					'read' =>'userblog@show', //显示博客
+					'@' => 'userblog@index',   //泛解析
+				),
 				'args' => array(
-					    'tag' => array('tag','page'),
-					   'gomember' => array('uid'),
-					   'read' => array('bid','domain','uid'),
-					   'mylikes'=>array('page'), //我喜欢的默认参数
-					   '@' => array('domain','uid')     //泛解析参数
-   				 ),
+					'tag' => array('tag','page'),
+					'gomember' => array('uid'),
+					'read' => array('bid','domain','uid'),
+					'mylikes'=> array('page'), //我喜欢的默认参数
+					'@' => array('domain','uid')     //泛解析参数
+				),
 			),
 			'aUpload' => array( //上传
 				'savepath' => APP_PATH , //保存的绝对位置
 				'savedir'  => 'attachs', //相对位置
 				'tmppath' => APP_PATH .'/attachs/tmp',  //上传临时位置必须存在
 				'filetype' => 'jpg,png,gif,bmp,rar,zip,mp3,wma,mid,doc,pdf',
-				'filesize' =>4194304, //4M
-				'fileinput' =>'filedata' ,//默认文件上传域
+				'filesize' => 4194304, //4M
+				'fileinput' => 'filedata' ,//默认文件上传域
 				'dirtype' => 4,  //文件夹保存格式
 				'imgresize' => TRUE,  //图片文件自动创建缩略图
 				'imgmask'   => TRUE,  //图片自动加水银
@@ -85,11 +85,6 @@ $spConfig = array(
 				'fontfile' => 'font/font.ttf', //字体文件
 				'format' => 'gif', //验证码输出图片格式
 			),
-
-
-	 ),
-
-
-);
-
+		),
+	);
 ?>

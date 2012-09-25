@@ -143,7 +143,7 @@ class add extends top
 						  'time' =>time()
 			);
 		$this->tagCreate(trim($this->spArgs('blog-tags'))); //处理TAG
-		if($one['open'] == -1){spClass('db_member')->incrField(array('uid'=>$_SESSION['uid']),'num');}  //如果不是编辑的话就加
+		if($one['open'] == -1){spClass('member')->incrField(array('uid'=>$_SESSION['uid']),'num');}  //如果不是编辑的话就加
 		spClass("db_blog")->update(array('bid'=>$_SESSION['tempid']),$rows,$_SESSION['uid']);
 		
 		$this->postToConnect($this->spArgs());
@@ -257,7 +257,7 @@ class add extends top
 				}
 			}
 				spClass("db_blog")->deleteByPk($blog['bid']); //删除日志
-				spClass('db_member')->decrField(array('uid'=>$blog['uid']),'num'); //计数减一   
+				spClass('member')->decrField(array('uid'=>$blog['uid']),'num'); //计数减一   
 				//删除喜欢，删除评论。
 				spClass('db_replay')->delete(array('bid'=>$blog['bid']));
 				spClass('db_likes')->delete(array('bid'=>$blog['bid']));

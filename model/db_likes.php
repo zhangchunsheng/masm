@@ -32,12 +32,12 @@ class db_likes extends spModel
 		{
 			$this->delete(array('bid'=>$rows['bid'],'uid'=>$uid));
 			spClass('db_feeds')->changeFeedsLike($rows,$uid);
-			spClass('db_member')->decrField(array('uid'=>$uid),'likenum'); //减少喜欢统计
+			spClass('member')->decrField(array('uid'=>$uid),'likenum'); //减少喜欢统计
 			return 2;
 		}else{
 			$this->create(array('bid'=>$rows['bid'],'uid'=>$uid,'time'=>time()));
 			spClass('db_feeds')->changeFeedsLike($rows,$uid);
-			spClass('db_member')->incrField(array('uid'=>$uid),'likenum'); //增加回复统计
+			spClass('member')->incrField(array('uid'=>$uid),'likenum'); //增加回复统计
 			return 1;
 		}
 		
