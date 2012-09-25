@@ -71,14 +71,14 @@ class blog extends top
 	function follows()
 	{
 		if(!islogin()){exit('您的登录已经超时请重新登录');}	
-		echo spClass('db_follow')->changeFollow($this->spArgs('uid'),$_SESSION['uid']);
+		echo spClass('follow')->changeFollow($this->spArgs('uid'),$_SESSION['uid']);
 	}
 	
 	/*通知已读*/
 	function readnotice()
 	{
 		if(!islogin()){exit('您的登录已经超时请重新登录');}	
-		echo spClass('db_notice')->update(array('uid'=>$_SESSION['uid'],'id'=>$this->spArgs('id')),array('isread'=>1));
+		echo spClass('notice')->update(array('uid'=>$_SESSION['uid'],'id'=>$this->spArgs('id')),array('isread'=>1));
 	}
 	
 	/*通知删除*/
@@ -86,9 +86,9 @@ class blog extends top
 	{
 		if(!islogin()){exit('您的登录已经超时请重新登录');}	
 		$id = intval($this->spArgs('id'));
-		$rs = spClass('db_notice')->find(array('id'=>$id));
+		$rs = spClass('notice')->find(array('id'=>$id));
 		if($rs['uid'] == $_SESSION['uid'] || $rs['foruid'] == $_SESSION['uid'])
-		echo spClass('db_notice')->delete( array('id'=>$id) );
+		echo spClass('notice')->delete( array('id'=>$id) );
 	}
 	
 	/*首页获取评论*/

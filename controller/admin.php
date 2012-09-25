@@ -45,7 +45,7 @@ class admin extends top
 		
 		if($this->spArgs('testSendMail'))
 		{
-			spClass('db_notice')->sendMailTest(); exit('<hr/>请确保您打开了邮件发送开关，测试邮件才会发送。开启邮件DEBUG模式会看到详细的发送过程。如果发送成功请关闭。');
+			spClass('notice')->sendMailTest(); exit('<hr/>请确保您打开了邮件发送开关，测试邮件才会发送。开启邮件DEBUG模式会看到详细的发送过程。如果发送成功请关闭。');
 		}
 			
 	

@@ -20,7 +20,7 @@ class userblog extends top
 		$this->getMyLook();
 		$this->isfollow = $this->isFollow();
 	
-		$this->follow = spClass('db_follow')->spLinker()->findAll(array('uid'=>$this->user_data['uid']),'time desc','','20');  //显示我关注的20个
+		$this->follow = spClass('follow')->spLinker()->findAll(array('uid'=>$this->user_data['uid']),'time desc','','20');  //显示我关注的20个
 		
 		$this->blogs = spClass('db_blog')->spLinker()->spPager($this->spArgs('page',1),5)->findAll(array('uid'=>$this->user_data['uid'],'open'=>1),'top desc,bid desc');
 		if($this->user_data['domain'] == 'home' || $this->user_data['domain'] == '')
@@ -212,13 +212,13 @@ class userblog extends top
 	/*我关注谁*/
 	private function getMyFollow()
 	{
-		$this->follow = spClass('db_follow')->spLinker()->findAll(array('uid'=>$this->user_data['uid']),'time desc','','24');  //显示我关注的24个
+		$this->follow = spClass('follow')->spLinker()->findAll(array('uid'=>$this->user_data['uid']),'time desc','','24');  //显示我关注的24个
 	}
 	
 	/*谁关注我*/
 	private function getMyLook()
 	{
-		$this->myLook = spClass('db_follow')->findCount(array('touid'=>$this->user_data['uid']));
+		$this->myLook = spClass('follow')->findCount(array('touid'=>$this->user_data['uid']));
 	}
 	
 	/*我是否关注*/
@@ -228,7 +228,7 @@ class userblog extends top
 		{
 			return -1;  //自己
 		}
-		$follow = spCLass('db_follow')->find( array('uid'=>$_SESSION['uid'],'touid'=>$this->user_data['uid']));
+		$follow = spCLass('follow')->find( array('uid'=>$_SESSION['uid'],'touid'=>$this->user_data['uid']));
 		if(is_array($follow))
 		{
 			return 1;  //已关注

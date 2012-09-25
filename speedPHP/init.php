@@ -116,7 +116,7 @@
 	$GLOBALS['LUOMOR'] = $siteconfig;
 	$GLOBALS['LUOMOR']['version'] = '1.0';
 	$GLOBALS['LUOMOR']['soft'] = '烙馍网';
-	$GLOBALS['LUOMOR']['url'] = 'http://www.studyandthinkthendoit.com/';
+	$GLOBALS['LUOMOR']['url'] = 'http://www.luomor.com/';
 	$GLOBALS['LUOMOR']['email'] = '';
 	$GLOBALS['LUOMOR']['copyright'] = 'luomor.com';
 	$GLOBALS['LUOMOR']['year'] = '2012 - '.date('Y',time());

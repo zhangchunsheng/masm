@@ -34,12 +34,12 @@ class user extends top
 		if($this->spArgs('follow'))
 		{
 			$this->getfollow = 1;
-			$this->follow = spClass('db_follow')->spLinker()->spPager($this->spArgs('page',1),25)->findAll("`touid` = {$_SESSION['uid']}  ",'time desc');
-			$this->pager = spClass('db_follow')->spPager()->pagerHtml('user','myfollow',array('follow'=>'me'));
+			$this->follow = spClass('follow')->spLinker()->spPager($this->spArgs('page',1),25)->findAll("`touid` = {$_SESSION['uid']}  ",'time desc');
+			$this->pager = spClass('follow')->spPager()->pagerHtml('user','myfollow',array('follow'=>'me'));
 			$this->curr_forme = ' class="current"';
 		}else{
-			$this->follow = spClass('db_follow')->spLinker()->spPager($this->spArgs('page',1),25)->findAll("`uid` = {$_SESSION['uid']}  ",'time desc');
-			$this->pager = spClass('db_follow')->spPager()->pagerHtml('user','myfollow');
+			$this->follow = spClass('follow')->spLinker()->spPager($this->spArgs('page',1),25)->findAll("`uid` = {$_SESSION['uid']}  ",'time desc');
+			$this->pager = spClass('follow')->spPager()->pagerHtml('user','myfollow');
 			$this->curr_mefor = ' class="current"';
 		}
 		
@@ -122,7 +122,7 @@ class user extends top
 			$clear = $this->spArgs('clears');
 			if(in_array($clear,array(1,2,3)))//1 评论通知  2 系统通知 3关注通知
 			{
-				spClass('db_notice')->update(array('uid'=>$_SESSION['uid'],'sys'=>$clear),array('isread'=>1));
+				spClass('notice')->update(array('uid'=>$_SESSION['uid'],'sys'=>$clear),array('isread'=>1));
 				exit;
 			}
 		}
@@ -132,22 +132,22 @@ class user extends top
 			$clear = $this->spArgs('dels');
 			if(in_array($clear,array(1,2,3)))//1 评论通知  2 系统通知 3关注通知
 			{
-				spClass('db_notice')->delete(array('uid'=>$_SESSION['uid'],'sys'=>$clear,'isread'=>1) );
+				spClass('notice')->delete(array('uid'=>$_SESSION['uid'],'sys'=>$clear,'isread'=>1) );
 				exit;
 			}
 		}
 		
 		//系统通知
 		$this->sysnotice_c = $this->repnotice_c =$this->flownotice_c = 0;
-		$this->sysnotice = spClass('db_notice')->spLinker()->spPager($this->spArgs('page',1),10)->findAll(array('uid'=>$_SESSION['uid'],'isread'=>$isread,'sys'=>2),'id desc');
+		$this->sysnotice = spClass('notice')->spLinker()->spPager($this->spArgs('page',1),10)->findAll(array('uid'=>$_SESSION['uid'],'isread'=>$isread,'sys'=>2),'id desc');
 		if(is_array($this->sysnotice)){ $this->sysnotice_c = count($this->sysnotice); }
 		
 		//评论通知
-		$this->repnotice = spClass('db_notice')->spLinker()->spPager($this->spArgs('page',1),10)->findAll(array('uid'=>$_SESSION['uid'],'isread'=>$isread,'sys'=>1),'id desc');
+		$this->repnotice = spClass('notice')->spLinker()->spPager($this->spArgs('page',1),10)->findAll(array('uid'=>$_SESSION['uid'],'isread'=>$isread,'sys'=>1),'id desc');
 		if(is_array($this->repnotice)){ $this->repnotice_c = count($this->repnotice); }
 		
 		//关注通知
-		$this->flownotice = spClass('db_notice')->spLinker()->spPager($this->spArgs('page',1),10)->findAll(array('uid'=>$_SESSION['uid'],'isread'=>$isread,'sys'=>3),'id desc');
+		$this->flownotice = spClass('notice')->spLinker()->spPager($this->spArgs('page',1),10)->findAll(array('uid'=>$_SESSION['uid'],'isread'=>$isread,'sys'=>3),'id desc');
 		if(is_array($this->flownotice)){ $this->flownotice_c = count($this->flownotice); }
 
 		
@@ -167,8 +167,8 @@ class user extends top
 			$foruid  = intval($this->spArgs('look'));
 			$this->foruser = spClass('member')->find(array('uid'=>$foruid),'','uid,username'); //我和谁的对话
 			$where = " sys=0 and( ( uid = '{$_SESSION['uid']}' and foruid =  '$foruid') or ( uid =  '$foruid' and foruid='{$_SESSION['uid']}'))";
-			$this->read = spClass('db_notice')->spLinker()->findAll($where,'time desc');
-			spClass('db_notice')->update(array('foruid'=>$foruid,'uid'=>$_SESSION['uid'],'sys'=>0),array('isread'=>1));
+			$this->read = spClass('notice')->spLinker()->findAll($where,'time desc');
+			spClass('notice')->update(array('foruid'=>$foruid,'uid'=>$_SESSION['uid'],'sys'=>0),array('isread'=>1));
 		
 		}else{
 	
@@ -177,7 +177,7 @@ class user extends top
 				WHERE n.uid = '{$_SESSION['uid']}' and n.isread =0 and n.sys=0
 				GROUP BY n.foruid	ORDER BY n.time DESC ";
 				
-			$this->mypm = spClass('db_notice')->findSql($where);
+			$this->mypm = spClass('notice')->findSql($where);
 		}
 		
 		//如果没有未读私信则显示已读的
@@ -189,7 +189,7 @@ class user extends top
 				WHERE n.foruid = '{$_SESSION['uid']}'  and n.sys=0 
 				GROUP BY n.uid ORDER BY n.id DESC ";
 
-			$this->usdpm = spClass('db_notice')->spLinker()->findSql($where,'time desc');
+			$this->usdpm = spClass('notice')->spLinker()->findSql($where,'time desc');
 			//echo $where;
 		}
 	
@@ -269,7 +269,7 @@ class user extends top
 	{
 		if($this->spArgs('send'))
 		{
-			$rs = spClass('db_notice')->noticePm($this->spArgs());echo $rs;exit;
+			$rs = spClass('notice')->noticePm($this->spArgs());echo $rs;exit;
 		}
 		$uid = intval($this->spArgs('uid'));
 		$this->rs = spClass('member')->find(array('uid'=>$uid),'','uid,username');

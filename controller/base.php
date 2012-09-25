@@ -18,7 +18,7 @@
 			if(islogin()) {
 				$this -> user = spClass('member') -> find(array('uid' => $_SESSION['uid'])); //用户信息
 				$this -> local = explode('市', $this -> user['local']);
-				$this -> followuid = spClass('db_follow') -> getFollowUid($_SESSION['uid']);//获取跟随者信息
+				$this -> followuid = spClass('follow') -> getFollowUid($_SESSION['uid']);//获取跟随者信息
 				$this -> messagestate();
 			}
 		}
@@ -28,7 +28,7 @@
 				$newmsg = 0;
 				//0 用户私信  1 评论通知  2 系统通知 3关注通知
 				$where = "uid ='{$_SESSION['uid']}' and isread =0 and sys in(1,2,3)";
-				$this -> notice = spClass('db_notice') -> spLinker() -> findAll($where, 'id desc'); //未读通知
+				$this -> notice = spClass('notice') -> spLinker() -> findAll($where, 'id desc'); //未读通知
 				$this -> noticeCount =  $this -> pmCount =  '';
 				if($this -> notice) {
 					$newmsg = 1;
@@ -36,7 +36,7 @@
 				}
 
 				$where = "uid ='{$_SESSION['uid']}' and isread = 0 and sys = 0";
-				$this -> pm = spClass('db_notice') -> spLinker() -> findAll($where, 'id desc'); //未读通知
+				$this -> pm = spClass('notice') -> spLinker() -> findAll($where, 'id desc'); //未读通知
 
 				if($this -> pm) {
 					$newpm = 1;

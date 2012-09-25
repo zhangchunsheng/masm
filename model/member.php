@@ -205,7 +205,7 @@
 
 			$uid = $this -> create($row);
 			$_SESSION['uid'] = $uid;
-			spClass('db_notice') -> sendRegisgtr($uid);
+			spClass('notice') -> sendRegisgtr($uid);
 			return $uid;
 		}
 

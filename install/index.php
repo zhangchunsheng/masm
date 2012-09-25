@@ -321,7 +321,7 @@ function setUserInfo()
 										('mail_open', '0'),
 										('mail_debug', '1'),
 										('mail_from', ''),
-										('mail_fromname', '云边轻博'),
+										('mail_fromname', ''),
 										('mail_host', ''),
 										('mail_port', ''),
 										('mail_user', ''),
@@ -332,7 +332,7 @@ function setUserInfo()
 										('keep_email', 'admin,yunbian'),
 										('keep_niname', 'yunbian,admin,administrator,master,webmaster,email,username,password'),
 										('keep_domain', 'www,yunbian,bbs,music,map,index,register,login,tag,now,admin,recommend,discovery,myfollow,mypost,mylikes,myreplays,mynotices,edit,logout,home,gomember,location,showinfo,about,copyright,call,service,privacy,custom,read'),
-										('keep_rep', '操你妈,艹你妈'),
+										('keep_rep', ''),
 										('show_page_mode', '1'),
 										('show_ajax_to', '4'),
 										('show_page_num', '10');

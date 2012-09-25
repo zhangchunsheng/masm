@@ -63,9 +63,9 @@ class db_replay extends spModel
 		
 			if($row['repuid'] != $_SESSION['uid'] && $row['repuid'] != '')
 			{
-				spClass('db_notice')->noticeReplay(array('foruid'=>$row['repuid'],'bid'=>$row['bid']),'回复了您的博客',$msg);	  //给@发一个通知
+				spClass('notice')->noticeReplay(array('foruid'=>$row['repuid'],'bid'=>$row['bid']),'回复了您的博客',$msg);	  //给@发一个通知
 			}else{
-				spClass('db_notice')->noticeReplay(array('foruid'=>$rs['uid'],'bid'=>$row['bid']),'回复了您的博客',$msg);     //给作者发
+				spClass('notice')->noticeReplay(array('foruid'=>$rs['uid'],'bid'=>$row['bid']),'回复了您的博客',$msg);     //给作者发
 			}
 		
 
