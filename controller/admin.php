@@ -191,7 +191,7 @@ class admin extends top
 	function database()
 	{
 		//初始化数据库处理
-		$db = spClass('dbbackup', array(0=>$GLOBALS['G_SP']['db']));
+		$db = spClass('DbBackup', array(0=>$GLOBALS['G_SP']['db']));
 		$this->table = $db->showAllTable($this->spArgs('chk'));
 		if($this->spArgs('dbac') == 'op') { $db->optimizeTable($this->spArgs('tabl'));exit;  }
 		if($this->spArgs('dbac') == 'rep') { $db->repairTable($this->spArgs('tabl'));exit;  }
