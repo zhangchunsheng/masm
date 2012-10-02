@@ -24,7 +24,7 @@ class db_theme extends spModel
 	
 	function getByBid($bid)
 	{
-		$rs = spClass('db_blog')->find(array('bid'=>$bid),'','uid');
+		$rs = spClass('blog')->find(array('bid'=>$bid),'','uid');
 		return spClass('member')->find(array('uid'=>$rs['uid']),'','uid,username,domain,blogtag,sign,num,flow,likenum,local,logtime');
 	}
 	

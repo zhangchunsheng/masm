@@ -23,7 +23,7 @@ class admin extends top
 		$this->postupload = ini_get('post_max_size');
 		$this->maxupload = ini_get('upload_max_filesize');
 		$this->version = phpversion();
-		$this->mysql = spClass('db_blog')->showVersion();
+		$this->mysql = spClass('blog')->showVersion();
 		$this->ybsoftencode = base64_encode($GLOBALS['YB']['version']);
 		
 		
@@ -69,8 +69,8 @@ class admin extends top
 		}else{
 			$where = "`open` != '-1'";
 		}
-			$this->blog = spClass('db_blog')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'bid desc');
-			$this->pager = spClass('db_blog')->spPager()->pagerHtml('admin','blog',array('title'=>$title,'niname'=>$niname ,'submit'=>$this->spArgs('submit') ));
+			$this->blog = spClass('blog')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'bid desc');
+			$this->pager = spClass('blog')->spPager()->pagerHtml('admin','blog',array('title'=>$title,'niname'=>$niname ,'submit'=>$this->spArgs('submit') ));
 		
 		
 		$this->curr_blog = ' id="current"';
@@ -85,8 +85,8 @@ class admin extends top
 			$this->display('admin/user_info.html');exit;
 		}
 	
-		if($this->spArgs('lockuser')){ spClass('db_blog')->lockUser($this->spArgs('lockuser')); }
-		if($this->spArgs('resetpwd')){ if(spClass('db_blog')->resetPwd($this->spArgs('resetpwd'),$this->spArgs('pwd'))){exit('ok');} }
+		if($this->spArgs('lockuser')){ spClass('blog')->lockUser($this->spArgs('lockuser')); }
+		if($this->spArgs('resetpwd')){ if(spClass('blog')->resetPwd($this->spArgs('resetpwd'),$this->spArgs('pwd'))){exit('ok');} }
 		if($this->spArgs('where')) {
 			$name = $this->spArgs('where');
 			$where = " uid = '$name' or email = '$name' or domain = '$name'";
@@ -115,18 +115,18 @@ class admin extends top
 		}
 		if($this->spArgs('usercate'))
 		{
-			spClass('db_tags')->saveCate( $this->spArgs() );
+			spClass('tags')->saveCate( $this->spArgs() );
 			$this->jump(spUrl('admin','tag',array('ac'=>'ok')));
 		}
 		if($this->spArgs('sysdel'))	{spClass('db_category')->deleteByPk( $this->spArgs('sysdel') );}
-		if($this->spArgs('userdel')) {spClass('db_tags')->deleteByPk( $this->spArgs('userdel') );}
+		if($this->spArgs('userdel')) {spClass('tags')->deleteByPk( $this->spArgs('userdel') );}
 		
 		$this->systag = spClass('db_category')->spPager($this->spArgs('page',1),10)->findAll($where,'sort  asc'); //系统tag
 		$this->systagpager = spClass('db_category')->spPager()->pagerHtml('admin','tag');
 		if($this->spArgs('showuser'))
 		{
-			$this->usrtag = spClass('db_tags')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'tid  asc'); //系统tag
-			$this->usrtagpage = spClass('db_tags')->spPager()->pagerHtml('admin','tag',array('showuser'=>'yes'));
+			$this->usrtag = spClass('tags')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'tid  asc'); //系统tag
+			$this->usrtagpage = spClass('tags')->spPager()->pagerHtml('admin','tag',array('showuser'=>'yes'));
 		}
 		$this->curr_blog = ' id="current"';
 		$this->display('admin/tag.html');

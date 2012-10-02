@@ -45,9 +45,9 @@
 					FROM `" . DBPRE . "likes` AS k
 					LEFT JOIN `" . DBPRE . "blog` AS b ON k.bid = b.bid
 					LEFT JOIN `" . DBPRE . "member` AS m ON b.uid = m.uid WHERE k.uid = '{$_SESSION['uid']}'";
-			$this -> blogs = spClass('db_likes') -> spPager($this -> spArgs('page', 1), 15) -> findSql($sql);
+			$this -> blogs = spClass('likes') -> spPager($this -> spArgs('page', 1), 15) -> findSql($sql);
 
-			$this -> pager = spClass('db_likes') -> spPager() -> pagerHtml('user', 'mylikes');
+			$this -> pager = spClass('likes') -> spPager() -> pagerHtml('user', 'mylikes');
 			$this -> memberinfo();
 			$this -> display('user_mylikes.html');
 		}
@@ -55,12 +55,12 @@
 		//显示首页界面我发布的
 		public function mypost() {
 			if($this -> spArgs('draft')) {
-				$this -> blogs = spClass('db_blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open` = 0 ", 'bid desc');
-				$this -> pager = spClass('db_blog') -> spPager() -> pagerHtml('user', 'mypost', array('draft' => 'yes'));
+				$this -> blogs = spClass('blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open` = 0 ", 'bid desc');
+				$this -> pager = spClass('blog') -> spPager() -> pagerHtml('user', 'mypost', array('draft' => 'yes'));
 				$this -> curr_my_draft = ' class="current"';
 			} else {
-				$this -> blogs = spClass('db_blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open`not in (-1,0) ", 'bid desc');
-				$this -> pager = spClass('db_blog') -> spPager() -> pagerHtml('user', 'mypost');
+				$this -> blogs = spClass('blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open`not in (-1,0) ", 'bid desc');
+				$this -> pager = spClass('blog') -> spPager() -> pagerHtml('user', 'mypost');
 				$this -> curr_my_index = ' class="current"';
 			}
 
@@ -72,15 +72,15 @@
 		//我的回复
 		public function myreplay() {
 			if($this -> spArgs('received') == 1) { //我收到的
-				$this -> myreplay = spClass('db_replay') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`repuid` = {$_SESSION['uid']}");
-				$this -> pager = spClass('db_replay') -> spPager() -> pagerHtml('user', 'myreplay', array('received' => 1));
+				$this -> myreplay = spClass('reply') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`repuid` = {$_SESSION['uid']}");
+				$this -> pager = spClass('reply') -> spPager() -> pagerHtml('user', 'myreplay', array('received' => 1));
 				$this -> curr_myreplay_r = ' class="current"';
 				$this -> received = 1;
 			} else { //我发出的 回复
-				$db_replay = spClass('db_replay');
-				$db_replay -> linker['blog']['enabled'] = false;
-				$this -> myreplay = $db_replay -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']}",'id desc');
-				$this -> pager = $db_replay -> spPager() -> pagerHtml('user', 'myreplay');
+				$reply = spClass('reply');
+				$reply -> linker['blog']['enabled'] = false;
+				$this -> myreplay = $reply -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']}",'id desc');
+				$this -> pager = $reply -> spPager() -> pagerHtml('user', 'myreplay');
 				$this -> curr_myreplay = ' class="current"';
 			}
 			$this -> memberinfo();

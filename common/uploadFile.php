@@ -160,7 +160,7 @@
 								'uid' => $_SESSION['uid'],
 								'time' => time()
 							);
-							$insertid = spClass('db_attach') -> create($arr);
+							$insertid = spClass('attach') -> create($arr);
 						}
 
 						if($this -> dirtype == 5) {//处理头像
