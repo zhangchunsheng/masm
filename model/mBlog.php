@@ -4,7 +4,7 @@
 	 * 日期：2012-10-02
 	 * 说明：发布博客
 	 */
-	class blog extends spModel {
+	class mBlog extends spModel {
 		var $pk = "bid"; //主键
 		var $table = "blog"; // 数据表的名称
 

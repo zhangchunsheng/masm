@@ -23,7 +23,7 @@ class admin extends top
 		$this->postupload = ini_get('post_max_size');
 		$this->maxupload = ini_get('upload_max_filesize');
 		$this->version = phpversion();
-		$this->mysql = spClass('blog')->showVersion();
+		$this->mysql = spClass('mBlog')->showVersion();
 		$this->ybsoftencode = base64_encode($GLOBALS['YB']['version']);
 		
 		
@@ -85,8 +85,8 @@ class admin extends top
 			$this->display('admin/user_info.html');exit;
 		}
 	
-		if($this->spArgs('lockuser')){ spClass('blog')->lockUser($this->spArgs('lockuser')); }
-		if($this->spArgs('resetpwd')){ if(spClass('blog')->resetPwd($this->spArgs('resetpwd'),$this->spArgs('pwd'))){exit('ok');} }
+		if($this->spArgs('lockuser')){ spClass('mBlog')->lockUser($this->spArgs('lockuser')); }
+		if($this->spArgs('resetpwd')){ if(spClass('mBlog')->resetPwd($this->spArgs('resetpwd'),$this->spArgs('pwd'))){exit('ok');} }
 		if($this->spArgs('where')) {
 			$name = $this->spArgs('where');
 			$where = " uid = '$name' or email = '$name' or domain = '$name'";

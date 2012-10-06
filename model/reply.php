@@ -77,7 +77,7 @@
 			spClass('blog') -> incrField(array('bid' => $row['bid']), 'replaycount'); //增加回复统计
 			//spClass('feeds') -> replayFeeds($row, $msg, $_SESSION['uid']); //增加回复动态
 
-			$bid = spClass('blog') -> blogIsMe($row['bid']);  //这个是哪来的..
+			$bid = spClass('mBlog') -> blogIsMe($row['bid']);  //这个是哪来的..
 			return $err;
 		}
 
