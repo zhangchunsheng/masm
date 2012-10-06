@@ -23,7 +23,7 @@
      <div class="footer">
      
       <div class="menu">
-         {ybtime time=$d.time}      
+         {parseTime time=$d.time}      
         {if $d.linker == 1} 互相关注{else}<a href="javascript:void(0)" onclick="follows('{$d.meto.uid}','{spUrl c=blog a=follows}')" id="follow_{$d.meto.uid}">加关注</a>{/if}     
       </div>
         <div class="clear"></div>
@@ -66,7 +66,7 @@
 
      <div class="footer">
       <div class="menu">
-        {ybtime time=$d.time}   {if $d.linker == 1}已互相关注{/if}   
+        {parseTime time=$d.time}   {if $d.linker == 1}已互相关注{/if}   
          <a href="javascript:void(0)" onclick="follows('{$d.tome.uid}','{spUrl c=blog a=follows}')">  取消关注</a> 
       </div>
         <div class="clear"></div>

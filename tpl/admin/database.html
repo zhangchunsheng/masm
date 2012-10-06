@@ -47,9 +47,9 @@
          <td valign="middle">{$d.TABLE_ROWS}</td>
         <td valign="middle">{if $d.ROW_FORMAT == 'Dynamic'}动态{else}静态{/if}</td>
         
-        <td valign="middle">{ybtime time=strtotime($d.CREATE_TIME)}</td>
-        <td valign="middle">{ybtime time=strtotime($d.UPDATE_TIME)}</td>
-        <td valign="middle">{ybtime time=strtotime($d.CHECK_TIME)}</td>
+        <td valign="middle">{parseTime time=strtotime($d.CREATE_TIME)}</td>
+        <td valign="middle">{parseTime time=strtotime($d.UPDATE_TIME)}</td>
+        <td valign="middle">{parseTime time=strtotime($d.CHECK_TIME)}</td>
 
         <td valign="middle">{if $d.DATA_FREE !=0}{formatBytes size=$d.DATA_FREE} {else}正常 {/if}</td>
         <td align="right" valign="middle">

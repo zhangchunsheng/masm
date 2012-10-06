@@ -10,7 +10,7 @@
      	<img src="{avatar uid=$d.uid size=middle}" alt="{$d.username}" class="face"/></a><span class="jiao"></span>
      </div>
      <div class="header">
-       <cite> <a href="{goUserHome domain=$d.domain uid=$d.uid}" target="_blank">{$d.username}</a> {ybtime time=$d.ktime}</cite>
+       <cite> <a href="{goUserHome domain=$d.domain uid=$d.uid}" target="_blank">{$d.username}</a> {parseTime time=$d.ktime}</cite>
        <h1>{$d.title}</h1>
     </div>
      

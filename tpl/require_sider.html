@@ -31,9 +31,9 @@
              <li class="end"><a href="{spUrl c=main a=index}" title="返回首页">返回首页</a></li>
              {foreach from=$favatag item=d}
              	{if $d.tag.title == $tagname}
-                 <li class="current"><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{ybtime time=$d.tag.updates}">{$d.tag.title}</a><span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
+                 <li class="current"><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{parseTime time=$d.tag.updates}">{$d.tag.title}</a><span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
                 {else}
-                <li><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{ybtime time=$d.tag.updates}">{$d.tag.title}</a><span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
+                <li><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{parseTime time=$d.tag.updates}">{$d.tag.title}</a><span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
                 {/if}
 
             {/foreach}
@@ -49,7 +49,7 @@
     	{if $favatag}
              <div id="menu">
              {foreach from=$favatag item=d}
-              <li><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{ybtime time=$d.tag.updates}">{$d.tag.title}</a> <span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
+              <li><a href="{spUrl c=blog a=tag tag=$d.tag.title}" title="最近更新{parseTime time=$d.tag.updates}">{$d.tag.title}</a> <span>{if $d.tag.num}({$d.tag.num}){/if}</span></li>
             {/foreach}
              <li class="end"><a href="{spUrl c=blog a=tag}">查看更多标签</a></li>
               <div class="clear"></div>

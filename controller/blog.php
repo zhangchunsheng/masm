@@ -7,7 +7,7 @@
 	class blog extends base {
 		public function tag()
 		{
-				$this->favatag = spClass('db_mytag')->myFavaTag($_SESSION['uid']); //显示收藏标签
+				$this->favatag = spClass('mytag')->myFavaTag($_SESSION['uid']); //显示收藏标签
 
 			$this->tid = intval($this->spArgs('tid'));
 
@@ -49,7 +49,7 @@
 		function addMytag()
 		{
 			if(!islogin()){exit('您的登录已经超时请重新登录');}
-			echo spClass('db_mytag')->addMyFavaTag(tagEncodeParse($this->spArgs('tag')) ,$_SESSION['uid']);
+			echo spClass('mytag')->addMyFavaTag(tagEncodeParse($this->spArgs('tag')) ,$_SESSION['uid']);
 
 		}
 

@@ -39,7 +39,7 @@
 		{if $fava.count !=0}
 		<div class="fava">
 			{foreach from=$fava.rs item=d}
-			<a href="{goUserHome domain=$d.domain uid=$d.uid}" title="{$d.username} - {ybtime time=$d.time}">
+			<a href="{goUserHome domain=$d.domain uid=$d.uid}" title="{$d.username} - {parseTime time=$d.time}">
 			<img src="{avatar uid=$d.uid size=middle}" alt="{$d.username}"/></a>
 			{/foreach}
 		</div>

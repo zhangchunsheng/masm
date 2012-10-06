@@ -10,7 +10,7 @@
 			if(!islogin()) {
 				prient_jump(spUrl('main'));
 			}
-			$this -> favatag = spClass('db_mytag') -> myFavaTag($_SESSION['uid'], 5); //显示收藏标签
+			$this -> favatag = spClass('mytag') -> myFavaTag($_SESSION['uid'], 5); //显示收藏标签
 		}
 
 		//显示我的设置界面

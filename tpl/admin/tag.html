@@ -57,8 +57,8 @@
          <td><input name="tag[{$d.tid}]" type="text"  value="{$d.title}" /></td>
          <td>{$d.user.username}</td>
          <td>{$d.num}</td>
-         <td>{ybtime time=$d.time}</td>
-         <td>{ybtime time=$d.updates}</td>
+         <td>{parseTime time=$d.time}</td>
+         <td>{parseTime time=$d.updates}</td>
          <td><a href="javascript:void(0)" onclick="delusertag({$d.tid})">删除</a></td>
        </tr>
        {/foreach}

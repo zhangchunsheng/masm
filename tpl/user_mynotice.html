@@ -16,7 +16,7 @@
        			 <img src="{avatar uid=$d.user.uid size=middle}" alt="{$d.tome.username}" align="absmiddle" class="face"/>
        		 </a>
         </div>
-           <p><a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {ybtime time=$d.time}</p>
+           <p><a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}</p>
             <p class="info">{replay_preg msg=$d.info}  
        {if $d.isread ==0}
         <a href="javascript:void(0)" onClick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
@@ -59,7 +59,7 @@
        			 <img src="{avatar uid=$d.user.uid size=middle}" alt="{$d.tome.username}" align="absmiddle" class="face"/>
        		 </a>
         </div>
-           <p><a href="{goUserHome domain=$d.user.domain uid=$d.user.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {ybtime time=$d.time}</p>
+           <p><a href="{goUserHome domain=$d.user.domain uid=$d.user.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}</p>
             <p class="info">{replay_preg msg=$d.info}  <a href="{notice_preg url=$d.location}">查看原文</a></p>
        </div>
     </div>
@@ -99,7 +99,7 @@
        			 <img src="{avatar uid=$d.user.uid size=middle}" alt="{$d.tome.username}" align="absmiddle" class="face"/>
        		 </a>
         </div>
-           <p><a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {ybtime time=$d.time}</p>
+           <p><a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}</p>
             <p class="info">
             {if $d.info =='关注了你'}关注了你 <a href="javascript:void(0)" onclick="follows('{$d.user.uid}','{spUrl c=blog a=follows}')">我也关注TA</a>{/if}
             {if $d.info =='取消关注'}取消关注了你{/if}

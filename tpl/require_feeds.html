@@ -5,7 +5,7 @@
      	<img src="{avatar uid=$d.uid size=middle}" alt="{$d.user.username}" class="face"/></a><span class="jiao"></span>
      </div>
      <div class="header">
-       <cite> <a href="{goUserHome domain=$d.domain uid=$d.uid}" target="_blank">{$d.username}</a> {ybtime time=$d.time} </cite>
+       <cite> <a href="{goUserHome domain=$d.domain uid=$d.uid}" target="_blank">{$d.username}</a> {parseTime time=$d.time} </cite>
       {if $d.title} <h1><a href="{goUserBlog bid=$d.bid}" target="_blank">{$d.title}</a></h1> {/if}
      </div>
      
