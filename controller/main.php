@@ -27,10 +27,10 @@
 			} else {
 				$sql .= "ORDER BY b.time desc";
 			}
-			$this -> blogs = spClass('blog') -> spPager($this -> spArgs('page', 1), 10) -> findSql($sql);
+			$this -> blogs = spClass('mBlog') -> spPager($this -> spArgs('page', 1), 10) -> findSql($sql);
 
-			$this -> pager = spClass('blog') -> spPager() -> pagerHtml('main');
-			$page = spClass('blog') -> spPager() -> getPager('');
+			$this -> pager = spClass('mBlog') -> spPager() -> pagerHtml('main');
+			$page = spClass('mBlog') -> spPager() -> getPager('');
 
 			if(!islogin()) {
 				$this -> email = $_COOKIE['unames'];
@@ -58,7 +58,7 @@
 				$where = "`open` = 1 and `tag` in ({$tags['string']})";
 			}
 
-			$blogs = spClass('blog')->spLinker()->findAll($where,'bid desc','',30);
+			$blogs = spClass('mBlog')->spLinker()->findAll($where,'bid desc','',30);
 
 
 			$this->feeds = feddshtml($blogs,0,'recommend');
@@ -158,8 +158,8 @@
 							LEFT JOIN `".DBPRE."follow` AS f ON ( b.uid = f.touid and f.uid = '$uid' )
 							LEFT JOIN `".DBPRE."member` as m on b.uid = m.uid where b.open = 1 order by b.bid desc";
 
-			$this->blogs = spClass('blog')->spPager($this->spArgs('page',1),10)->findSql($sql);
-			$page = spClass('blog')->spPager()->getPager('');
+			$this->blogs = spClass('mBlog')->spPager($this->spArgs('page',1),10)->findSql($sql);
+			$page = spClass('mBlog')->spPager()->getPager('');
 
 			$this->title = '此刻最新';
 			$this->CurrentModule = 'now';

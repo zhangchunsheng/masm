@@ -20,10 +20,10 @@
 			$result = $this -> find(array('bid' => $rows['bid'], 'type' => 'likes', 'uid' => $uid));
 			if(is_array($result)) {
 				$this -> delete(array('bid' => $rows['bid'], 'uid' => $uid, 'type' => 'likes'));
-				spClass('blog') -> decrField(array('bid' => $rows['bid']), 'feedcount'); //减少动态统计
+				spClass('mBlog') -> decrField(array('bid' => $rows['bid']), 'feedcount'); //减少动态统计
 			} else {
 				$this -> create(array('bid' => $rows['bid'], 'title' => '喜欢本内容', 'uid' => $uid, 'type' => 'likes', 'time' => time()));
-				spClass('blog') -> incrField(array('bid' => $rows['bid']), 'feedcount'); //增加动态统计
+				spClass('mBlog') -> incrField(array('bid' => $rows['bid']), 'feedcount'); //增加动态统计
 			}
 		}
 		
@@ -34,7 +34,7 @@
 		 */
 		function replayFeeds($rows, $info, $uid) {
 			$this -> create(array('bid' => $rows['bid'], 'type' => 'reply', 'title' => '对本内容进行了回复', 'info' => $info, 'uid' => $uid, 'time' => time()));
-			spClass('blog') -> incrField(array('bid' => $rows['bid']), 'feedcount'); //增加动态统计
+			spClass('mBlog') -> incrField(array('bid' => $rows['bid']), 'feedcount'); //增加动态统计
 		}
 
 		/**
@@ -44,7 +44,7 @@
 		 */
 		function delReplayFeed($bid) {
 			$this -> delete(array('bid' => $bid, 'type' => 'reply'));
-			spClass('blog') -> decrField(array('bid' => $bid), 'feedcount'); //减少动态统计
+			spClass('mBlog') -> decrField(array('bid' => $bid), 'feedcount'); //减少动态统计
 		}
 	}
 ?>

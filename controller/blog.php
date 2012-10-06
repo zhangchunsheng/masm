@@ -15,17 +15,17 @@
 			if($this->spArgs('tag'))
 			{
 				$tag = tagEncodeParse($this->spArgs('tag'));
-				$where = ' tag like '.strreplaces(spClass('blog')->escape('%'.$tag.'%'))." and open = 1";
+				$where = ' tag like '.strreplaces(spClass('mBlog')->escape('%'.$tag.'%'))." and open = 1";
 				$this->tagname = strreplaces($tag);
-				$this->tag = spClass('blog')->spLinker()->spPager($this->spArgs('page',1),15)->findAll($where,'time desc');
+				$this->tag = spClass('mBlog')->spLinker()->spPager($this->spArgs('page',1),15)->findAll($where,'time desc');
 			}else{
 				$this->tag = NULL;
 			}
 
 
 
-			$this->pager = spClass('blog')->spPager()->pagerHtml('blog','tag',array('tag'=>$tag));
-			$page = spClass('blog')->spPager()->getPager();
+			$this->pager = spClass('mBlog')->spPager()->pagerHtml('blog','tag',array('tag'=>$tag));
+			$page = spClass('mBlog')->spPager()->getPager();
 			$this->display('tag_index.html');
 
 		}

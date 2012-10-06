@@ -33,7 +33,7 @@
 		function createReply($row) {
 			$err = array('err' => '');
 			$msg = $row['inputs'];
-			$rs = spClass('blog') -> find(array('bid' => $row['bid']), '', 'uid,noreply');
+			$rs = spClass('mBlog') -> find(array('bid' => $row['bid']), '', 'uid,noreply');
 			if($rs['noreply'] == 1) {
 				$err['err'] = '该内容作者不允许评论';
 				return $err;
@@ -74,7 +74,7 @@
 					'time' => time()
 				)
 			);
-			spClass('blog') -> incrField(array('bid' => $row['bid']), 'replaycount'); //增加回复统计
+			spClass('mBlog') -> incrField(array('bid' => $row['bid']), 'replaycount'); //增加回复统计
 			//spClass('feeds') -> replayFeeds($row, $msg, $_SESSION['uid']); //增加回复动态
 
 			$bid = spClass('mBlog') -> blogIsMe($row['bid']);  //这个是哪来的..
@@ -89,7 +89,7 @@
 				$this -> deleteByPk($row['id']); //删除回复
 				 //减少回复统计
 				if($rs['blog']['replaycount'] > 0) {
-					spClass('blog') -> decrField(array('bid' => $rs['bid']), 'replaycount');
+					spClass('mBlog') -> decrField(array('bid' => $rs['bid']), 'replaycount');
 				}
 				echo 'ok';
 			}

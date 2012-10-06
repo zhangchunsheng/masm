@@ -69,8 +69,8 @@ class admin extends top
 		}else{
 			$where = "`open` != '-1'";
 		}
-			$this->blog = spClass('blog')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'bid desc');
-			$this->pager = spClass('blog')->spPager()->pagerHtml('admin','blog',array('title'=>$title,'niname'=>$niname ,'submit'=>$this->spArgs('submit') ));
+			$this->blog = spClass('mBlog')->spLinker()->spPager($this->spArgs('page',1),20)->findAll($where,'bid desc');
+			$this->pager = spClass('mBlog')->spPager()->pagerHtml('admin','blog',array('title'=>$title,'niname'=>$niname ,'submit'=>$this->spArgs('submit') ));
 		
 		
 		$this->curr_blog = ' id="current"';

@@ -19,14 +19,14 @@
 
 			//显示我关注的20个
 			$this -> follow = spClass('follow') -> spLinker() -> findAll(array('uid' => $this -> user_data['uid']), 'time desc', '', '20');
-			$this -> blogs = spClass('blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 5) -> findAll(array('uid' => $this -> user_data['uid'], 'open' => 1), 'top desc,bid desc');
+			$this -> blogs = spClass('mBlog') -> spLinker() -> spPager($this -> spArgs('page', 1), 5) -> findAll(array('uid' => $this -> user_data['uid'], 'open' => 1), 'top desc,bid desc');
 			if($this -> user_data['domain'] == 'home' || $this -> user_data['domain'] == '') {
 				$pg = array('domain' => 'home','uid' => $this -> user_data['uid']);
 			} else {
 				$pg = array('domain' => $this -> user_data['domain'], 'uid' => $this -> user_data['uid']);
 			}
 			
-			$this -> pager = spClass('blog') -> spPager() -> pagerHtml('userblog', 'index', $pg);
+			$this -> pager = spClass('mBlog') -> spPager() -> pagerHtml('userblog', 'index', $pg);
 			$this -> display('index.html');
 		}
 		
@@ -38,10 +38,10 @@
 			$this -> fava = $this -> getBlogFava();
 			$this -> isfollow = $this -> isFollow();
 			
-			$this -> d = spClass('blog') -> spLinker() -> find(array('uid' => $this -> user_data['uid'], 'bid' => $this -> spArgs('bid')));
+			$this -> d = spClass('mBlog') -> spLinker() -> find(array('uid' => $this -> user_data['uid'], 'bid' => $this -> spArgs('bid')));
 			
 			if(is_array($this -> d)) {
-				spClass('blog') -> incrField(array('bid' => $this -> spArgs('bid')), 'hitcount');
+				spClass('mBlog') -> incrField(array('bid' => $this -> spArgs('bid')), 'hitcount');
 				$this -> display('list.html', $this -> result);
 			} else {
 				err404('您查看的内容可能已经修改或者删除。');

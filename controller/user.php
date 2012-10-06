@@ -55,12 +55,12 @@
 		//显示首页界面我发布的
 		public function mypost() {
 			if($this -> spArgs('draft')) {
-				$this -> blogs = spClass('blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open` = 0 ", 'bid desc');
-				$this -> pager = spClass('blog') -> spPager() -> pagerHtml('user', 'mypost', array('draft' => 'yes'));
+				$this -> blogs = spClass('mBlog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open` = 0 ", 'bid desc');
+				$this -> pager = spClass('mBlog') -> spPager() -> pagerHtml('user', 'mypost', array('draft' => 'yes'));
 				$this -> curr_my_draft = ' class="current"';
 			} else {
-				$this -> blogs = spClass('blog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open`not in (-1,0) ", 'bid desc');
-				$this -> pager = spClass('blog') -> spPager() -> pagerHtml('user', 'mypost');
+				$this -> blogs = spClass('mBlog') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']} and `open`not in (-1,0) ", 'bid desc');
+				$this -> pager = spClass('mBlog') -> spPager() -> pagerHtml('user', 'mypost');
 				$this -> curr_my_index = ' class="current"';
 			}
 

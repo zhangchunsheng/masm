@@ -22,7 +22,7 @@
 		//进行喜欢和取消喜欢的操作
 		function changeLikes($rows, $uid) {
 			$result = $this -> find(array('bid' => $rows['bid'], 'uid' => $uid));
-			$rs = spClass('blog') -> find(array('bid' => $rows['bid']), '', 'uid');
+			$rs = spClass('mBlog') -> find(array('bid' => $rows['bid']), '', 'uid');
 			if($rs['uid'] == $uid) {
 				return '不能标记自己的内容';
 			}
