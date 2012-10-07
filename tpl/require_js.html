@@ -51,7 +51,7 @@
 {/if}
 {if $editor == yes}
 <script type="text/javascript" src="{$url}/tpl/js/editor/xheditor.js"></script>
-<script type="text/javascript" src="{$url}/tpl/js/add.js"></script>
+<script type="text/javascript" src="{$url}/tpl/js/publish.js"></script>
 {/if}
 {if $custom == yes}
 <script type="text/javascript" src="{$url}/tpl/js/custom.js"></script>
@@ -65,14 +65,17 @@
 <link rel="stylesheet" type="text/css" media="screen" href="{$url}/tpl/image/css/recommend.css" />
 {literal}
 <script>
-	$(document).ready(function(){
-	        $('.welcome').masonry({ itemSelector: '.box' 	});
-	$('.welcome .box').hover(
-	                    function(){
-	                    $(this).find('.boxhover').fadeIn();
-	                    },function(){
-	                    $(this).find('.boxhover').fadeOut();
-	    });
+	$(document).ready(function() {
+		$('.welcome').masonry({
+			itemSelector: '.box'
+		});
+		$('.welcome .box').hover(
+			function(){
+				$(this).find('.boxhover').fadeIn();
+			}, function(){
+				$(this).find('.boxhover').fadeOut();
+			}
+		);
 	});
 </script>
 {/literal}

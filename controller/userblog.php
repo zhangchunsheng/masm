@@ -57,7 +57,7 @@
 				if($this -> spArgs('skinid') == 'default') {
 					$this -> __customizeConfig('default');
 				} else {
-					$theme = spClass('db_skins') -> find(array('id' => $this -> spArgs('skinid')));
+					$theme = spClass('skins') -> find(array('id' => $this -> spArgs('skinid')));
 					if($theme['exclusive'] == $_SESSION['uid']) {
 						$this -> __customizeConfig($theme['skindir']);
 					} else {
@@ -73,13 +73,13 @@
 
 			//主题清空
 			if($this -> spArgs('customdefault')) {
-				spClass('db_theme') -> clearCustom();
+				spClass('theme') -> clearCustom();
 				header("Location:" . spUrl('userblog', 'customize'));
 			}
 
 			if($this -> spArgs('action')) {
 				if($this->spArgs('action') == 'send') { //保存主题
-					spClass('db_theme') -> saveTheme();
+					spClass('theme') -> saveTheme();
 				} else {
 					$_SESSION['customize'] = '';
 				}
@@ -87,7 +87,7 @@
 			}
 			
 			$this -> type = $this -> spArgs('type');
-			$this -> skins = spClass('db_skins') -> getThemeList($this -> spArgs('type'));
+			$this -> skins = spClass('skins') -> getThemeList($this -> spArgs('type'));
 
 			//载入自定义设置
 			if($this -> spArgs('type') == 'custom') {
@@ -133,7 +133,7 @@
 								$save = $savedir . $fpath . $fname;
 								$uploadext = spExt('aUpload');
 
-								spClass('db_theme') -> updateExtField($_SESSION['uid'], $find[1], $savedir, $fpath . $fname);
+								spClass('theme') -> updateExtField($_SESSION['uid'], $find[1], $savedir, $fpath . $fname);
 								move_uploaded_file($d['tmp_name'], $save);
 								$v = $GLOBALS['uri'] . '/' . $uploadext['savedir'] . '/theme/' . $fpath . $fname;
 								$conf[$k] = $v;
@@ -141,7 +141,7 @@
 							}
 						}
 					}
-					spClass('db_theme') -> update(array('uid' => $_SESSION['uid']), array('setup' => serialize($conf)));
+					spClass('theme') -> update(array('uid' => $_SESSION['uid']), array('setup' => serialize($conf)));
 					$_SESSION['customize']['config'] = $conf;
 					$_SESSION['customize']['css'] = $data;
 				}
@@ -149,7 +149,7 @@
 				if($_SESSION['customize']['theme'] != '') {
 					$skin = $_SESSION['customize']['theme'];
 				} else {
-					$rs = spClass('db_theme') -> find(array('uid' => $_SESSION['uid']));
+					$rs = spClass('theme') -> find(array('uid' => $_SESSION['uid']));
 					$skin = $rs['theme'];
 				}
 				if($skin == '') {
@@ -163,11 +163,11 @@
 				require $skinph;
 
 				$this -> setting = $setting;
-				$rs = spClass('db_theme') -> find(array('uid' => $_SESSION['uid']));
+				$rs = spClass('theme') -> find(array('uid' => $_SESSION['uid']));
 				$_SESSION['customize']['config'] = unserialize($rs['setup']);
 
 			}
-			$rs = spClass('db_theme') -> find(array('uid' => $_SESSION['uid']));
+			$rs = spClass('theme') -> find(array('uid' => $_SESSION['uid']));
 			$_SESSION['customize']['config'] = unserialize($rs['setup']);
 			$_SESSION['customize']['theme'] = $rs['theme'];
 			
@@ -219,17 +219,17 @@
 		 */
 		private function getUserSkin($bid = 0) {
 			if($this -> spArgs('domain') != 'home' && $this -> spArgs('domain') != '') {
-				$rs = spClass('db_theme') -> getByDomain($this -> spArgs('domain'));
+				$rs = spClass('theme') -> getByDomain($this -> spArgs('domain'));
 			} elseif($this -> spArgs('uid') != '') {
-				$rs = spClass('db_theme') -> getByUid($this -> spArgs('uid'));
+				$rs = spClass('theme') -> getByUid($this -> spArgs('uid'));
 			} else {
-				$rs = spClass('db_theme') -> getByBid($this -> spArgs('bid'));
+				$rs = spClass('theme') -> getByBid($this -> spArgs('bid'));
 			}
 			if(!is_array($rs)) {
 				err404('您访问的用户不存在,用户可能已经更改了个性域名');
 			}
 
-			$skin = spClass('db_theme') -> find(array('uid' => $rs['uid']));
+			$skin = spClass('theme') -> find(array('uid' => $rs['uid']));
 			$this -> user_data = $rs;
 			$this -> user_skin = $skin;   //将数据赋值给全局变量
 		}

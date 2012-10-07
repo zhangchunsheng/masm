@@ -72,7 +72,7 @@
 		//发现
 		public function discovery() {
 			$this -> memberinfo();
-			$this -> cate = spClass('db_category') -> findCate();
+			$this -> cate = spClass('category') -> findCate();
 
 			if($this -> spArgs('catename')) {
 				$_SESSION['discover_catename'] = $this -> spArgs('catename');
@@ -156,29 +156,26 @@
 			if($this -> spArgs('email')) {
 				$userobj = spClass('member');
 
-				if($this -> yb['loginCodeSwitch'] != 'close') //如果开启
-				{
+				if($this -> luomor['loginCodeSwitch'] != 'close') {//如果开启
 					$userobj -> verifier = $userobj -> verifier_login;
-				}else{
+				} else {
 					$userobj -> verifier = $userobj -> verifier_openConnect_Login;
 				}
 
-				if( false == $userobj -> spVerifier($this -> spArgs()) ){
+				if($userobj -> spVerifier($this -> spArgs()) == false) {
 					$userobj -> userLogin($this -> spArgs());
-
-
-					if($this -> spArgs('callback'))
-					{
+					
+					if($this -> spArgs('callback')) {
 						$this -> jslocation(base64_decode($this -> spArgs('callback')));
-					}else{
+					} else {
 						$this -> jslocation(spUrl('main','index'));
 					}
-
-				}else{
+				} else {
 					$err = $userobj -> spVerifier($this -> spArgs());
-					foreach($err as $d){$errs[] = $d;}
+					foreach($err as $d) {
+						$errs[] = $d;
+					}
 					$this -> errmsg = $errs[0][0];
-
 				}
 			}
 			$this -> callback = $this -> spArgs('callback');
@@ -187,57 +184,51 @@
 			$this -> display('login.html');
 		}
 
-		/*用户退出*/
-		public function logout()
-		{
+		//用户退出
+		public function logout() {
 			$_SESSION = array();
 			session_destroy();
-			if($this -> spArgs('callback'))
-			{
+			if($this -> spArgs('callback')) {
 				$this -> jslocation(base64_decode($this -> spArgs('callback')));
-			}else{
-				$this -> jslocation(spUrl('main','index'));
+			} else {
+				$this -> jslocation(spUrl('main', 'index'));
 			}
 		}
 
-		/*用户注册*/
-		public function reg()
-		{
+		//用户注册
+		public function reg() {
 			$this -> time = time();
-			if($this -> spArgs('doing'))
-			{
+			if($this -> spArgs('doing')) {
 				$userobj = spClass('member');
 
-				if($this -> yb['regCodeSwitch'] != 'close') //如果开启
-				{
+				if($this -> luomor['regCodeSwitch'] != 'close') {//如果开启
 					$userobj -> verifier = $userobj -> verifier_reg;
-				}else{
+				} else {
 					$userobj -> verifier = $userobj -> verifier_openConnect_Reg;
 				}
 
-				if( false == $userobj -> spVerifier($this -> spArgs()) ){
+				if($userobj -> spVerifier($this -> spArgs()) == false) {
 					$userobj -> userReg($this -> spArgs());
-					if($this -> spArgs('callback'))
-					{
+					if($this -> spArgs('callback')) {
 						$this -> jslocation(base64_decode($this -> spArgs('callback')));
-					}else{
-						$this -> jslocation(spUrl('main','index'));
+					} else {
+						$this -> jslocation(spUrl('main', 'index'));
 					}
-				}else{
+				} else {
 					$err = $userobj -> spVerifier($this -> spArgs());
-					foreach($err as $d){$errs[] = $d;}
+					foreach($err as $d) {
+						$errs[] = $d;
+					}
 					$this -> errmsg = $errs[0][0];
 				}
 			}
 			$this -> callback = $this -> spArgs('callback');
-			$this -> display('reg_new.html');
+			$this -> display('register.html');
 		}
 
-		/*获取验证码*/
-		public function vcode()
-		{
+		//获取验证码
+		public function vcode() {
 			spClass('spVerifyCode') -> display();
 		}
-
 	}
 ?>

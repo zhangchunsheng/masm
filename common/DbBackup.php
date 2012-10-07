@@ -20,7 +20,7 @@
 
 		//获取所有表
 		public function showAllTable($chk) {
-			$sql = "SELECT * FROM `TABLES` where TABLE_SCHEMA ='$this -> database'";
+			$sql = "SELECT * FROM `TABLES` where TABLE_SCHEMA ='" . $this -> database . "'";
 			$rs =  $this -> getArray($sql);
 			$all_byte = 0; //大小
 			$all_table = 0; //表个数

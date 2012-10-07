@@ -295,7 +295,7 @@
 
 		//获取所有活动的扩展登陆信息
 		 function _getActionToken($uid) {
-			$rs = spClass('db_memberex') -> spLinker() -> findAll(array('uid' => $uid));
+			$rs = spClass('memberex') -> spLinker() -> findAll(array('uid' => $uid));
 			foreach($rs as $d) {
 				$_SESSION['openconnect'][$d['types']]['openid'] = $d['openid'];
 				$_SESSION['openconnect'][$d['types']]['token'] = $d['token'];

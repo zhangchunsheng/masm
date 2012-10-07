@@ -37,7 +37,7 @@
 						<div id="divAddFiles">
 							<div id="fileButton"></div>
 						</div>
-						<div id="upimgText">在文件列表中，您可以按住Shift多选。jpg,png,bmp.每张不超过{formatBytes size=$yb.addimg_upsize},最多发布{$yb.addimg_count}张</div>
+						<div id="upimgText">在文件列表中，您可以按住Shift多选。jpg,png,bmp.每张不超过{formatBytes size=$luomor.addimg_upsize},最多发布{$luomor.addimg_count}张</div>
 						<div class="clear"></div>
 					</div>
 					<div>
@@ -124,8 +124,8 @@
 				<input type="hidden" name="blog-open" id="blog-open" value="1" />
 				<input type="hidden" name="blog-tags" id="blog-tags" value="" />
 				<input type="hidden" name="blog-attach" id="blog-attach" value="{$body.attr}" />
-				<input type="hidden" name="uploadcount" id="uploadcount" value="{$yb.addimg_count}" />
-				<input type="hidden" name="uploadcount" id="uploadmaxsize" value="{formatBytes size=$yb.addimg_upsize}" />
+				<input type="hidden" name="uploadcount" id="uploadcount" value="{$luomor.addimg_count}" />
+				<input type="hidden" name="uploadcount" id="uploadmaxsize" value="{formatBytes size=$luomor.addimg_upsize}" />
 				<input type="hidden" name="id" value="{$blog.bid}" />
 			</div>
 			<div class="clear"></div>

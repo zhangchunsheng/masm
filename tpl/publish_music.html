@@ -10,7 +10,7 @@
 						<ul class="tabs">
 							<li id="url_link" class="curr"><a href="javascript:void(0)" onclick="SelectLink(this)">引用地址</a></li>
 							<!-- <li><a href="">搜索音乐</a></li> -->
-							{if $yb.addmusic_up_switch ==1} 
+							{if $luomor.addmusic_up_switch ==1} 
 							<li id="url_upload"><a href="javascript:void(0)" onclick="SelectUpload(this)">本地上传</a></li>
 							{/if}
 						</ul>
@@ -26,7 +26,7 @@
 					</div>
 					<div id="musicUpload" style="display:none">
 						<div class="upload" id="upload_mp3"> <input type="file" size="40" name="filedata" ext="mp3|wma|mid" style="margin:0px 0px 15px 0px; background-color:#FFF" /></div>
-						您可以上传小于 <strong>{formatBytes size=$yb.addmusic_upsize}</strong> 的 mp3 / wma / mid文件
+						您可以上传小于 <strong>{formatBytes size=$luomor.addmusic_upsize}</strong> 的 mp3 / wma / mid文件
 						<div class="clear"></div>
 						<ul class="notice">
 							<li>如果您上传上传,则默认表明已经阅读<a href="{spUrl c=site a=help}" target="_blank">使用帮助</a>和<a href="spUrl c=site a=service" target="_blank">服务条款</a>并遵守</li>

@@ -16,7 +16,7 @@
 		//显示我的设置界面
 		function setting() {
 			$this -> user = spClass('member') -> find(array('uid' => $_SESSION['uid'])); //用户信息
-			$this -> tags = spClass('db_category') -> findCate(); //获取系统级别标签
+			$this -> tags = spClass('category') -> findCate(); //获取系统级别标签
 			$this -> __parse_mytag($this -> user['blogtag']); //获取我的标签
 
 			$this -> display('user_setting.html');
