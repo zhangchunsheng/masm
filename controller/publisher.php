@@ -24,7 +24,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('add_text.html');  //默认发布文字行
+			$this -> display('publish_text.html');  //默认发布文字行
 		}
 
 		//发布音乐模型
@@ -35,7 +35,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('add_music.html');  //默认发布文字
+			$this -> display('publish_music.html');  //默认发布文字
 		}
 
 		//发布图片模型
@@ -46,7 +46,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('add_image.html');  //默认发布文字
+			$this -> display('publish_image.html');  //默认发布文字
 		}
 
 		//发布视频模型/
@@ -57,7 +57,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('add_video.html');  //默认发布文字
+			$this -> display('publish_video.html');  //默认发布文字
 		}
 
 		public function edit() {
@@ -85,7 +85,7 @@
 			if($_SESSION['tempid'] == 0) {
 				$this -> error('丢失临时id');
 			}
-			$one = spClass("blog") -> findBy('bid', $_SESSION['tempid']);
+			$one = spClass("mblog") -> findBy('bid', $_SESSION['tempid']);
 			
 			if($this -> spArgs('blog-types') == 1) {
 				$this -> _localImgParse($this -> spArgs('textarea'));  //处理图像资源
@@ -132,7 +132,7 @@
 			if($one['open'] == -1) {
 				spClass('member') -> incrField(array('uid' => $_SESSION['uid']), 'num');
 			} //如果不是编辑的话就加
-			spClass("blog") -> update(array('bid' => $_SESSION['tempid']), $rows,$_SESSION['uid']);
+			spClass("mblog") -> update(array('bid' => $_SESSION['tempid']), $rows,$_SESSION['uid']);
 
 			$this -> postToConnect($this -> spArgs());
 			$_SESSION['tempid'] = NULL;
@@ -210,7 +210,7 @@
 		 * 7月12日测试完毕 如果日志没有附件不会自动删除那个博客的文件夹
 		 */
 		public function del() {
-			$blog = spClass("blog") -> findBy('bid', $this -> spArgs('id'));
+			$blog = spClass("mblog") -> findBy('bid', $this -> spArgs('id'));
 			if($blog['uid'] == $_SESSION['uid'] || $_SESSION['admin'] == 1) {
 				$attach = spClass("attach") -> findAll(array('bid' => $blog['bid']), '', 'path');
 				if($attach != '') {
@@ -219,7 +219,7 @@
 						spClass("attach") -> delete(array('bid' => $blog['bid']));
 					}
 				}
-				spClass("blog") -> deleteByPk($blog['bid']); //删除日志
+				spClass("mblog") -> deleteByPk($blog['bid']); //删除日志
 				spClass('member') -> decrField(array('uid' => $blog['uid']), 'num'); //计数减一
 				//删除喜欢，删除评论。
 				spClass('reply') -> delete(array('bid' => $blog['bid']));
@@ -318,9 +318,9 @@
 		
 		//获取一个可用的临时ID
 		private function getCreateBid() {
-			$result = spClass("blog") -> find(array('uid' => $_SESSION['uid'], 'open' => -1), '', 'bid');
+			$result = spClass("mblog") -> find(array('uid' => $_SESSION['uid'], 'open' => -1), '', 'bid');
 			if($result == '') {
-				$_SESSION['tempid'] = spClass("blog") -> create(array('title' => '', 'open' => -1, 'body' => '', 'abstract' => '', 'tag' => '', 'uid' => $_SESSION['uid']));
+				$_SESSION['tempid'] = spClass("mblog") -> create(array('title' => '', 'open' => -1, 'body' => '', 'abstract' => '', 'tag' => '', 'uid' => $_SESSION['uid']));
 				$this -> tempid = $_SESSION['tempid'];
 			} else {
 				$_SESSION['tempid'] = $result['bid'];
@@ -328,7 +328,7 @@
 			}
 
 			if($this -> spArgs('id') != '') {
-				$ras = spClass("blog") -> findBy('bid', $this -> spArgs('id'));
+				$ras = spClass("mblog") -> findBy('bid', $this -> spArgs('id'));
 				if($ras['uid'] == $_SESSION['uid'] || $_SESSION['admin'] == 1) {
 					$bid = $ras['bid'];
 					$_SESSION['tempid'] = $bid;
