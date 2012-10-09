@@ -39,7 +39,6 @@
 		function system() {
 			if($this -> spArgs('submit')) {
 				spClass('site_setting') -> saveConfig($this -> spArgs('val'));
-
 				$this -> jump(spUrl('admin', 'system', array('ac' => 'ok')));
 			}
 
