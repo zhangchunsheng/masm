@@ -60,6 +60,10 @@
 {if $loadedit == yes}
 <script type="text/javascript" src="{$url}/tpl/js/editor/xheditor.js"></script>
 {/if}
+{if $loadmap == yes}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBVLecv_v9--1K2W1NFRKC52drR9rgadtc&sensor=true"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true" />
+{/if}
 {if $layout == yes}
 <script type="text/javascript" src="{$url}/tpl/js/masonry.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="{$url}/tpl/image/css/recommend.css" />

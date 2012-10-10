@@ -3,7 +3,7 @@ hs.lang.loadingText = '请稍候...';
 hs.lang.loadingTitle = '关闭';
 hs.lang.focusTitle = 'Click to bring to front';
 hs.lang.fullExpandTitle = '实际大小';
-hs.lang.creditsText = 'Powered by <i>qing.thinksaas.cn</i>';
+hs.lang.creditsText = 'Powered by <i>烙馍网</i>';
 hs.lang.creditsTitle = '';
 hs.lang.previousText = '上一张';
 hs.lang.nextText = '下一张';
@@ -21,7 +21,7 @@ hs.lang.moveTitle = '移动';
 hs.lang.fullExpandText = '满屏';
 hs.lang.number = '第 %1 张/共 %2 张';
 hs.lang.restoreTitle = '点击关闭, 点击并拖动可移动图片';
-hs.creditsHref = 'http://qing.thinksaas.cn';
+hs.creditsHref = 'http://www.luomor.com';
 
 try {
 	if (tplpath) {

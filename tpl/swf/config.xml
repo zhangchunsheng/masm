@@ -6,9 +6,9 @@ CMP4配置文件
 更多详细参数说明，请参见CMP交流论坛http://bbs.cenfun.com/
 -->
 <cmp 
-	name = "云边轻博客平台" 
-	link = "http://qing.thinksaas.cn" 
-	description = "『云边轻博客平台』 - http://qing.thinksaas.cn"
+	name = "烙馍网轻博客平台" 
+	link = "http://www.luomor.com" 
+	description = "『烙馍网轻博客平台』 - http://www.luomor.com"
 	skins = "skins/default.zip,skins/mini/blueplayer.zip"
 	plugins = ""
 	backgrounds = ""

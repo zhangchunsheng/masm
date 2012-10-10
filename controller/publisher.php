@@ -15,11 +15,19 @@
 		function index() {
 			prient_jump(spUrl('main'));
 		}
+		
+		public function map() {
+			if($this -> luomor["allowPublishfoodmap"] == 0) {
+				$this -> error("没有开放该功能");
+			}
+			$this -> loadmap = "yes";
+			$this -> display("publish_map.html");
+		}
 
 		//发布文字模型
 		public function text() {
-			if($this -> luomor['addtext_switch'] == 0) {
-				$this -> error('没有开放该模型');
+			if($this -> luomor['allowPublishtext'] == 0) {
+				$this -> error('没有开放该功能');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -29,8 +37,8 @@
 
 		//发布音乐模型
 		public function music() {
-			if($this -> luomor['addmusic_switch'] == 0) {
-				$this -> error('没有开放该模型');
+			if($this -> luomor['allowPublishmusic'] == 0) {
+				$this -> error('没有开放该功能');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -40,8 +48,8 @@
 
 		//发布图片模型
 		public function image() {
-			if($this -> luomor['addimg_switch'] == 0) {
-				$this -> error('没有开放该模型');
+			if($this -> luomor['allowPublishimg'] == 0) {
+				$this -> error('没有开放该功能');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -51,8 +59,8 @@
 
 		//发布视频模型/
 		public function video() {
-			if($this -> luomor['addvideo_switch'] == 0) {
-				$this -> error('没有开放该模型');
+			if($this -> luomor['allowPublishvideo'] == 0) {
+				$this -> error('没有开放该功能');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -67,15 +75,17 @@
 			$this -> __parse_mytag($this -> blog['tag']); //如果是编辑的则推送edit时的标签
 			$this -> body = split_attribute($this -> blog['body']); //获得属性和正文信息
 
-			if($this -> blog['type'] == 1) { //文字
+			if($this -> blog["type"] == 1) { //地图
+				$this -> display("publish_map.html");
+			} elseif($this -> blog['type'] == 2) { //文字
 				$this -> display('publish_text.html');
-			} elseif($this -> blog['type'] == 2) { //音乐
+			} elseif($this -> blog['type'] == 3) { //音乐
 				$this -> display('publish_music.html');
-			} elseif($this -> blog['type'] == 3) { //照片
+			} elseif($this -> blog['type'] == 4) { //照片
 				$this -> display('publish_image.html');
-			} elseif($this -> blog['type'] == 4) { //视频
+			} elseif($this -> blog['type'] == 5) { //视频
 				$this -> display('publish_video.html');
-			} else{
+			} else {
 				exit('未知数据流');
 			}
 		}

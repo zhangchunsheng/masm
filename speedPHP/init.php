@@ -19,8 +19,7 @@
 	if(!defined('SP_PATH'))
 		define('SP_PATH', dirname(__FILE__) . '/SpeedPHP');
 	if(!defined('APP_PATH'))
-		define('APP_PATH', dirname(__FILE__).'/app');
-
+		define('APP_PATH', dirname(__FILE__) . '/app');
 
 	// 载入核心函数库
 	require(SP_PATH . "/spFunctions.php");
@@ -119,7 +118,7 @@
 	$GLOBALS['LUOMOR']['url'] = 'http://www.luomor.com/';
 	$GLOBALS['LUOMOR']['email'] = '';
 	$GLOBALS['LUOMOR']['copyright'] = 'luomor.com';
-	$GLOBALS['LUOMOR']['year'] = '2012 - '.date('Y',time());
+	$GLOBALS['LUOMOR']['year'] = '2012 - ' . date('Y',time());
 	$GLOBALS['LUOMOR']['author'] = '烙馍网';
 	$GLOBALS['LUOMOR']['uri'] =  $site_uri;
 	$GLOBALS['uri'] = $site_uri;

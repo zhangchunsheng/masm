@@ -1,9 +1,4 @@
 <?php
-/////////////////////////////////////////////////////////////////
-//云边开源轻博, Copyright (C)   2010 - 2011  qing.thinksaas.cn 
-//EMAIL:nxfte@qq.com QQ:234027573                              
-//$Id: spVerifyCode.php 14 2011-09-22 06:00:43Z anythink $ 
-
 /**
  * SpeedPHP验证码生成类
  */
