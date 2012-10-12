@@ -1,18 +1,16 @@
 @charset "utf-8";
-/* CSS Document */
-
-   .welcome .box{ background-color:#425E6F; position:relative; margin:0px 0px; width:150px; height:150px; overflow:hidden; float:left; }
-   .welcome .box a{text-decoration:none}
-   .welcome .boxhover{width:150px; height:150px; position:absolute; left:0px; top:0px; background-color:#000; background-color:rgba(0,0,0,0.7); display:none; }
-	.welcome .boxhover .img{text-align:center; margin-top:38px}
-	.welcome .boxhover .img img{border-radius: 5px;}
-	.welcome .boxhover .p{text-align:center; margin-top:5px; font-weight:bold}
-	.welcome .video{position:absolute;text-align:center; top:50px; left:50px;}
-	.welcome .music{position:absolute;text-align:center; top:45px; left:40px;}
-	.welcome .logo{width:568px;height:180px; background:url(../logo_big.png) no-repeat #FFF;position:relative}
-	.welcome .loginmenu{position:absolute; right:0px; padding:5px 40px 5px 0px; top:120px; font-size:20px;}
-	.welcome .textcontents{font-size:20px; padding:5px;}
-	.welcome .mediadesc{ font-size:14px}
+.welcome .box {background-color:#425E6F; position:relative; margin:0px 0px; width:150px; height:150px; overflow:hidden; float:left; }
+.welcome .box a {text-decoration:none}
+.welcome .boxhover {width:150px; height:150px; position:absolute; left:0px; top:0px; background-color:#000; background-color:rgba(0,0,0,0.7); display:none; }
+.welcome .boxhover .img {text-align:center; margin-top:38px}
+.welcome .boxhover .img img {border-radius: 5px;}
+.welcome .boxhover .p {text-align:center; margin-top:5px; font-weight:bold}
+.welcome .video {position:absolute;text-align:center; top:50px; left:50px;}
+.welcome .music {position:absolute;text-align:center; top:45px; left:40px;}
+.welcome .logo {width:568px;height:180px; background:url(../logo_big.png) no-repeat #FFF;position:relative}
+.welcome .loginmenu {position:absolute; right:0px; padding:5px 40px 5px 0px; top:120px; font-size:20px;}
+.welcome .textcontents {font-size:20px; padding:5px;}
+.welcome .mediadesc {font-size:14px}
 .welcome .tag {
 	position:absolute;
 	right:10px;
@@ -25,18 +23,22 @@
     color: #FFFFFF;
     padding: 0 5px 1px;
 }
-.welcome .imgcount{position:absolute; left:55px; top:55px; 
-	background-color:#000;
+.welcome .imgcount {
+	position: absolute;
+	left: 55px;
+	top: 55px;
+	background-color: #000;
 	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 7px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
     color: #FFFFFF;
-    padding: 5px;}
+    padding: 5px;
+}
 
-.player{margin:0px; display:block}
-.clearfix{zoom:1}
-.clearfix:after{content:"";display:block;height:0;line-height:0;font-size:0;visibility:hidden;clear:both}
+.player {margin:0px; display:block}
+.clearfix {zoom:1}
+.clearfix:after {content:"";display:block;height:0;line-height:0;font-size:0;visibility:hidden;clear:both}
 .htag {border-radius:7px}
 .htag .hottab .tag-hd, .htag .hottab .hot-hd, .htag .hottab .active-hd, .htag .hottab .editor-hd {
     color: #505050;
@@ -108,7 +110,7 @@
     position: relative;
 }
 
-.hottab th{
+.hottab th {
 	padding:10px;
 }
 .htag .hottab .tag-hd {

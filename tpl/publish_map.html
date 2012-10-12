@@ -1,4 +1,4 @@
-{include file="require_header.html" addcss="yes" editor="yes" titlepre="发布地图"}
+{include file="require_header.html" publishcss="yes" editor="yes" titlepre="发布地图"}
 <div class="contentTop"></div>
 <div style="margin: 0px 10px 0px 10px">
 	<div id="map_canvas" style="width: 100%; height: 400px;">
@@ -7,8 +7,19 @@
 </div>
 <div class="content">
 	<form action="{spUrl c=publisher a=post}" id="form_publish" method="post">
-		<div id="main">
-			
+		<div id="content">
+			<div id="main">
+				<h2 id="title">地图</h2>
+				<div id="pb-post-area">
+					<div>
+						<h3 class="title"> 标题 <span>(亲，起个标题吧)</span> </h3>
+						<input type="text" name="pb-text-title" id="pb-text-title" class="input" tabindex="1" value="{$blog.title}"></input>
+					</div>
+					<div>
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</form>
 </div>
