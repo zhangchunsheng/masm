@@ -12,9 +12,9 @@
 		var urlpath = '{$url}';
 		</script>
 		<script type="text/javascript" src="{$global_path}js/jquery.min.js"></script>
-		<link href="{$global_path}image/css/reset.css" rel="stylesheet" type="text/css">
-		<link href="{$global_path}image/css/frame.css" rel="stylesheet" type="text/css">
-		<link href="{$global_path}image/css/gallery.show.css" rel="stylesheet" type="text/css">
+		<link href="{$global_path}images/css/reset.css" rel="stylesheet" type="text/css">
+		<link href="{$global_path}images/css/frame.css" rel="stylesheet" type="text/css">
+		<link href="{$global_path}images/css/gallery.show.css" rel="stylesheet" type="text/css">
 		<link href="{$themes_path}css/style.css" rel="stylesheet" type="text/css">
 		<style>{$custom_css}</style>
 	</head>
@@ -31,12 +31,12 @@
 		<div id="header">
 			{if islogin()}
 				<a href="{spUrl c=main a=index}" target="_top">
-					<img src="{$url}/tpl/image/goback.png" width="107" height="36">
+					<img src="{$url}/tpl/images/goback.png" width="107" height="36">
 				</a>
 				{if $uid == $smarty.session.uid}
-					<a href="{spUrl c=userblog a=customize}" target="_top"><img src="{$url}/tpl/image/custom.png" width="107" height="36"></a>
+					<a href="{spUrl c=userblog a=customize}" target="_top"><img src="{$url}/tpl/images/custom.png" width="107" height="36"></a>
 				{else}
-					<a href="javascript:void(0)" onClick="tiper('后期')"><img src="{$url}/tpl/image/tuijian.png" width="77" height="36"></a>
+					<a href="javascript:void(0)" onClick="tiper('后期')"><img src="{$url}/tpl/images/tuijian.png" width="77" height="36"></a>
 				{/if}
 			{else}
 				<a href="{spUrl c=main a=index}">首页</a>

@@ -160,6 +160,7 @@ a:hover {color: #568D99;text-decoration: underline;}
 #postblog .pop li {display:block; float:left; width:95px; text-align:center}
 #postblog .pop li.ln {background:url(../comm/postline.png) repeat-y; width:2px; height:58px; margin:0px 5px 0px 5px;}
 #postblog .pop li a {display:block; width:95px; height:25px; padding-top:45px;}
+#postblog .pop li a.map {background:url(../comm/google_marker.png) no-repeat top center;}
 #postblog .pop li a.text {background:url(../comm/text.jpg) no-repeat top center;}
 #postblog .pop li a.photo {background:url(../comm/photo.jpg) no-repeat top center;}
 #postblog .pop li a.video {background:url(../comm/video.jpg) no-repeat top center;}

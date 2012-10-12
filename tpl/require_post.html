@@ -2,7 +2,7 @@
 	<div class="img"><img src="{avatar uid=$smarty.session.uid size=middle}" alt="{$smarty.session.username}" class="face" /></div>
 	<div class="pop">
 		{if $luomor.allowPublishfoodmap ==1}
-		<li><a href="{spUrl c=publisher a=map}" class="text">地图</a></li>
+		<li><a href="{spUrl c=publisher a=map}" class="map">美食地图</a></li>
 		<li class="ln"></li>
 		{/if}
 		{if $luomor.allowPublishtext ==1}
@@ -14,7 +14,7 @@
 		<li class="ln"></li>
 		{/if}
 		{if $luomor.allowPublishimg ==1}
-		<li><a href="{spUrl c=publisher a=image}" class="photo">图片</a></li>
+		<li><a href="{spUrl c=publisher a=images}" class="photo">图片</a></li>
 		<li class="ln"></li>
 		{/if}
 		{if $luomor.allowPublishvideo ==1}

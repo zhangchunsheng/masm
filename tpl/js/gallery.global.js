@@ -25,10 +25,10 @@ hs.creditsHref = 'http://www.luomor.com';
 
 try {
 	if (tplpath) {
-		hs.graphicsDir = tplpath + 'image/gallery.show/';
+		hs.graphicsDir = tplpath + 'images/gallery.show/';
 	}
 } catch (exception) {
-	hs.graphicsDir = 'tpl/image/gallery.show/';
+	hs.graphicsDir = 'tpl/images/gallery.show/';
 }
 
 
@@ -51,7 +51,7 @@ hs.addSlideshow({
 
 
 /*
-	hs.graphicsDir = 'tpl/image/gallery.show/';
+	hs.graphicsDir = 'tpl/images/gallery.show/';
 	hs.align = 'center';
 	hs.transitions = ['expand', 'crossfade'];
 	hs.fadeInOut = true;
@@ -84,7 +84,7 @@ hs.addSlideshow({
 
 
 /* 显示方式1  黑遮罩，图片弹出 全屏
-	hs.graphicsDir = 'tpl/image/gallery.show/';
+	hs.graphicsDir = 'tpl/images/gallery.show/';
 	hs.align = 'center';
 	hs.transitions = ['expand', 'crossfade'];
 	hs.wrapperClassName = 'dark borderless floating-caption';
@@ -107,7 +107,7 @@ hs.addSlideshow({
 	});
 	*/
 /*
-	hs.graphicsDir = 'tpl/image/gallery.show/';
+	hs.graphicsDir = 'tpl/images/gallery.show/';
 	hs.align = 'center';
 	hs.transitions = ['expand', 'crossfade'];
 	hs.outlineType = 'rounded-white';
@@ -132,7 +132,7 @@ hs.addSlideshow({
 
 
 /* 显示方式2  无遮罩，图片弹出 全屏
-	hs.graphicsDir = 'tpl/image/gallery.show/';
+	hs.graphicsDir = 'tpl/images/gallery.show/';
 	hs.align = 'center';
 	hs.transitions = ['expand', 'crossfade'];
 	hs.outlineType = 'rounded-white';
@@ -156,7 +156,7 @@ hs.addSlideshow({
 	*/
 
 /* 显示方式3  无遮罩，图片弹出 右侧有 图片列表 缩放
-	hs.graphicsDir = 'tpl/image/gallery.show/';
+	hs.graphicsDir = 'tpl/images/gallery.show/';
 	hs.align = 'center';
 	hs.transitions = ['expand', 'crossfade'];
 	hs.fadeInOut = true;

@@ -34,7 +34,7 @@
 			{/if}
 			{/if}
 			{if $d.uid == $smarty.session.uid || $smarty.session.admin == 1}
-			<a href="{spUrl c=add a=edit id=$d.bid}"><img src="{$url}/tpl/image/edit.gif" title="&#32534;&#36753;{if $d.open == 0}&#33609;&#31295;{/if}" /></a> 
+			<a href="{spUrl c=add a=edit id=$d.bid}"><img src="{$url}/tpl/images/edit.gif" title="&#32534;&#36753;{if $d.open == 0}&#33609;&#31295;{/if}" /></a> 
 			<span class="delrep"><a href="javascript:void(0)" onclick="delblogs('{$d.bid}','{spUrl c=add a=del id=$d.bid}')" title="&#21024;&#38500;">&nbsp;&nbsp;&nbsp;</a></span>
 			{/if}
 			{/if}

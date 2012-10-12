@@ -7,14 +7,14 @@
 		<meta name="description" content="{$luomor.site_desc}" />
 		<meta name="keywords" content="{$luomor.site_keyword}" />
 		{include file="require_js.html" login=yes}
-		<link href="{$url}/tpl/image/css/login.css" rel="stylesheet" type="text/css" class="cssfx" />
-		<link rel="shortcut icon" href="{$url}/tpl/image/favicon.ico" type="image/x-icon" />
+		<link href="{$url}/tpl/images/css/login.css" rel="stylesheet" type="text/css" class="cssfx" />
+		<link rel="shortcut icon" href="{$url}/tpl/images/favicon.ico" type="images/x-icon" />
 	</head>
 	<body>
 		<div id="wrap">
 			<div id="main">
 				<div id="rbtn"><a href="{spUrl c=main a=reg}">注册</a></div>
-				<div id="logo"><a href="{spUrl c=main}"><img src="{$url}/tpl/image/logo.png" width="248" height="81" alt="logo" /></a></div>
+				<div id="logo"><a href="{spUrl c=main}"><img src="{$url}/tpl/images/logo.png" width="248" height="81" alt="logo" /></a></div>
 				<div id="BalloonA"></div>
 				<div id="BalloonB"></div>
 				<div style="height:150px; clear:both">
@@ -71,10 +71,10 @@
 									<h1>用合作账户登陆</h1>
 									<div id="area">
 										{if $luomor.openlogin_qq_open == 1}
-										<li><a href="{spUrl c=openconnect a=qq}"><img src="tpl/image/qq_login.png" border="0" style="margin-top:10px" /></a></li>
+										<li><a href="{spUrl c=openconnect a=qq}"><img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" /></a></li>
 										{/if}
 										{if $luomor.openlogin_weib_open == 1}
-										<li> <a href="{spUrl c=openconnect a=weibo}"><img src="tpl/image/weib_login.png" border="0" style="margin-top:10px" /></a></li>
+										<li> <a href="{spUrl c=openconnect a=weibo}"><img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" /></a></li>
 										{/if}
 									</div>
 								</div>

@@ -125,10 +125,10 @@ function feedToolBar(id) {
 				} //如果进入队列的就跳出
 
 				if (p >= maxpage) {
-					$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/image/hand.gif" class="loading"/>点击查看更多...</a>');
+					$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/images/hand.gif" class="loading"/>点击查看更多...</a>');
 				} else {
 					globalcount = 1; //已经进入队列了
-					$('#' + id).html('<img src="tpl/image/loading.gif" class="loading"/><span>请稍等</span>');
+					$('#' + id).html('<img src="tpl/images/loading.gif" class="loading"/><span>请稍等</span>');
 					$.post(url, {
 						page: p
 					}, function (rs) {
@@ -176,7 +176,7 @@ function continueShow(id) {
 	url = $('#' + id).attr('query');
 
 	nextpage = p + 1;
-	$('#' + id).html('<img src="tpl/image/loading.gif" class="loading"/><span>请稍等</span>');
+	$('#' + id).html('<img src="tpl/images/loading.gif" class="loading"/><span>请稍等</span>');
 	$.post(url, {
 		page: p
 	}, function (rs) {
@@ -187,7 +187,7 @@ function continueShow(id) {
 			area = $('#' + id).attr('area');
 			$('#' + area).append(rs);
 			$('#' + id).attr('page', nextpage);
-			$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/image/hand.gif" class="loading"/>点击查看更多...</a>');
+			$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/images/hand.gif" class="loading"/>点击查看更多...</a>');
 		}
 
 	})

@@ -42,7 +42,7 @@ $(document).ready(function () {
 
 	textbody = $('#textarea').xheditor({
 		plugins: editPlugin,
-		loadCSS: urlpath + '/tpl/image/css/editor.css',
+		loadCSS: urlpath + '/tpl/images/css/editor.css',
 		urlBase: urlpath + '/',
 		internalStyle: false
 	});
@@ -58,7 +58,7 @@ $(document).ready(function () {
 			$prev = $this.prev();
 		if ($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
 			$('#uploading').show();
-			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=add&a=uploadimg', function (sText) {
+			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=publisher&a=uploadimg', function (sText) {
 				$('#uploading').hide();
 				var data = Object,
 					bOK = false;
@@ -99,7 +99,7 @@ $(document).ready(function () {
 			sExt = $this.attr('ext'),
 			$prev = $this.prev();
 		if ($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
-			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=add&a=uploadmedia', function (sText) {
+			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=publisher&a=uploadmedia', function (sText) {
 				$('#uploading').hide();
 				var data = Object,
 					bOK = false;
@@ -469,7 +469,7 @@ function saveMusicList(url) {
 
 	$("#musicFrom").disable();
 	$("#urlParseLoading").val('正在解析...');
-	$.post(urlpath + '/index.php?c=add&a=links', {
+	$.post(urlpath + '/index.php?c=publisher&a=links', {
 		'url': url
 	}, function (result) {
 		// alert(result);
@@ -481,7 +481,7 @@ function saveMusicList(url) {
 			return false;
 		}
 		if (data.type == 'mp3' || data.type == 'wma' || data.type == 'swf') {
-			data.img = 'tpl/image/add/webmusic.png';
+			data.img = 'tpl/images/publisher/webmusic.png';
 		}
 		desc = data.title;
 		var html = '<div class="list" type="' + data.type + '" pid="' + data.id + '" img="' + data.img + '" url="' + url + '"> <div class="uri">已添加：' + url + '</div>' + '<input type="text" name="musicList[' + data.id + ']" value="' + desc + '" />' + '<a href="javascript:void(0)" onclick="musicDItem(this)">移除</a> </div>';
@@ -547,7 +547,7 @@ function delAttach(id) {
 		content: '确认删除附件？',
 		lock: true,
 		yesFn: function () {
-			$.post(urlpath + '/index.php?c=add&a=delattach', {
+			$.post(urlpath + '/index.php?c=publisher&a=delattach', {
 				'id': id
 			}, function (result) {
 				if (result == 'ok') {
@@ -568,7 +568,7 @@ function delAttachIMAGE(id) {
 		content: '确认删除附件？',
 		lock: true,
 		yesFn: function () {
-			$.post(urlpath + '/index.php?c=add&a=delattach', {
+			$.post(urlpath + '/index.php?c=publisher&a=delattach', {
 				'id': id
 			}, function (result) {
 				if (result == 'ok') {
@@ -596,8 +596,7 @@ function tuiTag(x, y) {
 function iattach(x, y) {
 	var x = x.split('|');
 	if (x[0] == 'img') {
-		if (x[2] == undefined) //如果不存在缩略图
-		{
+		if (x[2] == undefined) {//如果不存在缩略图
 			parent.textbody.pasteHTML('<img src="' + x[1] + '" />');
 		} else {
 			parent.textbody.pasteHTML('<a href="' + x[1] + '" target="_blank"><img src="' + x[2] + '" alt="" /></a>')

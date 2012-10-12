@@ -57,7 +57,7 @@ $(document).ready(function () {
 		button_height: 33,
 		button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
 		button_cursor: SWFUpload.CURSOR.HAND,
-		button_image_url: urlpath + "/tpl/image/upload.png",
+		button_image_url: urlpath + "/tpl/images/upload.png",
 		// 调试设置
 		debug: false
 	});
