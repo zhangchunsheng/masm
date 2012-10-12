@@ -1,6 +1,8 @@
 <?php
 	/**
-	 * 
+	 * 作者：peter
+	 * 日期：2012-10-10
+	 * 说明：member
 	 */
 	class member extends spModel {
 		var $pk = "uid"; // 主键
@@ -24,14 +26,14 @@
 					'isopen'    => true, //是否被禁用
 					'email' => TRUE,
 				),
-			   'password' => array(
-				   'notnull' => TRUE,
-				   'minlength' => 6,
-				),
-			   'verifycode' => array(
+				'password' => array(
 					'notnull' => TRUE,
-					'isverifcode'=> 'verifycode',
-					'checklogin'=> TRUE,
+					'minlength' => 6,
+				),
+				'verifycode' => array(
+					'notnull' => TRUE,
+					'isverifcode' => 'verifycode',
+					'checklogin' => TRUE,
 				),
 			),
 		   "messages" => array( // 提示信息
@@ -40,16 +42,16 @@
 					'minlength' => "邮箱不能少于5个字符",
 					'maxlength' => "邮箱不能大于50个字符",
 					'isopen'    => "账号被限制访问",
-					'email'=> "请输入邮箱",
+					'email' => "请输入邮箱",
 				),
 				'password' => array(
 					'notnull' => "密码不能为空",
 					'minlength' => "密码不能少于6个字符",
 				),
 				'verifycode' => array(
-					'notnull' => "验证码没有填写",
-					'isverifcode'=> "验证码失败",
-					'checklogin' => "用户名密码不正确",
+					'notnull' => "请填写验证码",
+					'isverifcode' => "请输入正确的验证码",
+					'checklogin' => "用户名或密码不正确",
 				),
 			)
 		);
@@ -64,10 +66,10 @@
 					'email' => TRUE,
 					'isopen'    => true, //是否被禁用
 				),
-			   'password' => array(
-				   'notnull' => TRUE,
-				   'minlength' => 6,
-				   'checklogin' => TRUE
+				'password' => array(
+					'notnull' => TRUE,
+					'minlength' => 6,
+					'checklogin' => TRUE
 				),
 			),
 			"messages" => array( // 提示信息
@@ -81,7 +83,7 @@
 				'password' => array(
 					'notnull' => "密码不能为空",
 					'minlength' => "密码不能少于6个字符",
-					'checklogin' => "用户名密码不正确"
+					'checklogin' => "用户名或密码不正确"
 				)
 			)
 		);
@@ -93,7 +95,7 @@
 					'minlength' => 5,  // username长度不能小于5
 					'maxlength' => 50, // username长度不能大于
 					'email' => TRUE,
-					'keepmail'=> TRUE,
+					'keepmail' => TRUE,
 					'isused' => 'email', //如果真重复了
 				),
 				'password' => array(
@@ -114,11 +116,11 @@
 					'notnull' => "注册邮箱不能为空",
 					'minlength' => "注册邮箱不能少于5个字符",
 					'maxlength' => "注册邮箱不能大于50个字符",
-					'email'=> "请输入正确的邮箱",
-					'keepmail'=> "该邮箱被限制使用请更换",
-					'isused'=> "注册邮箱已经存在,试试绑定?",
+					'email' => "请输入正确的邮箱",
+					'keepmail' => "该邮箱被限制使用请更换",
+					'isused' => "注册邮箱已经存在,试试绑定?",
 				),
-				'username'=>array(
+				'username' => array(
 					'minlength' => "昵称不能小于3个字",  // username长度不能小于5
 					'maxlength' => "昵称不能超过12个字", // username长度不能大于
 					'ninameused' => "昵称已被使用请更换",
@@ -128,11 +130,11 @@
 					'minlength' => "密码不能少于5个字符",
 				),
 				'password2' => array(
-					'equalto' => '两次密码输入不正确',
+					'equalto' => '两次密码输入不一致',
 				),
 				'verifycode' => array(
-					'notnull' => "验证码没有填写",
-					'isverifcode'=> "验证码失败",
+					'notnull' => "请填写验证码",
+					'isverifcode'=> "请输入正确的验证码",
 				),
 			),
 		);
@@ -145,7 +147,7 @@
 					'minlength' => 5,  // username长度不能小于5
 					'maxlength' => 50, // username长度不能大于
 					'email' => TRUE,
-					'keepmail'=> TRUE,
+					'keepmail' => TRUE,
 					'isused' => 'email', //如果真重复了
 				),
 				'password' => array(
@@ -166,11 +168,11 @@
 					'notnull' => "注册邮箱不能为空",
 					'minlength' => "注册邮箱不能少于5个字符",
 					'maxlength' => "注册邮箱不能大于50个字符",
-					'email'=> "请输入正确的邮箱",
-					'keepmail'=> "该邮箱被限制使用请更换",
-					'isused'=> "注册邮箱已经存在,试试绑定?",
+					'email' => "请输入正确的邮箱",
+					'keepmail' => "该邮箱被限制使用请更换",
+					'isused' => "注册邮箱已经存在,试试绑定?",
 				),
-				'username'=>array(
+				'username' => array(
 					'minlength' => "昵称不能小于3个字",  // username长度不能小于5
 					'maxlength' => "昵称不能超过12个字", // username长度不能大于
 					'ninameused' => "昵称已被使用请更换",
@@ -180,7 +182,7 @@
 					'minlength' => "密码不能少于5个字符",
 				),
 				'password2' => array(
-					'equalto' => "两次密码输入不正确",
+					'equalto' => "两次密码输入不一致",
 				),
 			),
 		);
@@ -263,11 +265,13 @@
 			$password = password_encode($all['password'],$result['salt']);
 			if($result['password'] == $password) {
 				$ip = getIP();
-				$_SESSION['uid'] = $result['uid'];
-				$_SESSION['email'] = $result['email'];
-				$_SESSION['domain'] = $result['domain'];
-				$_SESSION['username'] = $result['username'];
-				$_SESSION['admin'] = $result['admin'];
+				$_SESSION["uid"] = $result["uid"];
+				$_SESSION["email"] = $result["email"];
+				$_SESSION["domain"] = $result["domain"];
+				$_SESSION["username"] = $result["username"];
+				$_SESSION["admin"] = $result["admin"];
+				$_SESSION["livecity_code"] = $result["livecity_code"];
+				$_SESSION["livecity_name"] = $result["livecity_name"];
 				if($all['savename'] == 1) {
 					setcookie('unames', $result['email'], time() + 60*60*24*30, '/');
 				} else {

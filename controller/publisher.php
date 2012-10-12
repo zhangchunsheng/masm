@@ -18,16 +18,20 @@
 		
 		public function map() {
 			if($this -> luomor["allowPublishfoodmap"] == 0) {
-				$this -> error("没有开放该功能");
+				$this -> error("亲，该功能正在维护");//没有开放该功能
 			}
 			$this -> loadmap = "yes";
+			$livecity_code = $_SESSION["livecity_code"];
+			if(empty($livecity_code))
+				$livecity_code = "001001";
+			$this -> city = spClass("city") -> findBy("code", $livecity_code);
 			$this -> display("publish_map.html");
 		}
 
 		//发布文字模型
 		public function text() {
 			if($this -> luomor['allowPublishtext'] == 0) {
-				$this -> error('没有开放该功能');
+				$this -> error('亲，该功能正在维护');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -38,7 +42,7 @@
 		//发布音乐模型
 		public function music() {
 			if($this -> luomor['allowPublishmusic'] == 0) {
-				$this -> error('没有开放该功能');
+				$this -> error('亲，该功能正在维护');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -49,7 +53,7 @@
 		//发布图片模型
 		public function image() {
 			if($this -> luomor['allowPublishimg'] == 0) {
-				$this -> error('没有开放该功能');
+				$this -> error('亲，该功能正在维护');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -60,7 +64,7 @@
 		//发布视频模型/
 		public function video() {
 			if($this -> luomor['allowPublishvideo'] == 0) {
-				$this -> error('没有开放该功能');
+				$this -> error('亲，该功能正在维护');
 			}
 			$this -> getCreateBid();
 			$this -> attach();
@@ -86,18 +90,22 @@
 			} elseif($this -> blog['type'] == 5) { //视频
 				$this -> display('publish_video.html');
 			} else {
-				exit('未知数据流');
+				exit("亲，没有这个功能");//未知数据流
 			}
 		}
 
 		//创建一个供发布或者编辑用的
 		public function post() {
 			if($_SESSION['tempid'] == 0) {
-				$this -> error('丢失临时id');
+				$this -> error("唉，系统压力太大出错了");//丢失临时id
 			}
 			$one = spClass("mblog") -> findBy('bid', $_SESSION['tempid']);
 			
-			if($this -> spArgs('blog-types') == 1) {
+			if($this -> spArgs("blog-types") == 1) {
+				
+			}
+			
+			if($this -> spArgs('blog-types') == 2) {
 				$this -> _localImgParse($this -> spArgs('textarea'));  //处理图像资源
 				if($this -> spArgs('blog-attach') != '') {
 					$bodypre = '[attribute]' . serialize($this -> spArgs('blog-attach')) . '[/attribute]';
@@ -105,7 +113,7 @@
 			}
 			
 			//音乐模型 视频模型
-			if($this -> spArgs('blog-types') == 2 || $this -> spArgs('blog-types') == 4 ) {
+			if($this -> spArgs('blog-types') == 3 || $this -> spArgs('blog-types') == 5) {
 				if($this -> spArgs('useedit') != 1) {//如果有特殊则处理
 					if($this -> spArgs('localmusicfid') == '' && $this -> spArgs('urlmusic') == '') {
 						exit('未完成的内容');
@@ -114,12 +122,12 @@
 						$music = $this -> __loadMusicString($this -> spArgs('urlmusic'));
 						$music_count = count($music); //总共几首音乐
 					}
-					$bodypre = '[attribute]'.serialize($music).'[/attribute]';//加入属性关键字
+					$bodypre = '[attribute]' . serialize($music) . '[/attribute]';//加入属性关键字
 				}
 			}
 
 			//图片模型
-			if($this -> spArgs('blog-types') == 3) {
+			if($this -> spArgs('blog-types') == 4) {
 				$image = $this -> _imagemodeparse($this -> spArgs('localimg')); //处理图片
 				if(is_array($image)) {
 					$bodypre = '[attribute]' . serialize($image) . '[/attribute]';
@@ -159,7 +167,7 @@
 				$farray = json_decode($files);
 				echo $files;
 			} else {
-				echo json_encode(array('err'=>'丢失参数了啊 你怎么搞的','msg'=>''));
+				echo json_encode(array('err' => '丢失参数了啊', 'msg' => ''));
 			}
 		}
 
@@ -173,7 +181,7 @@
 				$farray = json_decode($files);
 				echo $files;
 			} else {
-				echo json_encode(array('err'=>'丢失参数了啊 你怎么搞的','msg'=>''));
+				echo json_encode(array('err' => '丢失参数了啊', 'msg' => ''));
 			}
 		}
 
@@ -191,7 +199,7 @@
 				$farray = json_decode($files);
 				echo $files;
 			} else {
-				$this -> error('丢失参数', spUrl('main'));
+				$this -> error('亲，系统丢失参数', spUrl('main'));
 			}
 		}
 

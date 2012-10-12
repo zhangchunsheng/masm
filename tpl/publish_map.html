@@ -1,0 +1,49 @@
+{include file="require_header.html" addcss="yes" editor="yes" titlepre="发布地图"}
+<div class="contentTop"></div>
+<div style="margin: 0px 10px 0px 10px">
+	<div id="map_canvas" style="width: 100%; height: 400px;">
+		
+	</div>
+</div>
+<div class="content">
+	<form action="{spUrl c=publisher a=post}" id="form_publish" method="post">
+		<div id="main">
+			
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	{literal}
+	var latitude = {/literal}{$city.latitude}{literal};
+	var longitude = {/literal}{$city.longitude}{literal};
+	var city = new google.maps.LatLng(latitude, longitude);
+	var position = new google.maps.LatLng(latitude, longitude);
+	var marker;
+	var map;
+	$(document).ready(function() {
+		var mapOptions = {
+			center: city,
+			zoom: 10,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		var map = new google.maps.Map(document.getElementById("map_canvas"),
+			mapOptions);
+			
+		marker = new google.maps.Marker({
+			map: map,
+			draggable: true,
+			animation: google.maps.Animation.DROP,
+			position: position
+		});
+		google.maps.event.addListener(marker, "click", toggleBounce);
+	});
+	function toggleBounce() {
+		if(marker.getAnimation() != null) {
+			marker.setAnimation(null);
+		} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+		}
+	}
+	{/literal}
+</script>
+{include file="require_footer.html"}

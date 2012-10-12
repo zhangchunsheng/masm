@@ -155,7 +155,6 @@
 		public function login() {
 			if($this -> spArgs('email')) {
 				$userobj = spClass('member');
-
 				if($this -> luomor['loginCodeSwitch'] != 'close') {//如果开启
 					$userobj -> verifier = $userobj -> verifier_login;
 				} else {
@@ -164,11 +163,10 @@
 
 				if($userobj -> spVerifier($this -> spArgs()) == false) {
 					$userobj -> userLogin($this -> spArgs());
-					
 					if($this -> spArgs('callback')) {
 						$this -> jslocation(base64_decode($this -> spArgs('callback')));
 					} else {
-						$this -> jslocation(spUrl('main','index'));
+						$this -> jslocation(spUrl('main', 'index'));
 					}
 				} else {
 					$err = $userobj -> spVerifier($this -> spArgs());

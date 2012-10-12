@@ -100,34 +100,57 @@
 			<!--
 				{literal}
 				// login and reg
-				$(document).ready(function(){
-					if($('#email').val() != ''){$('#email').parent().find('label').hide();}
-					if($('#password').val() != ''){$('#password').parent().find('label').hide();}
-					if($('#loginarea #verifycode').val() != ''){$('#loginarea #verifycode').parent().find('label').hide();}
+				$(document).ready(function() {
+					if($('#email').val() != '') {
+						$('#email').parent().find('label').hide();
+					}
+					if($('#password').val() != '') {
+						$('#password').parent().find('label').hide();
+					}
+					if($('#loginarea #verifycode').val() != '') {
+						$('#loginarea #verifycode').parent().find('label').hide();
+					}
 					$('#email,#password,#loginarea #verifycode').focus(function(){
 						$(this).parent().find('label').hide();
 					}).blur(function(){
-						if($(this).val() ==''){$(this).parent().find('label').show();}
+						if($(this).val() =='') {
+							$(this).parent().find('label').show();
+						}
 					})
 
-					setTimeout(function(){$('#BalloonB').fadeIn('slow');},800);
-					setTimeout(function(){ $('#BalloonA').fadeIn('slow');},1100);
+					setTimeout(function() {
+						$('#BalloonB').fadeIn('slow');
+					},800);
+					setTimeout(function() {
+						$('#BalloonA').fadeIn('slow');
+					},1100);
 
-					$('#email').keyup(function(){if ($(this).hasClass('warn')) {$(this).removeClass('warn');}});
-					$('#password').keyup(function(){if ($(this).hasClass('warn')) {$(this).removeClass('warn');}});
+					$('#email').keyup(function() {
+						if($(this).hasClass('warn')) {
+							$(this).removeClass('warn');
+						}
+					});
+					$('#password').keyup(function() {
+						if ($(this).hasClass('warn')) {
+							$(this).removeClass('warn');
+						}
+					});
 				})
 
-				function reloadcode(obj,url)
-				{
+				function reloadcode(obj,url) {
 					obj.src = url+ '&nowtime=' + new Date().getTime();
 				}
 
 
-				function checkLogin()
-				{
-					if ($('#email').val() == ''){ $('#email').addClass('warn',500);}
-					if ($('#password').val() == ''){ $('#password').addClass('warn',500);}
-					if (($('#email').val() == '') || ($('#password').val() == '')) return false;
+				function checkLogin() {
+					if ($('#email').val() == '') {
+						$('#email').addClass('warn', 500);
+					}
+					if ($('#password').val() == '') {
+						$('#password').addClass('warn', 500);
+					}
+					if (($('#email').val() == '') || ($('#password').val() == ''))
+						return false;
 					$('.subBtn').addClass('loading');
 					return true;
 				}
