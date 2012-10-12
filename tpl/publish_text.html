@@ -14,7 +14,10 @@
 						<h3 class="title">内容</h3>
 						<span id="uploadpic">
 							<span id="upload_bar">
-								<div class="uploadBtn" id="upload_img"><span>上传图片</span><input type="file" size="1" name="filedata" ext="jpg,jpeg,gif,png" /></div>
+								<div class="uploadBtn" id="upload_img">
+									<span>上传图片</span>
+									<input type="file" size="1" name="filedata" ext="jpg,jpeg,gif,png" />
+								</div>
 							</span>
 							<span id="uploading" style="display:none">正在上传...</span> 
 						</span>
@@ -68,7 +71,9 @@
 						<ul class="clearfix" id="post-tag-list">
 							<!--动态插入标签-->
 							{foreach from=$myTag item=d}
-							<li tag="{$d}">{$d}<a href="javascript:void(0)" onclick="remTags(this)">x</a></li>
+							<li tag="{$d}">
+								{$d}<a href="javascript:void(0)" onclick="remTags(this)">x</a>
+							</li>
 							{/foreach}
 						</ul>
 						<div id="post-tag-input-holder">
@@ -81,7 +86,9 @@
 					<h4>常用标签</h4>
 					<ul class="clearfix" id="recommand-tag-list">
 						{foreach from=$myTagUsually item=d}
-						<li tag="{$d.title}"><a href="javascript:void(0)" onclick="tuiTag('{$d.title}',this)">{$d.title}</a></li>
+						<li tag="{$d.title}">
+							<a href="javascript:void(0)" onclick="tuiTag('{$d.title}', this)">{$d.title}</a>
+						</li>
 						{/foreach}
 					</ul>
 					<div class="clear"></div>
@@ -89,7 +96,7 @@
 				<hr class="separator" />
 				<div class="aside-item pb-side-opt" id="top-post-holder">
 					<label>
-					{if $blog.top ==1}
+					{if $blog.top == 1}
 					<input type="checkbox" id="pb-top-post" name="pb-top-post" value="1" checked="checked" />
 					{else}
 					<input type="checkbox" id="pb-top-post" name="pb-top-post" value="1" />
@@ -100,7 +107,7 @@
 				</div>
 				<div class="aside-item pb-side-opt" id="top-post-holder">
 					<label> 
-					{if $blog.noreply ==1}
+					{if $blog.noreply == 1}
 					<input type="checkbox" id="pb-nowrite-post" name="pb-nowrite-post" value="1" checked="checked" />
 					{else}
 					<input type="checkbox" id="pb-nowrite-post" name="pb-nowrite-post" value="1" />
@@ -112,12 +119,18 @@
 				<hr class="separator" />
 				<!--
 					<div class="aside-item pb-side-opt" id="top-post-holder">
-					 <label> <input name="pb-sync-to-qqweibo" type="checkbox" id="pb-sync-to-qqweibo" value="1">转发腾讯微薄</label>
+						<label>
+							<input name="pb-sync-to-qqweibo" type="checkbox" id="pb-sync-to-qqweibo" value="1">
+							转发腾讯微薄
+						</label>
 					</div>
-					-->
+				-->
 				{if $smarty.session.openconnect.WEIB}
 				<div class="aside-item pb-side-opt" id="top-post-holder">
-					<label><input name="openconnect[WEIB]" type="checkbox" value="1" checked="checked" />发布到新浪微薄</label>
+					<label>
+						<input name="openconnect[WEIB]" type="checkbox" value="1" checked="checked" />
+						发布到新浪微薄
+					</label>
 				</div>
 				{/if}
 				<input type="hidden" name="blog-types" id="blog-types" value="2" />
