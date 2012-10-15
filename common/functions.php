@@ -929,3 +929,21 @@
 		$str = preg_replace($farr, $tarr, $str);
 		return $str;
 	}
+	
+	/**
+	 * 写日志
+	 */
+	function writeLog($level, $content) {
+		switch($level) {
+		case "info":
+			$file = fopen(APP_PATH . "/logs/luomor_info.log", "a+");
+			break;
+		case "error":
+			$file = fopen(APP_PATH . "/logs/luomor_error.log", "a+");
+			break;
+		default:
+			$file = fopen(APP_PATH . "/logs/luomor_info.log", "a+");
+		}
+		fwrite($file, date("Y-m-d H:i:s") . " " . $content . "\r\n");
+		fclose($file);
+	}

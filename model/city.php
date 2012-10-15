@@ -13,5 +13,9 @@
 			$result = $this -> findSql($sql);
 			return $result;
 		}
+		
+		public function findByPosition($latitude, $longitude) {
+			
+		}
 	}
 ?>
