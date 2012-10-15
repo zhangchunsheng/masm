@@ -92,7 +92,7 @@ hr.separator {border-bottom: 1px solid #FEFFFE;border-top: 1px solid #E2E6E8;bor
 #pb-action-holder {
     margin: 30px 0 0;
 }
-#submit,#submit_baseinfo,#submit_chgpwd,#submit_music,#submit_image,#submit_video {float: right;height: 32px;line-height: 32px;margin-left: 15px;}
+#submit_map,#submit_text,#submit_baseinfo,#submit_chgpwd,#submit_music,#submit_image,#submit_video {float: right;height: 32px;line-height: 32px;margin-left: 15px;}
 
 .input-button, .blue-button {
     background: url(../blue-button.png) repeat-x scroll 0 0 transparent;

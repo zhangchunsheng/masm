@@ -60,7 +60,7 @@
 					'@' => array('domain', 'uid') //泛解析参数
 				)
 			),
-			'aUpload' => array( //上传
+			'luomorUpload' => array( //上传
 				'savepath' => APP_PATH, //保存的绝对位置
 				'savedir'  => 'attachs', //相对位置
 				'tmppath' => APP_PATH . '/attachs/tmp', //上传临时位置必须存在

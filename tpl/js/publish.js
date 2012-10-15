@@ -47,8 +47,6 @@ $(document).ready(function () {
 		internalStyle: false
 	});
 
-
-
 	var jUpload = $('#upload_img input');
 	jUpload.mousedown(function () {
 		textbody.saveBookmark();
@@ -62,7 +60,6 @@ $(document).ready(function () {
 				$('#uploading').hide();
 				var data = Object,
 					bOK = false;
-
 				try {
 					data = eval('(' + sText + ')');
 				} catch (ex) {
@@ -82,7 +79,6 @@ $(document).ready(function () {
 						}
 						textbody.pasteHTML('<img src="' + data.msg.url + '" class="feedimg" />');
 					}
-
 				} else {
 					alert(data.err);
 				}
@@ -143,8 +139,6 @@ $(document).ready(function () {
 					setTimeout(function () {
 						window.location.reload()
 					}, 2000);
-
-
 				} else {
 					alert(data.err);
 				}
@@ -195,7 +189,7 @@ $(document).ready(function () {
 			});
 			return false;
 		}
-		$('#form1').submit();
+		$('#form_publish').submit();
 	});
 
 	$('#post-tag-input').bind('keyup', function (event) {
@@ -214,7 +208,6 @@ $(document).ready(function () {
 		var m_reps = $('#m_rep').val();
 		var m_fows = $('#m_fow').val();
 		var m_pms = $('#m_pm').val();
-
 
 		var tag_str = '';
 		$('#post-tag2 li').each(function () {
@@ -284,7 +277,6 @@ $(document).ready(function () {
 							});
 							dls.close();
 						} else {
-
 							$.dialog({
 								id: 'alerts',
 								icon: 'alert',
@@ -301,21 +293,26 @@ $(document).ready(function () {
 							name: '取消',
 							disabled: false
 						});
-
-					})
-
+					});
 					return false;
 				}
 			}, {
 				name: '取消'
 			}],
-
 			noFn: true
 		});
 	});
+	
+	//发布地图
+	$("#submit_map").click(function() {
+		var title = $("#pb-text-title").val();
+		var text = $("#textarea").val();
+		console.log(marker);
+		return false;
+	});
 
 	//发布text
-	$('#submit').click(function () {
+	$('#submit_text').click(function() {
 		var title = $('#pb-text-title').val();
 		var text = $('#textarea').val();
 		if (text == '') {
@@ -328,11 +325,11 @@ $(document).ready(function () {
 			return false;
 		}
 		$('#submit,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-		$('#form1').submit();
+		$('#form_publish').submit();
 	});
 
 	//发布music
-	$('#submit_music').click(function () {
+	$('#submit_music').click(function() {
 		var umus = ''; //获取发布音乐字符串
 		$('#musicList .list').each(function () {
 			umus += $(this).attr('type') + '|' + $(this).attr('img') + '|' + $(this).attr('pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('url') + '[YB]';
@@ -349,7 +346,7 @@ $(document).ready(function () {
 				yesFn: function () {
 					$('#urlmusic').val(umus); //写入数据
 					$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-					$('#form1').submit();
+					$('#form_publish').submit();
 				},
 				noFn: true
 			});
@@ -358,16 +355,15 @@ $(document).ready(function () {
 				tips('请添加一个网络音乐或者上传音乐');
 				return false;
 			}
-
 			$('#urlmusic').val(umus); //写入数据
 			$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-			$('#form1').submit();
+			$('#form_publish').submit();
 		}
 		//return false;
 	});
 
 	//发布image
-	$('#submit_image').click(function () {
+	$('#submit_image').click(function() {
 		var umus = ''; //获取发布音乐字符串
 		$('#uploadArea div').each(function () {
 			umus += 1
@@ -382,11 +378,11 @@ $(document).ready(function () {
 		}
 		$('#urlmusic').val(umus); //写入数据
 		$('#submit_image,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-		$('#form1').submit();
+		$('#form_publish').submit();
 	});
 
 	//发布video
-	$('#submit_video').click(function () {
+	$('#submit_video').click(function() {
 		var umus = ''; //获取发布音乐字符串
 		$('#musicList .list').each(function () {
 			umus += $(this).attr('type') + '|' + $(this).attr('img') + '|' + $(this).attr('pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('url') + '[YB]';
@@ -402,10 +398,9 @@ $(document).ready(function () {
 		}
 		$('#urlmusic').val(umus); //写入数据
 		$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-		$('#form1').submit();
+		$('#form_publish').submit();
 	});
 });
-
 
 function postoff() {
 	$('#pb-submiting-tip,#submit_baseinfo,#chgpwd,#cancel').toggle();

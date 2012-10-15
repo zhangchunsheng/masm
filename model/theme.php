@@ -32,7 +32,7 @@
 		}
 
 		function clearCustom() {
-			$ext = spExt('aUpload');
+			$ext = spExt('luomorUpload');
 			$savedir = $ext['savepath'] . '/' . $ext['savedir'] . '/theme/';
 			$this -> updateExtField($_SESSION['uid'], 'img1', $savedir, '');
 			$this -> updateExtField($_SESSION['uid'], 'img2', $savedir, '');

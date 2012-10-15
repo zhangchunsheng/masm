@@ -12,7 +12,12 @@
 		private $diydir = '';
 		private $tmppath = '';
 		private $savedir = '';
-		// 1 按照天 2011/05/03  2 按照月 2011/05  3 按照年 2011  4 月按照指定名称创建  2011/11/diydirs
+		/*
+		 * 1 按照天 2011/05/03
+		 * 2 按照月 2011/05
+		 * 3 按照年 2011
+		 * 4 月按照指定名称创建 2011/11/diydirs
+		 */
 		private $dirtype = '';
 		private $uploaded  = '';
 
@@ -20,7 +25,7 @@
 		private $imgmask   = FALSE;
 
 		public function __construct() {
-			$params = spExt('aUpload');
+			$params = spExt('luomorUpload');
 			$this -> save_path = $params['savepath'];
 			$this -> filetypes = $params['filetype'];
 			$this -> filesizes = $params['filesize'];
@@ -132,7 +137,7 @@
 					$bytes = filesize($tempPath);
 
 					if($bytes > $this -> filesizes)
-						$err='请不要上传大小超过' . $this -> formatBytes($this -> filesizes) . '的文件';
+						$err = '请不要上传大小超过' . $this -> formatBytes($this -> filesizes) . '的文件';
 					else {
 						PHP_VERSION < '4.2.0' && mt_srand((double)microtime() * 1000000);
 						if($this -> dirtype == 5) {
@@ -180,7 +185,6 @@
 							$imghd -> resizeToWidth(200);
 							$imghd -> save($dirname . '/' . $big);
 
-
 							$imghd -> load($this -> uploaded);
 							$imghd -> square(65);
 							$imghd -> save($dirname . '/' . $middle);
@@ -203,7 +207,7 @@
 							$imghd -> waterMark($this -> mark_src);
 							$imghd -> save($this -> uploaded);
 						}
-						$msg = "{'url':'" . $nfilename . "','localname':'" . $this->jsonString($localName) . "','filesize':'$bytes','mime':'$mime','fid':'$insertid'}";
+						$msg = "{'url':'" . $nfilename . "','localname':'" . $this -> jsonString($localName) . "','filesize':'$bytes','mime':'$mime','fid':'$insertid'}";
 					}
 				}
 				else $err = '上传文件扩展名必需为：' . $this -> filetypes;
@@ -222,18 +226,18 @@
 		 */
 		private function selectuptype($type) {
 			if($type == 4) {
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()));
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()));
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()) . '/' . date('d', time()));
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()) . '/' . date('d', time()) . '/' . $this -> diydir);
-				$returndir = $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()) . '/' . date('d', time()) . '/' . $this -> diydir;
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()));
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()));
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()) . '/' . date('d', time()));
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()) . '/' . date('d', time()) . '/' . $this -> diydir);
+				$returndir = $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()) . '/' . date('d', time()) . '/' . $this -> diydir;
 			} elseif($type == 3) {
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()));
-				$returndir = $this -> savedir . '/' . date('y', time());
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()));
+				$returndir = $this -> savedir . '/' . date('Y', time());
 			} elseif($type == 2) {
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()));
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()));
-				$returndir = $this -> savedir . '/' . date('y', time()) . '/' . date('n', time());
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()));
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()));
+				$returndir = $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time());
 			} elseif($type == 5) { //头像
 				$uid = abs(intval($this -> diydir));
 				$uid = sprintf("%09d", $uid);
@@ -246,10 +250,10 @@
 				$this -> mkdirs($this -> save_path . '/' . $dir1 . '/' . $dir2 . '/' . $dir3);
 				$returndir =  $dir1 . '/' . $dir2 . '/' . $dir3;
 			} else {
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()));
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()));
-				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()) . '/'. date('d', time()));
-				$returndir = $this -> savedir . '/' . date('y', time()) . '/' . date('n', time()) . '/' . date('d', time());
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()));
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()));
+				$this -> mkdirs($this -> save_path . '/' . $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()) . '/'. date('d', time()));
+				$returndir = $this -> savedir . '/' . date('Y', time()) . '/' . date('n', time()) . '/' . date('d', time());
 			}
 			return $returndir;
 		}

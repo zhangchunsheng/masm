@@ -7,13 +7,13 @@
 	class base extends spController {
 		// 构造函数，进行全局操作的位置
 		function __construct() {
-			parent::__construct();
+			parent :: __construct();
 			global $site_uri;
 			$this -> luomor = $GLOBALS['LUOMOR'] + $GLOBALS['G_SP']['luomor'];
 			$this -> url = $site_uri;
 		}
 
-		/*调用基本信息及通知信息*/
+		//调用基本信息及通知信息
 		protected function memberinfo() {
 			if(islogin()) {
 				$this -> user = spClass('member') -> find(array('uid' => $_SESSION['uid'])); //用户信息
@@ -53,7 +53,7 @@
 			}
 		}
 
-		/*处理信息tag user.c and  add.c used*/
+		//处理信息tag user.c and  add.c used
 		protected function __parse_mytag($mytag) {
 			if($mytag != '') {
 				$mytag = explode(',', $mytag);
@@ -63,7 +63,7 @@
 			}
 		}
 		
-		/*无提示跳转*/
+		//无提示跳转
 		public function jslocation($x) {
 			exit('<script language="javascript" type="text/javascript"> parent.window.location.href="' . $x . '";</script>');
 		}

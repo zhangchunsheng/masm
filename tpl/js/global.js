@@ -52,39 +52,28 @@
 	};
 })(jQuery);
 
-
-
 $(document).ready(function () {
-
 	/*
-	(function() {
-    var $backToTopTxt = "返回顶部", $backToTopEle = $('<div class="backToTop"></div>').appendTo($("body"))
-        .text($backToTopTxt).attr("title", $backToTopTxt).click(function() {
-            $("html, body").animate({ scrollTop: 0 }, 500);
-    }), $backToTopFun = function() {
-        var st = $(document).scrollTop(), winh = $(window).height();
-        (st > 0)? $backToTopEle.show(): $backToTopEle.hide();
-        //IE6下的定位
-        if (!window.XMLHttpRequest) {
-            $backToTopEle.css("top", st + winh - 166);
-        }
-    };
-    $(window).bind("scroll", $backToTopFun);
-    $(function() { $backToTopFun(); });
-})();
-*/
-
-
+		(function() {
+			var $backToTopTxt = "返回顶部", $backToTopEle = $('<div class="backToTop"></div>').appendTo($("body"))
+				.text($backToTopTxt).attr("title", $backToTopTxt).click(function() {
+					$("html, body").animate({ scrollTop: 0 }, 500);
+			}), $backToTopFun = function() {
+				var st = $(document).scrollTop(), winh = $(window).height();
+				(st > 0)? $backToTopEle.show(): $backToTopEle.hide();
+				//IE6下的定位
+				if (!window.XMLHttpRequest) {
+					$backToTopEle.css("top", st + winh - 166);
+				}
+			};
+			$(window).bind("scroll", $backToTopFun);
+			$(function() { $backToTopFun(); });
+		})();
+	*/
 	$('#menuSideBtn').click(function () {
 		$('#menuSide').toggle();
 		$(this).toggleClass('curr');
-	})
-
-
-
-
-
-
+	});
 	if ($('img').attr('alt') == '') {
 		$('img').attr('alt', ' ');
 	}
@@ -109,7 +98,6 @@ $(document).ready(function () {
 
 var globalcount; //feedtolbar state
 function feedToolBar(id) {
-
 	$(document).ready(function () {
 		$(window).bind("scroll", function (event) {
 			var fold = $(window).height() + $(window).scrollTop();
@@ -132,29 +120,21 @@ function feedToolBar(id) {
 					$.post(url, {
 						page: p
 					}, function (rs) {
-
 						if (rs != '') {
 							area = $('#' + id).attr('area');
 							$('#' + area).append(rs);
 							$('#' + id).attr('page', nextpage);
 							globalcount = 0; //出队列
-
 						} else {
 							$('#' + id).html('没有更多了');
 							globalcount = 1; //出队列
 						}
-
 					})
-
 				}
-
-
-
 			}
 		});
 	});
 }
-
 
 /*var offset = 2247;
 var backgroundheight = offset;
@@ -168,10 +148,7 @@ function scrollbackground() {
 };
 scrollbackground();*/
 
-
-
 function continueShow(id) {
-
 	p = parseInt($('#' + id).attr('page'));
 	url = $('#' + id).attr('query');
 
@@ -189,12 +166,8 @@ function continueShow(id) {
 			$('#' + id).attr('page', nextpage);
 			$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/images/hand.gif" class="loading"/>点击查看更多...</a>');
 		}
-
 	})
 }
-
-
-
 
 function searchTag() {
 	var tag = $('#search .ipt').val();
@@ -204,17 +177,17 @@ function searchTag() {
 		$('#search .btn').addClass('loading');
 		window.location.href = urlpath + '/index.php?c=blog&a=tag&tag=' + tag;
 	}
-
 }
 
-/*取消链接*/
+//取消链接
 function cancelConnect(url) {
 	$.post(url, function (rs) {
 		window.location.reload();
 	})
 
 }
-/*删除博客*/
+
+//删除博客
 function delblogs(id, url) {
 	$.dialog({
 		content: '确认删除这篇文章？',
@@ -235,7 +208,6 @@ function delblogs(id, url) {
 }
 
 function delrep(id, url) {
-
 	$.dialog({
 		content: '确认删除本回复？',
 		lock: true,
@@ -254,8 +226,7 @@ function delrep(id, url) {
 	});
 }
 
-
-/*发送站内信*/
+//发送站内信
 function sendpm(uid, info) {
 	if (info == undefined) {
 		info = ''
@@ -271,7 +242,6 @@ function sendpm(uid, info) {
 
 //默认父框架刷新网页 为1 关闭父页面
 function doPmSubmit(call) {
-
 	var u = $('#postpm').find('input[name=uid]').val();
 	var i = $('#postpm').find('textarea').val();
 	if (i == '') {
@@ -284,7 +254,6 @@ function doPmSubmit(call) {
 		uid: u,
 		info: i
 	}, function (rs) {
-
 		if (rs == -1) {
 			alert('发送频率限制,请30秒后再试');
 			if (call == 1) {
@@ -314,14 +283,10 @@ function doPmSubmit(call) {
 			$('#submit_button').show();
 			$('#submit_tip').hide();
 		}
-
-
 	})
 }
 
-
-
-/*删除通知*/
+//删除通知
 function delnotice(id, url) {
 	art.dialog.confirm('删除后对方也无法查看,确定吗?', function () {
 		$.post(url, function (result) {
@@ -335,7 +300,7 @@ function delnotice(id, url) {
 
 }
 
-/*已读通知*/
+//已读通知
 function isreadnotice(id, url) {
 	$.post(url, function (result) {
 		if (result == 1) {
@@ -345,7 +310,8 @@ function isreadnotice(id, url) {
 		}
 	});
 }
-/*显示首页评论框*/
+
+//显示首页评论框
 function indexPostTab(type, id, url) {
 	if (type == 'reprint') {
 		$('#comment_' + id).hide();
@@ -378,21 +344,22 @@ function indexPostTab(type, id, url) {
 	}
 }
 
-/*ajax page*/
+//ajax page
 function runpage(url, id) {
 	$('#' + id).html('<p id="upstates">loading......</p>');
 	$.post(url, function (result) {
 		$('#' + id).html(result);
 		$('#' + id).find('#upstates').remove();
-	})
+	});
 }
-/*设置文本框的回复*/
+
+//设置文本框的回复
 function replays(id, user, uid) {
 	$('#replyInput_' + id).focus().val('@' + user + ':');
 	$('#replyTo_' + id).val(uid);
-
 }
-/*提交文本框的回复*/
+
+//提交文本框的回复
 function sendReplay(id, url) {
 	var ipt = $('#replyInput_' + id).val();
 	if (ipt == '') {
@@ -416,7 +383,7 @@ function sendReplay(id, url) {
 	});
 }
 
-/*加喜欢*/
+//加喜欢
 function likes(id, url) {
 	$.post(url, {
 		bid: id
@@ -431,7 +398,7 @@ function likes(id, url) {
 	});
 }
 
-/*加关注*/
+//加关注
 function follows(uid, url) {
 	$.post(url, {
 		uid: uid
@@ -446,9 +413,9 @@ function follows(uid, url) {
 			tiper(result);
 		}
 	});
-
 }
-/*加标签*/
+
+//加标签
 function addMytag(tagName, url) {
 	$.post(url, {
 		tag: tagName
@@ -463,7 +430,6 @@ function addMytag(tagName, url) {
 			tiper(result);
 		}
 	});
-
 }
 
 function reinitIframe(x) {
@@ -477,8 +443,6 @@ function reinitIframe(x) {
 	} catch (ex) {}
 }
 
-
-
 function opennotice() {
 	var msg = document.getElementById('message');
 	$.dialog({
@@ -486,9 +450,8 @@ function opennotice() {
 	});
 }
 
-/*清除通知*/
+//清除通知
 function noticeclear(sysid) {
-
 	art.dialog.confirm('都知道了吗?', function () {
 		$.post(urlpath + '/index.php?c=user&a=mynotice&clears=' + sysid, function (rs) {
 			window.location.reload();
@@ -496,18 +459,16 @@ function noticeclear(sysid) {
 	})
 }
 
-/*删除通知*/
+//删除通知
 function noticedel(sysid) {
 	art.dialog.confirm('要删掉吗?', function () {
 		$.post(urlpath + '/index.php?c=user&a=mynotice&dels=' + sysid, function (rs) {
 			window.location.reload();
 		})
 	})
-
 }
 
 function OMP(url, that) {
-
 	var prgm = '<object width="500" height="385"><param name="allowscriptaccess" value="always"></param>' + '<param name="wmode" value="Opaque"></param><param name="movie" value="' + url + '"></param>' + '<embed src="' + url + '" width="500" height="385" allowscriptaccess="always" wmode="window"  type="application/x-shockwave-flash"></embed>' + '</object>';
 	$(that).parent().find('div .playbox').html(prgm);
 	$(that).parent().parent().find('.feed_content').addClass('feed_content_h');
@@ -539,7 +500,8 @@ function openconnect(url) {
 		opacity: '0.4'
 	});
 }
-/*短暂提示 global*/
+
+//短暂提示global
 function tips(txt) {
 	$.dialog({
 		icon: 'face-sad',
@@ -550,7 +512,7 @@ function tips(txt) {
 	}).shake();
 }
 
-/*短暂提示 ok 和err*/
+//短暂提示ok,err
 function tipok(txt) {
 	$.dialog({
 		icon: 'face-smile',
@@ -570,7 +532,8 @@ function tiper(txt) {
 		fixed: true
 	}).shake();
 }
-/*删除博客*/
+
+//删除博客
 function delblog(x, y) {
 	art.dialog.confirm('确定要删除日志#' + x + '?相关附件将会一并删除,且无法恢复', function () {
 		window.location.href = y

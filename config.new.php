@@ -3,8 +3,8 @@
 	define('APP_NAME', '/luomor/trunk/');
 	$spConfig = array(
 		'luomor' => array(
-			'loginCodeSwitch' => 'close',//登陆验证开关 打开请写open
-			'regCodeSwitch' => 'close', //注册验证开关 打开请写open
+			'loginCodeSwitch' => 'close',//登录验证开关 打开请写open
+			'regCodeSwitch' => 'close', //登录验证开关 打开请写open
 		),
 
 		'mode' => 'debug', // 应用程序模式，默认为调试模式debug  部署release
@@ -62,7 +62,7 @@
 					'@' => array('domain', 'uid')
 				),
 			),
-			'aUpload' => array( //上传
+			'luomorUpload' => array( //上传
 				'savepath' => APP_PATH , //保存的绝对位置
 				'savedir'  => 'attachs', //相对位置
 				'tmppath' => APP_PATH .'/attachs/tmp',  //上传临时位置必须存在

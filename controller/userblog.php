@@ -120,7 +120,7 @@
 								if($d['size'] > $this -> luomor['theme_uploadsize']) {
 									exit('上传大小不能超过：' . ($this -> luomor['theme_uploadsize']/1024/1024) . 'MB');
 								}
-								$ext = spExt('aUpload');
+								$ext = spExt('luomorUpload');
 								$savedir = $ext['savepath'] . '/' . $ext['savedir'] . '/theme/';
 								$fpath = date('Y') . '/' . date('m') . '/' . date('d') . '/';
 								$ext = pathinfo($d['name']);
@@ -131,7 +131,7 @@
 								$fname   = time() . '.' . $ext['extension'];
 								__mkdirs($savedir . $fpath);
 								$save = $savedir . $fpath . $fname;
-								$uploadext = spExt('aUpload');
+								$uploadext = spExt('luomorUpload');
 
 								spClass('theme') -> updateExtField($_SESSION['uid'], $find[1], $savedir, $fpath . $fname);
 								move_uploaded_file($d['tmp_name'], $save);

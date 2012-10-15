@@ -10,9 +10,9 @@
 	 */
 
 	return array(
-		'yb' => array(
+		'luomor' => array(
 			'loginCodeSwitch' => 'close',
-			'regCodeSwitch'=>'close'
+			'regCodeSwitch' => 'close'
 		),
 		'mode' => 'debug', // 应用程序模式，默认为调试模式
 		'sp_core_path' => SP_PATH . '/Core', // 框架MVC核心目录

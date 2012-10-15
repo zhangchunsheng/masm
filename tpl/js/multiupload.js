@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var uploadurl = urlpath + '/index.php?c=add&a=swfupload',
+	var uploadurl = urlpath + '/index.php?c=publisher&a=swfupload',
 		ext = '图像文件 (*.*)',
 		size = $('#uploadmaxsize').val(),
 		count = $('#uploadcount').val(),
@@ -61,8 +61,6 @@ $(document).ready(function () {
 		// 调试设置
 		debug: false
 	});
-
-
 })
 
 function getQuery(item) {
@@ -107,12 +105,15 @@ function setFileState(fileid, txt) {
 function fileQueued(file) {//队列添加成功
 	$('#submit_image,#draft,#preview,#cancel').hide();
 	$('#pb-submiting-tip').show();
-	for (var i in selQueue) if (selQueue[i].name == file.name) {
-		swfu.cancelUpload(file.id);
-		return false;
-	} //防止同名文件重复添加
+	for (var i in selQueue) {
+		if (selQueue[i].name == file.name) {
+			swfu.cancelUpload(file.id);
+			return false;
+		} //防止同名文件重复添加
+	}
 	$('#listBody').append('<tr id="' + file.id + '"><td>' + file.name + '</td><td>' + formatBytes(file.size) + '</td><td id="' + file.id + '_state">就绪</td></tr>');
-	//if(selQueue.length==0)$('#controlBtns').show();
+	/*if(selQueue.length == 0)
+		$('#controlBtns').show();*/
 	selQueue.push(file);
 	allSize += file.size;
 	swfu.startUpload();

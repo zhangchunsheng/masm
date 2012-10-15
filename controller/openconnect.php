@@ -139,7 +139,7 @@
 		//拉取用户头像
 		private function getUserFace($url,$uids) {
 			if($string = @file_get_contents($url)) {
-				$params = spExt('aUpload');
+				$params = spExt('luomorUpload');
 				$temppath = $params['tmppath'];
 				$urls = pathinfo($url); //获取图片信息
 				$tempfile =  $temppath . '/' . $uids . '.' . $urls['extension'];

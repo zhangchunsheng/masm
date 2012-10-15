@@ -24,6 +24,9 @@
 			$livecity_code = $_SESSION["livecity_code"];
 			if(empty($livecity_code))
 				$livecity_code = "001001";
+			$this -> getCreateBid();
+			$this -> attach();
+			$this -> myTagUsually();
 			$this -> city = spClass("city") -> findBy("code", $livecity_code);
 			$this -> display("publish_map.html");
 		}
@@ -36,7 +39,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('publish_text.html');  //默认发布文字行
+			$this -> display('publish_text.html');
 		}
 
 		//发布音乐模型
@@ -47,7 +50,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('publish_music.html');  //默认发布文字
+			$this -> display('publish_music.html');
 		}
 
 		//发布图片模型
@@ -58,7 +61,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('publish_image.html');  //默认发布文字
+			$this -> display('publish_image.html');
 		}
 
 		//发布视频模型/
@@ -69,7 +72,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually(); //我的常用标签
-			$this -> display('publish_video.html');  //默认发布文字
+			$this -> display('publish_video.html');
 		}
 
 		public function edit() {
@@ -100,13 +103,14 @@
 				$this -> error("唉，系统压力太大出错了");//丢失临时id
 			}
 			$one = spClass("mblog") -> findBy('bid', $_SESSION['tempid']);
-			
+			$cityCode = "";
+			$cityName = "";
 			if($this -> spArgs("blog-types") == 1) {
 				
 			}
 			
 			if($this -> spArgs('blog-types') == 2) {
-				$this -> _localImgParse($this -> spArgs('textarea'));  //处理图像资源
+				$this -> _localImgParse($this -> spArgs('textarea')); //处理图像资源
 				if($this -> spArgs('blog-attach') != '') {
 					$bodypre = '[attribute]' . serialize($this -> spArgs('blog-attach')) . '[/attribute]';
 				} //加入属性关键字
@@ -140,9 +144,14 @@
 				'top' => $this -> spArgs('pb-top-post', 0),
 				'tag' => substr((strip_tags($this -> spArgs('blog-tags'))), 0, -1),
 				'attribute' => $attribute,
-				'body' => $bodypre.strreplaces($this -> spArgs('textarea')),
+				'body' => $bodypre . strreplaces($this -> spArgs('textarea')),
+				'cityCode' => $cityCode,
+				'cityName' => $cityName,
+				'latitude' => spArgs('latitude', ''),
+				'longitude' => spArgs('longitude', ''),
+				'address' => spArgs('address', ''),
 				'open' => $this -> spArgs('blog-open'),
-				'noreply' => $this -> spArgs('pb-nowrite-post',0),
+				'noreply' => $this -> spArgs('pb-nowrite-post', 0),
 				'open' => $this -> spArgs('post-privacy-select'),
 				'time' => time()
 			);
@@ -354,7 +363,7 @@
 					$this -> times = $ras['time'];
 					$this -> blog = $ras;
 				} else {
-					$this -> error('您没有权利编辑', spUrl('main', 'index'));
+					$this -> error('您没有权限编辑', spUrl('main', 'index'));
 				}
 			}
 		}

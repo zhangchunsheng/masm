@@ -43,17 +43,17 @@
 		 * @param tplname 模板文件路径
 		 */
 		public function display($tplname)
-		{	
+		{
 			try {
-					$this->displayed = TRUE;
-					$this->addfuncs();
-					if($GLOBALS['G_SP']['view']['debugging'] && SP_DEBUG)$this->engine->debugging = TRUE;
-					$this->engine->display($tplname);
+				$this->displayed = TRUE;
+				$this->addfuncs();
+				if($GLOBALS['G_SP']['view']['debugging'] && SP_DEBUG)$this->engine->debugging = TRUE;
+				$this->engine->display($tplname);
 			} catch (Exception $e) {
 				spError( $GLOBALS['G_SP']['view']['engine_name']. ' Error: '.$e->getMessage() );
 			}
 		}
-		
+
 		/**
 		 * 注册已挂靠的视图函数
 		 */
@@ -98,7 +98,7 @@
 		{
 			return T($params['w']);
 		}
-		
+
 		public function __soft_V()
 		{
 			return '<a href="http://www.luomor.com">' . $GLOBALS['LUOMOR']['soft'] . '</a>&nbsp;<b>' . $GLOBALS['LUOMOR']['version'] . '</b>';
@@ -114,7 +114,7 @@
 		private $spurls = null;
 		/**
 		 * 生成单个静态页面
-		 * 
+		 *
 		 * @param spurl spUrl的参数
 		 * @param alias_url 生成HTML文件的名称，如果不设置alias_url，将使用年月日生成目录及随机数为文件名的形式生成HTML文件。
 		 * @param update_mode    更新模式，默认2为同时更新列表及文件
@@ -128,7 +128,7 @@
 			if( $url_item = spHtml::getUrl($controller, $action, $args, $anchor, TRUE) ){
 				@list($baseuri, $realfile) = $url_item;$update_mode = 1;
 			}else{
-				$file_root_name = ( '' == $GLOBALS['G_SP']['html']['file_root_name'] ) ? 
+				$file_root_name = ( '' == $GLOBALS['G_SP']['html']['file_root_name'] ) ?
 										'' : $GLOBALS['G_SP']['html']['file_root_name'].'/';
 				if( null == $alias_url ){
 					$filedir = $file_root_name .date('Y/n/d').'/';
@@ -153,7 +153,7 @@
 				file_put_contents($realfile, $cachedata);
 			}
 		}
-		
+
 		/**
 		 * 当file_get_contents失效时，程序将调用CURL函数来进行网络数据获取
 		 * @param url 访问地址
@@ -169,7 +169,7 @@
 			if (FALSE === $contents)return FALSE;
 			return $contents;
 		}
-		
+
 		/**
 		 * 批量生成静态页面
 		 * @param spurls 数组形式，每项是一个make()的全部参数
@@ -185,14 +185,14 @@
 				$this->make($spurl, $alias_url, 1);
 			}
 		}
-		
+
 		public function start(){spAccess('w','sp_html_making',1);$this->spurls = null;}
 		public function commit(){spAccess('c','sp_html_making');$this->makeAll($this->spurls);}
 
 		/**
 		 * 获取url的列表程序，可以按配置开启是否检查文件存在
 		 * @param controller    控制器名称，默认为配置'default_controller'
-		 * @param action    动作名称，默认为配置'default_action' 
+		 * @param action    动作名称，默认为配置'default_action'
 		 * @param args    传递的参数，数组形式
 		 * @param anchor    跳转锚点
 		 * @param force_no_check    是否检查物理文件是否存在
@@ -215,7 +215,7 @@
 			}
 			return FALSE;
 		}
-		
+
 		/**
 		 * 写入url的列表程序，在make生成页面后，将spUrl参数及页面地址写入列表中
 		 *
@@ -238,7 +238,7 @@
 
 		/**
 		 * 清除静态文件
-		 * 
+		 *
 		 * @param controller    需要清除HTML文件的控制器名称
 		 * @param action    需要清除HTML文件的动作名称，默认为清除该控制器全部动作产生的HTML文件
 		 * 如果设置了action将仅清除该action产生的HTML文件
@@ -274,11 +274,11 @@
 				spAccess('w', 'sp_url_list', join("\n", $re_url_list));
 			}
 		}
-		
+
 
 		/**
 		 * 清除全部静态文件
-		 * 
+		 *
 		 * @param delete_file    是否删除物理文件，FALSH将只删除列表中该静态文件的地址，而不删除物理文件。
 		 */
 		public function clearAll($delete_file = FALSE)
