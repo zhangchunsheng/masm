@@ -201,9 +201,8 @@
 		 *
 		 * @param sql 字符串，需要进行查找的SQL语句
 		 */
-		public function findSql($sql)
-		{
-			return $this->_db->getArray($sql);
+		public function findSql($sql) {
+			return $this -> _db -> getArray($sql);
 		}
 
 		/**

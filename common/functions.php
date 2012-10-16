@@ -495,7 +495,7 @@
 	}
 	
 	//处理显示首页或推荐的博文类型feeds
-	function feddshtml($blogs, $index = 1, $type = 'index') {
+	function feedshtml($blogs, $index = 1, $type = 'index') {
 		$site_uri = trim(dirname($GLOBALS['G_SP']['url']["url_path_base"]), "\/\\");
 		if($site_uri == '') {
 			$site_uri = 'http://' . $_SERVER["HTTP_HOST"];
@@ -928,6 +928,131 @@
 		);
 		$str = preg_replace($farr, $tarr, $str);
 		return $str;
+	}
+	
+	/**
+	 * 个性化域名
+	 * 保留子域名
+	 */
+	function getDomainArray() {
+		return array("zhangchunsheng","chunshengzhang","luomor","www","bbs","blog","news","yiluxiangbei","google","justwannabewithyou");
+	}
+	
+	/**
+	 * 获得位置信息
+	 * HTTP 地址解析器支持并返回以下类型：
+	 * street_address 表示一个精确的街道地址。
+	 * route 表示一条已命名的路线（如“US 101”）。
+	 * intersection 表示一个大十字路口，通常由两条主道交叉形成。
+	 * political 表示一个政治实体。此类型通常表示代表某个行政管理区的多边形。
+	 * country 表示国家政治实体。在地址解析器返回的结果中，该部分通常列在最前面。
+	 * administrative_area_level_1 表示仅次于国家级别的行政实体。在美国，这类行政实体是指州。并非所有国家都有该行政级别。
+	 * administrative_area_level_2 表示国家级别下的二级行政实体。在美国，这类行政实体是指县。并非所有国家都有该行政级别。
+	 * administrative_area_level_3 表示国家级别下的三级行政实体。此类型表示较小的行政单位。并非所有国家都有该行政级别。
+	 * colloquial_area 表示实体的通用别名。
+	 * locality 表示合并的市镇级别政治实体。
+	 * sublocality 表示仅次于地区级别的行政实体。
+	 * neighborhood 表示已命名的邻近地区。
+	 * premise 表示已命名的位置，通常是具有常用名称的建筑物或建筑群。
+	 * subpremise 表示仅次于已命名位置级别的实体，通常是使用常用名称的建筑群中的某座建筑物。
+	 * postal_code 表示邮政编码，用于确定相应国家/地区内的信件投递地址。
+	 * natural_feature 表示某个明显的自然特征。
+	 * airport 表示机场。
+	 * park 表示已命名的公园。
+	 * point_of_interest 表示已命名的兴趣点。通常，这些“POI”是一些不易归入其他类别的比较有名的当地实体，如“帝国大厦”或“自由女神像”。
+	 */
+	function getPositionInfo($latitude, $longitude) {
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&sensor=false&language=zh-CN&region=cn";
+		$info = json_decode(request($url, "get"));
+		$positionInfo = new StdClass();
+		if($info -> status == "OK") {
+			/**
+			 * street_address postal_code sublocality locality administrative_area_level_1 country
+			 */
+			$results = $info -> results;
+			foreach($results as $key_result => $value_result) {
+				$type = $value_result -> types[0];
+				switch($type) {
+				case "street_address":
+				case "postal_code":
+				case "sublocality":
+					$address_components = $value_result -> address_components;
+					foreach($address_components as $key_address => $value_address) {
+						if($value_address -> types[0] == "locality") {
+							$positionInfo -> localityName = $value_address -> long_name;
+							break;
+						}
+					}
+					foreach($address_components as $key_address => $value_address) {
+						if($value_address -> types[0] == "sublocality") {
+							$positionInfo -> sublocalityName = $value_address -> long_name;
+							break;
+						}
+					}
+					$positionInfo -> address_type = $type;
+					$positionInfo -> address = $value_result -> formatted_address;
+					break;
+				case "locality":
+					$address_components = $value -> address_components;
+					foreach($address_components as $key_address => $value_address) {
+						if($value_address -> types[0] == "locality") {
+							$positionInfo -> localityName = $value_address -> long_name;
+							break;
+						}
+					}
+					$positionInfo -> sublocalityName = "";
+					$positionInfo -> address_type = $type;
+					$positionInfo -> address = $value_result -> formatted_address;
+					break;
+				case "administrative_area_level_1":
+					$address_components = $value -> address_components;
+					foreach($address_components as $key_address => $value_address) {
+						if($value_address -> types[0] == "administrative_area_level_1") {
+							$positionInfo -> localityName = $value_address -> long_name;
+							break;
+						}
+					}
+					$positionInfo -> sublocalityName = "";
+					$positionInfo -> address_type = $type;
+					$positionInfo -> address = $value_result -> formatted_address;
+					break;
+				}
+				if($positionInfo -> localityName)
+					break;
+			}
+			if(!$positionInfo -> localityName) {
+				$positionInfo -> localityName = "中国";
+				$positionInfo -> sublocalityName = "";
+				$positionInfo -> address_type = "country";
+				$positionInfo -> address = "中国";
+			}
+		} else {
+			$positionInfo -> localityName = "中国";
+			$positionInfo -> sublocalityName = "";
+			$positionInfo -> address_type = "country";
+			$positionInfo -> address = "中国";
+			writeLog("error", $latitude . " " . $longitude . " " . json_encode($info));
+		}
+		return $positionInfo;
+	}
+	
+	/**
+	 * http请求
+	 */
+	function request($url, $type, $data = array()) {
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		if($type == "get") {
+			curl_setopt($ch, CURLOPT_GET, true);
+		}
+		if($type == "post") {
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+		}
+		$result = curl_exec($ch);
+		curl_close($ch);
+		return $result;
 	}
 	
 	/**

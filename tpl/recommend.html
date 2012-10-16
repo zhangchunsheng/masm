@@ -15,13 +15,18 @@
 				<tbody>
 					{foreach from=$htag item=d}
 					<tr class="tag-row {cycle values="odd,add"}">
-					<td class="tag"><a href="{spUrl c=blog a=tag tag=$d.title}" target="_blank">{$d.title}</a></td>
+					<td class="tag">
+						<a href="{spUrl c=blog a=tag tag=$d.title}" target="_blank">{$d.title}</a>
+					</td>
 					<td class="hot">
 						<div class="state" style="width:{checkHit max=$hotMax val=$d.num}%">{$d.num}</div>
 					</td>
 					<td class="editor">{parseTime time=$d.updates}&nbsp;</td>
 					<td class="editor">
-						<a href="{$url}/{$d.user.domain}" title="{$d.user.username}" target="_blank"> <img src="{avatar uid=$d.user.uid size=small}" alt="{$d.user.username}" align="absmiddle" />{$d.user.username}</a>
+						<a href="{$url}/{$d.user.domain}" title="{$d.user.username}" target="_blank">
+							<img src="{avatar uid=$d.user.uid size=small}" alt="{$d.user.username}" align="absmiddle" />
+							{$d.user.username}
+						</a>
 					</td>
 					</tr>
 					{/foreach}

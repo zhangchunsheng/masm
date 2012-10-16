@@ -13,19 +13,20 @@
 					{/if}
 					<div>
 						<h3 class="usettitle"> 我的账号 <span>(不可更改)</span> </h3>
-						<input type="text" class="iptname" value="{$user.email}" disabled="disabled" />
+						<input type="text" class="iptname" value="{$user.email}" style="width:163px;height: 28px" disabled="disabled" />
 					</div>
 					<div>
 						<h3 class="usettitle"> 昵称或轻博名称 <span>名称需唯一可更改</span> </h3>
 						<input type="text" name="niname" id="niname" class="ipt" value="{$user.username}" />
 					</div>
 					<div>
-						<h3 class="usettitle"> 个性化地址 <span>只能为英文或数字组合最短3位,最长15位</span> </h3>
-						<input type="text" class="iptdomain" value="{$url}" disabled="disabled" />
+						<h3 class="usettitle">个性化地址 <span>只能为英文或数字组合最短3位，最长15位</span></h3>
+						http://
 						<input type="text" name="domain" id="domain" class="ipt" value="{$user.domain}" />
+						.luomor.com
 					</div>
 					<div>
-						<h3 class="usettitle"> 博客关键字 <span>用最多三个关键词描述他的主题。例如：轻音大爱,古典,摇滚等。</span> </h3>
+						<h3 class="usettitle"> 博客关键字 <span>用最多三个关键词描述他的主题。例如：小吃、美食、音乐、汽车等。</span> </h3>
 						<div id="post-tag2" style="width:98%; height:45px; overflow:hidden">
 							<ul class="clearfix" id="post-tag-list">
 								<!--动态插入标签-->
@@ -37,7 +38,7 @@
 								<input type="text" id="post-tag-input" class="pb-tag-tip" />
 							</div>
 						</div>
-						<div style="margin-top:5px; clear:both">最多三个主要标签,您也可从右侧的推荐标签选择</div>
+						<div style="margin-top:5px; clear:both">最多三个主要标签，您也可从右侧的推荐标签选择</div>
 					</div>
 					<div>
 						<h3 class="usettitle">个性签名或自我介绍</h3>

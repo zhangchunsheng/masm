@@ -93,13 +93,12 @@ $(document).ready(function () {
 		}
 	});
 	$('#ats').html('@'); //关于我们插入@符号
-
 });
 
-var globalcount; //feedtolbar state
+var globalcount; //feedtoolbar state
 function feedToolBar(id) {
 	$(document).ready(function () {
-		$(window).bind("scroll", function (event) {
+		$(window).bind("scroll", function(event) {
 			var fold = $(window).height() + $(window).scrollTop();
 
 			if (fold >= $('#' + id).offset().top - 20) {
@@ -129,7 +128,7 @@ function feedToolBar(id) {
 							$('#' + id).html('没有更多了');
 							globalcount = 1; //出队列
 						}
-					})
+					});
 				}
 			}
 		});
@@ -166,7 +165,7 @@ function continueShow(id) {
 			$('#' + id).attr('page', nextpage);
 			$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/images/hand.gif" class="loading"/>点击查看更多...</a>');
 		}
-	})
+	});
 }
 
 function searchTag() {
@@ -183,8 +182,7 @@ function searchTag() {
 function cancelConnect(url) {
 	$.post(url, function (rs) {
 		window.location.reload();
-	})
-
+	});
 }
 
 //删除博客
@@ -296,8 +294,7 @@ function delnotice(id, url) {
 				tiper(result);
 			}
 		});
-	})
-
+	});
 }
 
 //已读通知
@@ -440,7 +437,9 @@ function reinitIframe(x) {
 		var height = Math.max(bHeight, dHeight);
 		iframe.height = height;
 
-	} catch (ex) {}
+	} catch(ex) {
+		
+	}
 }
 
 function opennotice() {
@@ -452,20 +451,20 @@ function opennotice() {
 
 //清除通知
 function noticeclear(sysid) {
-	art.dialog.confirm('都知道了吗?', function () {
+	art.dialog.confirm('确定要清除吗?', function () {
 		$.post(urlpath + '/index.php?c=user&a=mynotice&clears=' + sysid, function (rs) {
 			window.location.reload();
-		})
-	})
+		});
+	});
 }
 
 //删除通知
 function noticedel(sysid) {
-	art.dialog.confirm('要删掉吗?', function () {
+	art.dialog.confirm('确定要删除吗?', function () {
 		$.post(urlpath + '/index.php?c=user&a=mynotice&dels=' + sysid, function (rs) {
 			window.location.reload();
-		})
-	})
+		});
+	});
 }
 
 function OMP(url, that) {
@@ -484,9 +483,9 @@ function LMP(that) {
 
 
 function logout(x) {
-	art.dialog.confirm('是要退出登陆么?', function () {
+	art.dialog.confirm('确定要退出登录么?', function () {
 		window.location.href = x
-	})
+	});
 }
 
 function openconnect(url) {
@@ -537,7 +536,7 @@ function tiper(txt) {
 function delblog(x, y) {
 	art.dialog.confirm('确定要删除日志#' + x + '?相关附件将会一并删除,且无法恢复', function () {
 		window.location.href = y
-	})
+	});
 }
 
 function attchManager(url) {

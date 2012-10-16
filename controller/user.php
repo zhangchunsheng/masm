@@ -192,8 +192,9 @@
 			if(utf8_strlen($this -> spArgs('domain')) < 4 || utf8_strlen($this -> spArgs('domain')) > 15) {
 				js_err('个性域名最短4位最长15位');
 			}
+			$array = getDomainArray();
 			$domain = spClass('member') -> find(array('domain' => $this -> spArgs('domain')), '', 'uid,domain');
-			if(is_array($domain) && $domain['uid'] != $_SESSION['uid']) {
+			if(in_array($this -> spArgs("domain"), $array) || (is_array($domain) && $domain['uid'] != $_SESSION['uid'])) {
 				js_err('个性域名已被使用');
 			} //判断个性域名是否被使用
 			if($this -> spArgs('tag') != '') {

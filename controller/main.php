@@ -55,15 +55,14 @@
 			$tags = spClass('tags') -> getHotTag(30);
 			if($tags['string']) {
 				$where = "`open` = 1 and `tag` in ({$tags['string']})";
+			} else {
+				$where = "`open` = 1";
 			}
-
 			$blogs = spClass('mBlog') -> spLinker() -> findAll($where, 'bid desc', '', 30);
 
-			$this -> feeds = feddshtml($blogs, 0, 'recommend');
+			$this -> feeds = feedshtml($blogs, 0, 'recommend');
 			$this -> hotMax = $tags['rs'][0]['num'];
-
 			$this -> htag = $tags['rs'];
-
 			$this -> title = '推荐频道';
 			$this -> CurrentModule = 'recommend';
 			$this -> display('recommend.html');

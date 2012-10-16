@@ -157,9 +157,8 @@ $(document).ready(function () {
 		if ($('#post-tag-input').val() == qsearch) {
 			$('#post-tag-input').val('');
 		}
-	})
+	});
 	$('#post-tag-input').blur(function () {
-
 		if ($('#post-tag-input').val() == '') {
 			$('#post-tag-input').val(qsearch);
 		} else {
@@ -167,7 +166,7 @@ $(document).ready(function () {
 			$('#post-tag-list').append('<li tag="' + tags + '"><span>' + tags + '</span><a href="javascript:;" onclick="remTags(this)" title="删除">x</a></li>');
 			$('#post-tag-input').val('');
 		}
-	})
+	});
 
 	$('.globox .trg:even').addClass("alt-row");
 
@@ -307,24 +306,44 @@ $(document).ready(function () {
 	$("#submit_map").click(function() {
 		var title = $("#pb-text-title").val();
 		var text = $("#textarea").val();
-		console.log(marker);
-		return false;
+		var latitude = marker.position.Xa;
+		var longitude = marker.position.Ya;
+		$("#pb-text-latitude").val(latitude);
+		$("#pb-text-longitude").val(longitude);
+		if(text == '') {
+			tips("内容不能为空喔");
+			$("#textarea").focus();
+			return false;
+		}
+		if(!setTags()) {
+			tips("亲，定义一个标签呗~回车确定标签");
+			return false;
+		}
+		$("#submit_map,#draft,#preview,#cancel,#pb-submiting-tip").toggle();
+		$("#form_publish").submit();
+	});
+	
+	$("#post-tag,#post-tag2").bind("click", function(e) {
+		if ($('#post-tag-input').val() == qsearch) {
+			$('#post-tag-input').val('');
+		}
+		$("#post-tag-input").focus();
 	});
 
 	//发布text
 	$('#submit_text').click(function() {
 		var title = $('#pb-text-title').val();
 		var text = $('#textarea').val();
-		if (text == '') {
+		if(text == '') {
 			tips('内容不能为空喔');
 			$('#textarea').focus();
 			return false
 		}
-		if (!setTags()) {
-			tips('标签至少要写一个~回车确定标签');
+		if(!setTags()) {
+			tips('亲，定义一个标签呗~回车确定标签');
 			return false;
 		}
-		$('#submit,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
+		$('#submit_text,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
 		$('#form_publish').submit();
 	});
 
@@ -334,12 +353,12 @@ $(document).ready(function () {
 		$('#musicList .list').each(function () {
 			umus += $(this).attr('type') + '|' + $(this).attr('img') + '|' + $(this).attr('pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('url') + '[YB]';
 		}) //获取音乐字串
-		if (!setTags()) {
-			tips('标签至少要写一个~回车确定标签');
+		if(!setTags()) {
+			tips('亲，定义一个标签呗~回车确定标签');
 			return false;
 		}
 
-		if ($('#useedit').val() == 1) {
+		if($('#useedit').val() == 1) {
 			$.dialog({
 				content: '您确认使用编辑器中的媒体作为最终发布的内容吗？',
 				lock: true,
@@ -351,7 +370,7 @@ $(document).ready(function () {
 				noFn: true
 			});
 		} else {
-			if (umus == '') {
+			if(umus == '') {
 				tips('请添加一个网络音乐或者上传音乐');
 				return false;
 			}
@@ -368,12 +387,12 @@ $(document).ready(function () {
 		$('#uploadArea div').each(function () {
 			umus += 1
 		}) //获取音乐字串
-		if (umus == '') {
+		if(umus == '') {
 			tips('请上传至少一张图片');
 			return false;
 		}
-		if (!setTags()) {
-			tips('标签至少要写一个~');
+		if(!setTags()) {
+			tips('亲，定义一个标签呗~回车确定标签');
 			return false;
 		}
 		$('#urlmusic').val(umus); //写入数据
@@ -387,13 +406,12 @@ $(document).ready(function () {
 		$('#musicList .list').each(function () {
 			umus += $(this).attr('type') + '|' + $(this).attr('img') + '|' + $(this).attr('pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('url') + '[YB]';
 		}) //获取音乐字串
-		if (umus == '') {
+		if(umus == '') {
 			tips('请添加一个网络视频,并点击保存');
 			return false;
 		}
-		//alert(umus);return false;
-		if (!setTags()) {
-			tips('标签至少要写一个');
+		if(!setTags()) {
+			tips('亲，定义一个标签呗~回车确定标签');
 			return false;
 		}
 		$('#urlmusic').val(umus); //写入数据

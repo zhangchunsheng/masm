@@ -83,6 +83,10 @@
 			$this -> body = split_attribute($this -> blog['body']); //获得属性和正文信息
 
 			if($this -> blog["type"] == 1) { //地图
+				$city = new StdClass();
+				$city -> latitude = $this -> blog["latitude"];
+				$city -> longitude = $this -> blog["longitude"];
+				$this -> city = $city;
 				$this -> display("publish_map.html");
 			} elseif($this -> blog['type'] == 2) { //文字
 				$this -> display('publish_text.html');
@@ -105,8 +109,15 @@
 			$one = spClass("mblog") -> findBy('bid', $_SESSION['tempid']);
 			$cityCode = "";
 			$cityName = "";
+			$address_type = "";
+			$address = "";
 			if($this -> spArgs("blog-types") == 1) {
-				
+				$positionInfo = getPositionInfo($this -> spArgs("pb-text-latitude"), $this -> spArgs("pb-text-longitude"));
+				$cityInfo = spClass("city") -> findByGoogleName($positionInfo);
+				$cityCode = $cityInfo["code"];
+				$cityName = $cityInfo["name"];
+				$address_type = $positionInfo -> addressType;
+				$address = $positionInfo -> address;
 			}
 			
 			if($this -> spArgs('blog-types') == 2) {
@@ -147,9 +158,10 @@
 				'body' => $bodypre . strreplaces($this -> spArgs('textarea')),
 				'cityCode' => $cityCode,
 				'cityName' => $cityName,
-				'latitude' => spArgs('latitude', ''),
-				'longitude' => spArgs('longitude', ''),
-				'address' => spArgs('address', ''),
+				'latitude' => $this -> spArgs('pb-text-latitude'),
+				'longitude' => $this -> spArgs('pb-text-longitude'),
+				'address_type' => $address_type,
+				'address' => $address,
 				'open' => $this -> spArgs('blog-open'),
 				'noreply' => $this -> spArgs('pb-nowrite-post', 0),
 				'open' => $this -> spArgs('post-privacy-select'),

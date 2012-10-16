@@ -2,7 +2,7 @@
 <div id="article">
 	{include file="require_post.html"}
 	{if $user.flow <=15 && islogin()}
-	<div class="box">您关注用户过少,{$luomor.site_title}将推送您更多内容 :)</div>
+	<div class="box">关注你喜欢的用户,{$luomor.site_title}将推送您更多内容 :)</div>
 	{/if}
 	{if $noticeCount}
 	<div id="message" style="display:none">
