@@ -22,7 +22,7 @@
 				'type' => 'hasone', // 关联类型，这里是一对一关联
 				'map' => 'blog', // 关联的标识
 				'mapkey' => 'bid', // 本表与对应表关联的字段名
-				'fclass' => 'blog', // 对应表的类名
+				'fclass' => 'mblog', // 对应表的类名
 				'fkey' => 'bid', // 对应表中关联的字段名
 				//'field' => 'uid,username,domain', //你要限制的字段
 				'enabled' => true // 启用关联
@@ -41,7 +41,7 @@
 
 			if($GLOBALS['LUOMOR']['keep_rep'] != '') {
 				$arr = explode(',', $GLOBALS['LUOMOR']['keep_rep']);
-				if(in_array($row['inputs'],$arr)) {
+				if(in_array($row['inputs'], $arr)) {
 					$err['err'] = '含有敏感字符不允许发布';
 					return $err;
 				}
@@ -77,7 +77,7 @@
 			spClass('mBlog') -> incrField(array('bid' => $row['bid']), 'replaycount'); //增加回复统计
 			//spClass('feeds') -> replayFeeds($row, $msg, $_SESSION['uid']); //增加回复动态
 
-			$bid = spClass('mBlog') -> blogIsMe($row['bid']);  //这个是哪来的..
+			$bid = spClass('mBlog') -> blogIsMe($row['bid']);
 			return $err;
 		}
 

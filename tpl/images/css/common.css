@@ -185,7 +185,7 @@ a:hover {color: #568D99;text-decoration: underline;}
 	padding: 5px;resize: none;
 	width: 450px;
 }
-#article .box .comment.input em.green {color: #6AAE3F; float: right; margin-right: 10px; margin-top: 8px;}
+#article .box .comment.input em.green,#article .box .comment.submit em.green {color: #6AAE3F; float: right; margin-right: 10px; margin-top: 8px;}
 #article .box .comment ul {margin: 0;}
 #article .box .comment ul li {background: none repeat scroll 0 0 transparent; clear: both; color: #464646;line-height: 12px; margin: 0;overflow: hidden;padding: 0; position:relative}
 #article .box .comment ul li .pic {float: left;margin-left: 0;margin-right: 10px;}

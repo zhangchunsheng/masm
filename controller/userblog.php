@@ -16,6 +16,8 @@
 			$this -> getMyFollow();
 			$this -> getMyLook();
 			$this -> isfollow = $this -> isFollow();
+			
+			$this -> loadmap = "yes";
 
 			//显示我关注的20个
 			$this -> follow = spClass('follow') -> spLinker() -> findAll(array('uid' => $this -> user_data['uid']), 'time desc', '', '20');
@@ -38,6 +40,7 @@
 			$this -> fava = $this -> getBlogFava();
 			$this -> isfollow = $this -> isFollow();
 			
+			$this -> loadmap = "yes";
 			$this -> d = spClass('mBlog') -> spLinker() -> find(array('uid' => $this -> user_data['uid'], 'bid' => $this -> spArgs('bid')));
 			
 			if(is_array($this -> d)) {

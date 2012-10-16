@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 	<head>
-		<title> {if $titles != ''} {$titles} - {/if} {$username} - {$luomor.site_title} - {$luomor.site_titlepre}</title>
+		<title> {if $title != ''} {$title} - {/if} {$username} - {$luomor.site_title} - {$luomor.site_titlepre}</title>
 		<meta charset="utf-8" />
 		<base href="{$url}/" />
-		<meta name="author" content="{$username},{$domain},yunbian.org" />
+		<meta name="author" content="{$username},{$domain},luomor.com" />
 		<meta name="description" content="{if $usersign == ''}{$description|strip_tags}{else}{$usersign|strip_tags}{/if}" />
 		<meta name="keywords" content="{if $usertag == ''}{$keywords}{else}{$usertag}{/if}{if $title != ''},{$title}{/if} " />
 		<script type="text/javascript">
@@ -16,32 +16,36 @@
 		<link href="{$global_path}images/css/frame.css" rel="stylesheet" type="text/css">
 		<link href="{$global_path}images/css/gallery.show.css" rel="stylesheet" type="text/css">
 		<link href="{$themes_path}css/style.css" rel="stylesheet" type="text/css">
-		<style>{$custom_css}</style>
+		<style type="text/css">{$custom_css}</style>
+		<script src="http://mat1.gtimg.com/app/openjs/openjs.js#autoboot=no&debug=no"></script>
 	</head>
-
 	<body>
 		<script type="text/javascript" src="{$global_path}js/dialog/dialog.js?skin=mac"></script>
 		<script type="text/javascript" src="{$global_path}js/dialog/dialogTools.js"></script>
 		<script type="text/javascript" src="{$url}/tpl/swf/player.js"></script>
 		<script type="text/javascript" src="{$global_path}js/gallery.min.js"></script>
 		<script type="text/javascript" src="{$global_path}js/gallery.global.js"></script>
-		<script type="text/javascript" src="{$global_path}js/global.js"></script>
+		<script type="text/javascript" src="{$global_path}js/luomor.js"></script>
+		{if $loadmap == yes}
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBVLecv_v9--1K2W1NFRKC52drR9rgadtc&sensor=false"></script>
+		<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false" />-->
+		{/if}
 		<div id="header_bg">
-		<div id="footer_bg">
-		<div id="header">
-			{if islogin()}
-				<a href="{spUrl c=main a=index}" target="_top">
-					<img src="{$url}/tpl/images/goback.png" width="107" height="36">
-				</a>
-				{if $uid == $smarty.session.uid}
-					<a href="{spUrl c=userblog a=customize}" target="_top"><img src="{$url}/tpl/images/custom.png" width="107" height="36"></a>
-				{else}
-					<a href="javascript:void(0)" onClick="tiper('后期')"><img src="{$url}/tpl/images/tuijian.png" width="77" height="36"></a>
-				{/if}
-			{else}
-				<a href="{spUrl c=main a=index}">首页</a>
-				<a href="{spUrl c=main a=login}">登陆</a>
-				<a href="{spUrl c=main a=reg}">注册</a>
-				<a href="{spUrl c=masm a=about}">关于</a>
-			{/if}
-		</div>
+			<div id="footer_bg">
+				<div id="header">
+					{if islogin()}
+						<a href="{spUrl c=main a=index}" target="_top">
+							<img src="{$url}/tpl/images/goback.png" width="107" height="36">
+						</a>
+						{if $uid == $smarty.session.uid}
+							<a href="{spUrl c=userblog a=customize}" target="_top"><img src="{$url}/tpl/images/custom.png" width="107" height="36"></a>
+						{else}
+							<a href="javascript:void(0)" onClick="tiper('后期')"><img src="{$url}/tpl/images/tuijian.png" width="77" height="36"></a>
+						{/if}
+					{else}
+						<a href="{spUrl c=main a=index}">首页</a>
+						<a href="{spUrl c=main a=login}">登陆</a>
+						<a href="{spUrl c=main a=reg}">注册</a>
+						<a href="{spUrl c=masm a=about}">关于</a>
+					{/if}
+				</div>

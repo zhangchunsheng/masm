@@ -83,9 +83,10 @@
 			$this -> body = split_attribute($this -> blog['body']); //获得属性和正文信息
 
 			if($this -> blog["type"] == 1) { //地图
-				$city = new StdClass();
-				$city -> latitude = $this -> blog["latitude"];
-				$city -> longitude = $this -> blog["longitude"];
+				$city = array();
+				$this -> loadmap = "yes";
+				$city["latitude"] = $this -> blog["latitude"];
+				$city["longitude"] = $this -> blog["longitude"];
 				$this -> city = $city;
 				$this -> display("publish_map.html");
 			} elseif($this -> blog['type'] == 2) { //文字

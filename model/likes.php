@@ -13,7 +13,7 @@
 				'type' => 'hasone', // 关联类型，这里是一对一关联
 				'map' => 'blog', // 关联的标识
 				'mapkey' => 'bid', // 本表与对应表关联的字段名
-				'fclass' => 'blog', // 对应表的类名
+				'fclass' => 'mblog', // 对应表的类名
 				'fkey' => 'bid', // 对应表中关联的字段名
 				'enabled' => true // 启用关联
 			)

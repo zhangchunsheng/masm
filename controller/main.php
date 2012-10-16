@@ -36,10 +36,11 @@
 				$this -> email = $_COOKIE['unames'];
 				$this -> display('login.html');
 			} else {
+				$this -> loadmap = "yes";
 				if($this -> spArgs('ajaxload')) {
 					if($this -> spArgs('page') <= $page['total_page']) {
 						$this -> limits = 4;
-						$this -> data = $this->blogs; //将内容给模板变量
+						$this -> data = $this -> blogs; //将内容给模板变量
 						$this -> display('require_feeds.html');
 						exit;
 					}
@@ -139,6 +140,7 @@
 
 			$this -> title = '此刻最新';
 			$this -> CurrentModule = 'now';
+			$this -> loadmap = "yes";
 			if($this -> spArgs('ajaxload')) {
 				if($this -> spArgs('page') <= $page['total_page']) {
 					$this -> limits = 4;

@@ -80,7 +80,7 @@
 
 		//首页获取评论
 		function getReplay($page = 1, $limit = 10) {
-			$bid = $this->spArgs('bid');
+			$bid = $this -> spArgs('bid');
 			$result = spClass('reply') -> spLinker() -> spPager($this -> spArgs('page', $page), $limit) -> findAll(array('bid' => $this -> spArgs('bid')), 'time desc', '');
 			$pager = spClass('reply') -> spPager() -> pagerAjax('blog', 'getReplay', array('bid' => $bid), 'commentList_' . $bid);
 			if(is_array($result) && count($result) > 10) {
@@ -100,19 +100,19 @@
 				}
 				if(islogin()) {
 					if($_SESSION['uid'] == $d['uid'] || $_SESSION['admin'] == 1) {
-						$del = '<span class="delrep"><a href="javascript:void(0)" onclick="delrep(\'' . $d['id'] . '\',\'' . spUrl('blog', 'delrep', array('id' => $d['id'])) . '\')">删除</a></span>';
+						$del = '<span class="delrep"><a href="javascript:void(0)" onclick="delrep(\'' . $d['id'] . '\',\'' . spUrl('blog', 'delrep', array('id' => $d['id'])) . '\')"></a></span>';
 					}
 				}
 
 				echo '<div class="rowLine"></div>
 						<li id="feed_' . $d['id'] . '">
 							<span class="pic">
-								<a href="' . $this -> url . '/' . $d['user']['domain'] . '" target="_blank">
+								<a href="http://' . $d['user']['domain'] . '.luomor.com" target="_blank">
 									<img width="18" height="18" src="' . avatar($prga) . '" alt="">
 								</a>
 							</span>
 							<p>
-								<a href="' . $this -> url . '/' . $d['user']['domain'] . '" target="_blank">' . $d['user']['username'] . '</a>' . $msg . '
+								<a href="http://' . $d['user']['domain'] . '.luomor.com" target="_blank">' . $d['user']['username'] . '</a>' . $msg . '
 								<span>(' . parseTime(array('time' => $d['time'])) . ')</span>
 								' . $reply . $del . '
 							</p>

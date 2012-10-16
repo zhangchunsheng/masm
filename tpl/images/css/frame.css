@@ -147,3 +147,14 @@ a:hover {color: #568D99;text-decoration: underline;}
 
 .clearfix {zoom:1}
 .clearfix:after {content:"";display:block;height:0;line-height:0;font-size:0;visibility:hidden;clear:both}
+#share,#share a{line-height:16px}
+#share a{display:inline-block;width:16px;height:16px;text-indent:-999em;cursor:pointer;margin-left:5px;background:url(../share-button.png) no-repeat}
+#share a#facebook-share{background-position:0 0}
+#share a#twitter-share{background-position:0 -16px}
+#share a#delicious-share{background-position:0 -32px}
+#share a#kaixin001-share{background-position:0 -48px}
+#share a#renren-share{background-position:0 -64px}
+#share a#douban-share{background-position:0 -80px}
+#share a#sina-share{background-position:0 -96px}
+#share a#netease-share{background-position:0 -112px}
+#share a#tencent-share{background-position:0 -128px}
