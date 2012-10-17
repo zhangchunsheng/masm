@@ -51,7 +51,7 @@
 							<input type="hidden" id="replyTo_{$d.bid}" />
 							<div class="submit">
 								<em class="green" id="replyInput_lengthinf_{$d.bid}"></em>
-								<input type="button" value="提交评论" onclick="sendReplay('{$d.bid}','{spUrl c=blog a=replay}')" class="btn" />
+								<a onclick="sendReplay('{$d.bid}','{spUrl c=blog a=replay}')" class="gray-button">提交评论</a>
 							</div>
 						{/if}
 						<ul class="commentList" id="commentList_{$d.bid}"></ul>

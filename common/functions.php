@@ -25,7 +25,6 @@
 		exit( '<script language="javascript">top.location="' . $x . '";</script>');
 	}
 
-
 	/**
 	 * 处理domain uid bid之间的关系
 	 * 去用户首页的链接
@@ -506,7 +505,18 @@
 		$i = 1;
 		$msg = '';
 		foreach($feeds as $d) {
-			if($d['btype'] == 1) {//文字
+			if($d['btype'] == 1) {
+				$msg .= '<div class="box">
+							<div class="textcontents">' . strip_tags($d['content']) . '</div>
+							<span class="tag">' . _setTags('地图', $d['tag'], $index) . '</span>
+							<a class="boxhover" href="' . goUserBlog(array('bid' => $d['bid'])) . '" target="_blank">
+								<div class="img">
+									<img src="' . avatar(array('uid' => $d['uid'], 'size' => 'middle')) . '" alt=""/>
+								</div>
+								<div class="p">来自:' . $d['username'] . '</div>
+							</a>
+						</div>';
+			} elseif($d['btype'] == 2) {//文字
 				$msg .= '<div class="box">
 							<div class="textcontents">' . strip_tags($d['content']) . '</div>
 							<span class="tag">' . _setTags('文字', $d['tag'], $index) . '</span>
@@ -514,10 +524,10 @@
 								<div class="img">
 									<img src="' . avatar(array('uid' => $d['uid'], 'size' => 'middle')) . '" alt=""/>
 								</div>
-								<div class="p">来自:'.$d['username'].'</div>
+								<div class="p">来自:' . $d['username'] . '</div>
 							</a>
 						</div>';
-			} elseif($d['btype'] == 2) {//音乐
+			} elseif($d['btype'] == 3) {//音乐
 				if($d['metype'] == 'local') {
 					$d['img']  = '';
 				}
@@ -535,7 +545,7 @@
 								<div class="p">来自:' . $d['username'] . '</div>
 							</a>
 						</div>';
-			} elseif($d['btype'] == 3) {//照片
+			} elseif($d['btype'] == 4) {//照片
 				$msg .= '<div class="box"  style="background:url(' . $d['img'] . ') no-repeat center top;">
 							<div class="imgcount"> ' . $d['count'] . ' 张</div>
 							<span class="tag">' . _setTags('照片', $d['tag'], $index) . '</span>
@@ -546,7 +556,7 @@
 								<div class="p">来自:' . $d['username'] . '</div>
 							</a>
 						</div>';
-			} elseif($d['btype'] == 4) {//视频
+			} elseif($d['btype'] == 5) {//视频
 				if($d['metype'] == 'local')
 					$d['img']  = 'tpl/image/add/local.png';
 				$msg .= '<div class="box">

@@ -44,7 +44,12 @@
 			</a>-->
 			{if islogin()}
 				<a href="javascript:void(0)" onclick="indexPostTab('comment','{$d.bid}','{spUrl c=blog a=getReplay}')" id="comment_btn_{$d.bid}">
-					评论<em>{if {$d.replaycount} != 0}({$d.replaycount}){/if}</em>
+					评论
+					<em>
+						{if {$d.replaycount} != 0}
+							({$d.replaycount})
+						{/if}
+					</em>
 				</a>
 				{if $d.uid != $smarty.session.uid}
 					{if $d.followid != ''}
@@ -75,11 +80,15 @@
 	<div style="display:none" id="comment_{$d.bid}">
 		<div class="comment">
 			{if islogin()}
-				<textarea id="replyInput_{$d.bid}"></textarea>
-				<input type="hidden" id="replyTo_{$d.bid}" />
-				<div class="submit">
-					<em class="green" id="replyInput_lengthinf_{$d.bid}"></em>
-					<input type="button" value="&#25552;&#20132;&#35780;&#35770;" onclick="sendReplay('{$d.bid}','{spUrl c=blog a=replay}')" class="btn" />
+				<div>
+					<textarea id="replyInput_{$d.bid}"></textarea>
+					<input type="hidden" id="replyTo_{$d.bid}" />
+					<div class="submit">
+						<em class="green" id="replyInput_lengthinf_{$d.bid}"></em>
+						<a onclick="sendReplay('{$d.bid}','{spUrl c=blog a=replay}')" class="gray-button">
+							评论
+						</a>
+					</div>
 				</div>
 			{/if}
 			<ul class="commentList" id="commentList_{$d.bid}"></ul>

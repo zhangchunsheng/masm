@@ -30,10 +30,7 @@
 					{feeds item=$d.body type=$d.type limit=all bid=$d.bid showmedia=1}
 				</div>
 			{/if}
-			<div id="share" style="height:16px;float:right;margin-right:10px">
-				分享到:
-				{include file="share.html" title=$d.title domain=$domain bid=$d.bid name=$username}
-			</div>
+			{include file="share.html" title=$d.title domain=$domain bid=$d.bid name=$username}
 			<div class="footer">
 				点击({$d.hitcount}) &nbsp;
 				<div class="tag">
@@ -77,7 +74,7 @@
 						<input type="hidden" id="replyTo_{$d.bid}" />
 						<div class="submit">
 							<em class="green" id="replyInput_lengthinf_{$d.bid}"></em>
-							<input type="button" value="提交评论" onclick="sendReplay('{$d.bid}','{spUrl c=blog a=replay}')" class="btn" />
+							<a onclick="sendReplay('{$d.bid}','{spUrl c=blog a=replay}')" class="gray-button">提交评论</a>
 						</div>
 					{/if}
 					<ul class="commentList" id="commentList_{$d.bid}"></ul>

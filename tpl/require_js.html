@@ -74,10 +74,11 @@
 			itemSelector: '.box'
 		});
 		$('.welcome .box').hover(
-			function(){
-				$(this).find('.boxhover').fadeIn();
+			function() {
+				$(this).css("background-color", "#000");
+				$(this).css("background-color", "rgba(0,0,0,0.7)");
 			}, function(){
-				$(this).find('.boxhover').fadeOut();
+				$(this).css("background-color", "");
 			}
 		);
 	});

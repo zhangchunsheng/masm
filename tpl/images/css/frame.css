@@ -83,7 +83,7 @@ a:hover {color: #568D99;text-decoration: underline;}
 .content {font-size:14px; line-height:2em}
 
 #article .box .comment textarea {width:100%}
-#article .box .comment .submit {margin:10px 0px; text-align:right}
+#article .box .comment .submit {float:right;height:70px}
 #article .box .comment .submit footer {margin:0px}
 /*快速评论*/
 #article .box .rowLine {background: url("../feedmore_line.png") repeat-x scroll 0 0 transparent; height: 1px; margin: 6px 0 15px;width: 100%;}
@@ -94,15 +94,32 @@ a:hover {color: #568D99;text-decoration: underline;}
 	border-right: 1px solid #CFCFCF;
 	border-style: solid;
 	border-width: 1px;
-	float: left;
 	font-family: "Microsoft Yahei";
 	font-size: 13px;
     height: 58px;
 	line-height: 19px;
-	margin-bottom: 8px;
+	margin-bottom: 16px;
+	float: left;
 	padding: 5px;resize: none;
-	width: 450px;
+	width: 480px;
 }
+.input-button,.gray-button {
+    background-color: #E6E6E6;
+    border: 1px solid #787878;
+    border-radius: 4px 4px 4px 4px;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 20px;
+}
+.gray-button:hover {
+	background-color: #FAFAFA;
+}
+#article .box .comment .submit a {float: right;height: 66px;line-height: 66px;text-align:center}
+#article .box .comment .submit a:hover {color: #999;text-decoration: none;}
 #article .box .comment.input em.green {color: #6AAE3F; float: right; margin-right: 10px; margin-top: 8px;}
 #article .box .comment ul {margin: 0;}
 #article .box .comment ul li {background: none repeat scroll 0 0 transparent; clear: both; color: #464646;line-height: 12px; margin: 0;overflow: hidden;padding: 0; position:relative}

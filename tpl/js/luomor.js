@@ -89,7 +89,7 @@ $(document).ready(function () {
 			map: map,
 			position: position
 		});
-	})
+	});
 	$('#menuSideBtn').click(function () {
 		$('#menuSide').toggle();
 		$(this).toggleClass('curr');
@@ -170,7 +170,6 @@ scrollbackground();*/
 function continueShow(id) {
 	p = parseInt($('#' + id).attr('page'));
 	url = $('#' + id).attr('query');
-
 	nextpage = p + 1;
 	$('#' + id).html('<img src="tpl/images/loading.gif" class="loading"/><span>请稍等</span>');
 	$.post(url, {
@@ -330,7 +329,7 @@ function isreadnotice(id, url) {
 
 //显示首页评论框
 function indexPostTab(type, id, url) {
-	if (type == 'reprint') {
+	if(type == 'reprint') {
 		$('#comment_' + id).hide();
 		$('#reprint_' + id).toggle().toggleClass('current');
 	} else if (type == 'comment') {
@@ -346,7 +345,6 @@ function indexPostTab(type, id, url) {
 		}, function (result) {
 			$('#commentList_' + id).html(result);
 			$('#replyInput_lengthinf_' + id).html('');
-
 		})
 	} else if (type == 'feeds') {
 		$('#comment_' + id).hide();
@@ -356,7 +354,7 @@ function indexPostTab(type, id, url) {
 			bid: id
 		}, function (result) {
 			$('#feedList_' + id).html(result);
-		})
+		});
 	}
 }
 

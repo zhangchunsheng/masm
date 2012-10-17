@@ -100,7 +100,9 @@
 				}
 				if(islogin()) {
 					if($_SESSION['uid'] == $d['uid'] || $_SESSION['admin'] == 1) {
-						$del = '<span class="delrep"><a href="javascript:void(0)" onclick="delrep(\'' . $d['id'] . '\',\'' . spUrl('blog', 'delrep', array('id' => $d['id'])) . '\')"></a></span>';
+						$del = '<span class="delrep">
+									<a href="javascript:void(0)" onclick="delrep(\'' . $d['id'] . '\',\'' . spUrl('blog', 'delrep', array('id' => $d['id'])) . '\')"></a>
+								</span>';
 					}
 				}
 

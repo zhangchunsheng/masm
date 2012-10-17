@@ -144,10 +144,27 @@ a:hover {color: #568D99;text-decoration: underline;}
 #article .box .footer .menu {float:right;}
 #article .box .footer .menu a {padding-right:5px;}
 #article .box .comment textarea {width:100%}
-#article .box .comment .submit {margin:10px 0px; text-align:right}
+#article .box .comment .submit {width:80px;float:right;height:70px}
 #article .box .comment .submit footer {margin:0px}
 #article .box .delrep a {left:460px; background:url(../add/delete.gif) no-repeat; width:16px; height:16px; text-decoration:none}
 #article .box .delrep a:hover {background-color:#CCC}
+.input-button,.gray-button {
+    background-color: #E6E6E6;
+    border: 1px solid #787878;
+    border-radius: 4px 4px 4px 4px;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 20px;
+}
+.gray-button:hover {
+	background-color: #FAFAFA;
+}
+#article .box .comment .submit a {float: right;height: 66px;line-height: 66px;text-align:center}
+#article .box .comment .submit a:hover {color: #999;text-decoration: none;}
 /*feeds ajax page*/
 .feedajax {margin-top:5px;background-color: #FFFFFF; border-radius:7px;margin-left:90px;padding:10px;width:510px;text-align:center;}
 .feedajax .loading {vertical-align:middle; margin-right:10px}
@@ -176,14 +193,14 @@ a:hover {color: #568D99;text-decoration: underline;}
 	border-right: 1px solid #CFCFCF;
 	border-style: solid;
 	border-width: 1px;
-	float: left;
 	font-family: "Microsoft Yahei";
 	font-size: 13px;
     height: 58px;
 	line-height: 19px;
-	margin-bottom: 8px;
+	float:left;
+	margin-bottom:16px;
 	padding: 5px;resize: none;
-	width: 450px;
+	width: 410px;
 }
 #article .box .comment.input em.green,#article .box .comment.submit em.green {color: #6AAE3F; float: right; margin-right: 10px; margin-top: 8px;}
 #article .box .comment ul {margin: 0;}
@@ -264,3 +281,14 @@ a:hover {color: #568D99;text-decoration: underline;}
 
 .clearfix {zoom:1}
 .clearfix:after {content:"";display:block;height:0;line-height:0;font-size:0;visibility:hidden;clear:both}
+#share,#share a{line-height:16px}
+#share a{display:inline-block;width:16px;height:16px;text-indent:-999em;cursor:pointer;margin-left:5px;background:url(../share-button.png) no-repeat}
+#share a#facebook-share{background-position:0 0}
+#share a#twitter-share{background-position:0 -16px}
+#share a#delicious-share{background-position:0 -32px}
+#share a#kaixin001-share{background-position:0 -48px}
+#share a#renren-share{background-position:0 -64px}
+#share a#douban-share{background-position:0 -80px}
+#share a#sina-share{background-position:0 -96px}
+#share a#netease-share{background-position:0 -112px}
+#share a#tencent-share{background-position:0 -128px}
