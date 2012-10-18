@@ -118,9 +118,9 @@ a:hover {color: #568D99;text-decoration: underline;}
 .gray-button:hover {
 	background-color: #FAFAFA;
 }
-#article .box .comment .submit a {float: right;height: 66px;line-height: 66px;text-align:center}
-#article .box .comment .submit a:hover {color: #999;text-decoration: none;}
-#article .box .comment.input em.green {color: #6AAE3F; float: right; margin-right: 10px; margin-top: 8px;}
+#article .box .comment .submit input {float: right;height: 66px;line-height: 66px;text-align:center}
+#article .box .comment .submit input:hover {color: #999;text-decoration: none;}
+#article .box .comment em.green {color: #6AAE3F; float: right; margin-right: 110px; margin-bottom: 8px;}
 #article .box .comment ul {margin: 0;}
 #article .box .comment ul li {background: none repeat scroll 0 0 transparent; clear: both; color: #464646;line-height: 12px; margin: 0;overflow: hidden;padding: 0; position:relative}
 #article .box .comment ul li .pic {float: left;margin-left: 0;margin-right: 10px;}

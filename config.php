@@ -9,7 +9,7 @@
 	 */
 	$spConfig = array(
 		'luomor' =>array(
-			'loginCodeSwitch' => 'close',//登陆验证开关 打开请写open
+			'loginCodeSwitch' => 'close',//登录验证开关 打开请写open
 			'regCodeSwitch' => 'close', //注册验证开关 打开请写open
 		),
 		'mode' => 'debug',  //系统启动模式 debug 调试模式 release 部署模式
@@ -44,7 +44,7 @@
 					'myfollow' => 'user@myfollow',
 					'mypost' => 'user@mypost',
 					'mylikes' => 'user@mylikes',
-					'myreplays' => 'user@myreplay',
+					'myreplys' => 'user@myreply',
 					'mynotices' => 'user@mynotice',
 					'edit' => 'add@edit',
 					'logout' => 'main@logout',

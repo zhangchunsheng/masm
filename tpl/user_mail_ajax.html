@@ -19,16 +19,19 @@
 			<div>
 				<label for="username">发 给</label>
 				{if $rs.username}
-				{$rs.username}
-				<input name="uid" type="hidden" value="{$rs.uid}" />
+					<input name="username" type="text" id="username" size="25" maxlength="50" value="{$rs.username}" class="ipt" tabindex="1" disabled="disabled"/>
+					<input name="uid" type="hidden" value="{$rs.uid}" />
 				{else}
-				<input name="username" type="text" id="username" size="25" maxlength="50" value="{$rs.username}" class="ipt" tabindex="1" />
+					<input name="username" type="text" id="username" size="25" maxlength="50" value="{$rs.username}" class="ipt" tabindex="1" />
 				{/if}
 			</div>
 			<div>
 				<label for="info">内 容</label>
 				{literal}
-				<textarea name="info" id="info" class="xheditor {tools:'smallmail'}" style="width:300px; height:140px">{/literal}{$smarty.get.info}{$smarty.post.info}</textarea>
+				<textarea name="info" id="info" class="xheditor {tools:'smallmail'}" style="width:300px; height:140px">
+				{/literal}
+				{$smarty.get.info}{$smarty.post.info}
+				</textarea>
 				<p>&nbsp; {$err} </p>
 			</div>
 			<div class="button">

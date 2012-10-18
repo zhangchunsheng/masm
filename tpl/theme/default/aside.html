@@ -2,10 +2,10 @@
 	<div>
 		<img src="{avatar uid=$uid size=big}" alt="{$username}" />
 	</div>
-	<div class="followme"> {$myLook} 关注</div>
+	<div class="followme"> {$myLook} 关注者</div>
 
 	{if $isfollow == 1}
-		<a href="javascript:void(0)" onclick="follows('{$uid}','{spUrl c=blog a=follows}')">您已关注,取消</a>
+		<a href="javascript:void(0)" onclick="follows('{$uid}','{spUrl c=blog a=follows}')">取消关注</a>
 	{elseif $isfollow == 0}
 		<a href="javascript:void(0)" onclick="follows('{$uid}','{spUrl c=blog a=follows}')">关注作者</a>
 	{/if}

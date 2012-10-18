@@ -19,13 +19,13 @@
 	// tipWrap: 	提示消息的容器
 	// maxNumber: 	最大输入字符
 	$.fn.artTxtCount = function (tipWrap, maxNumber) {
-		var countClass = 'js_txtCount', // 定义内部容器的CSS类名
-			fullClass = 'js_txtFull', // 定义超出字符的CSS类名
+		var countClass = 'txtCount', // 定义内部容器的CSS类名
+			fullClass = 'txtFull', // 定义超出字符的CSS类名
 			disabledClass = 'disabled'; // 定义不可用提交按钮CSS类名
 
 		// 统计字数
 		var count = function () {
-			var btn = $(this).parent().find('.btn'),
+			var btn = $(this).parent().find('.gray-button') || $(this).parent().find('.btn'),
 				val = $(this).val().length,
 				// 是否禁用提交按钮
 				disabled = {
@@ -37,17 +37,20 @@
 					}
 				};
 
-			if (val == 0) disabled.off();
-			if (val <= maxNumber) {
-				if (val > 0) disabled.on();
+			if(val == 0)
+				disabled.off();
+			if(val <= maxNumber) {
+				if(val > 0)
+					disabled.on();
 				tipWrap.html('\u8FD8\u80FD\u8F93\u5165 ' + (maxNumber - val) + ' \u4E2A\u5B57');
+				tipWrap.css("color", "#6AAE3F");
 			} else {
 				disabled.off();
 				tipWrap.html('\u5DF2\u7ECF\u8D85\u51FA ' + (val - maxNumber) + ' \u4E2A\u5B57');
+				tipWrap.css("color", "red");
 			};
-
 		};
-		$(this).bind('keyup change', count);
+		$(this).bind('keyup change focus', count);
 		return this;
 	};
 })(jQuery);
@@ -89,6 +92,9 @@ $(document).ready(function () {
 			map: map,
 			position: position
 		});
+	});
+	$("div[data-type='comment']").each(function() {
+		indexPostTab("comment", $(this).attr("data-id"), $(this).attr("data-url"), "init");
 	});
 	$('#menuSideBtn').click(function () {
 		$('#menuSide').toggle();
@@ -328,13 +334,17 @@ function isreadnotice(id, url) {
 }
 
 //显示首页评论框
-function indexPostTab(type, id, url) {
+function indexPostTab(type, id, url, loadType) {
 	if(type == 'reprint') {
 		$('#comment_' + id).hide();
 		$('#reprint_' + id).toggle().toggleClass('current');
-	} else if (type == 'comment') {
+	} else if(type == 'comment') {
 		$('#replyTo_' + id).val('');
-		$('#comment_' + id).toggle();
+		if(loadType == "init") {
+			$("#comment_" + id).show();
+		} else {
+			$('#comment_' + id).toggle();
+		}
 		$('#feeds_' + id).hide();
 		$('#replyInput_' + id).artTxtCount($('#replyInput_lengthinf_' + id), 100);
 		$('#replyTo_' + id).val();
@@ -346,7 +356,7 @@ function indexPostTab(type, id, url) {
 			$('#commentList_' + id).html(result);
 			$('#replyInput_lengthinf_' + id).html('');
 		})
-	} else if (type == 'feeds') {
+	} else if(type == 'feeds') {
 		$('#comment_' + id).hide();
 		$('#feeds_' + id).toggle();
 		$('#feedList_' + id).html('loading...');

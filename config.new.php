@@ -46,7 +46,7 @@
 					'myfollow' => 'user@myfollow',
 					'mypost' => 'user@mypost',
 					'mylikes' => 'user@mylikes',
-					'myreplays' => 'user@myreplay',
+					'myreplys' => 'user@myreply',
 					'mynotices' => 'user@mynotice',
 					'edit' => 'add@edit',
 					'logout' => 'main@logout',

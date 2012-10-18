@@ -43,7 +43,7 @@
 			<td valign="middle">{if $d.open == 1}否{else}是{/if}</td>
 			<td valign="middle">{$d.hitcount}</td>
 			<td valign="middle">{$d.feedcount}</td>
-			<td valign="middle">{$d.replaycount}</td>
+			<td valign="middle">{$d.replycount}</td>
 			<td valign="middle">{if $d.noreply == 1}是{else}否{/if}</td>
 			<td valign="middle"><a href="{goUserBlog bid=$d.bid}" target="_blank">{if $d.title == ''}没有标题{else}{$d.title}{/if}</a></td>
 			<td valign="middle"><a href="{spUrl c=blog a=gouser uid=$d.user.uid}" target="_blank">{$d.user.username}</a></td>

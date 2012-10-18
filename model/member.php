@@ -56,7 +56,7 @@
 			)
 		);
 
-		//连接登陆的验证 没有验证码的
+		//连接登录的验证 没有验证码的
 		var $verifier_openConnect_Login  = array(
 			"rules" => array(
 				'email' => array(
@@ -297,7 +297,7 @@
 			}
 		}
 
-		//获取所有活动的扩展登陆信息
+		//获取所有活动的扩展登录信息
 		 function _getActionToken($uid) {
 			$rs = spClass('memberex') -> spLinker() -> findAll(array('uid' => $uid));
 			foreach($rs as $d) {

@@ -1,6 +1,9 @@
 {include file="require_header.html"}
 <div id="article">
-	<h1><a href="{spUrl c=user a=mynotice}"{$curr_my_notice}>未读通知</a> <a href="{spUrl c=user a=mynotice isread=1}"{$curr_my_isnotice}>已读通知</a> </h1>
+	<h1>
+		<a href="{spUrl c=user a=mynotice}"{$curr_my_notice}>未读通知</a>
+		<a href="{spUrl c=user a=mynotice isread=1}"{$curr_my_isnotice}>已读通知</a>
+	</h1>
 	<div id="message" style="margin:0">
 		<h2>系统通知({$sysnotice_c})</h2>
 		{foreach from=$sysnotice item=d}
@@ -13,12 +16,14 @@
 					<img src="{avatar uid=$d.user.uid size=middle}" alt="{$d.tome.username}" align="absmiddle" class="face" />
 					</a>
 				</div>
-				<p><a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}</p>
-				<p class="info">{replay_preg msg=$d.info}  
+				<p>
+					<a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}
+				</p>
+				<p class="info">{reply_preg msg=$d.info}
 					{if $d.isread ==0}
-					<a href="javascript:void(0)" onClick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
+					<a href="javascript:void(0)" onclick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
 					{else}
-					<a href="javascript:void(0)" onClick="delnotice('{$d.id}','{spUrl c=blog a=delnotice id=$d.id}')">删除</a>
+					<a href="javascript:void(0)" onclick="delnotice('{$d.id}','{spUrl c=blog a=delnotice id=$d.id}')">删除</a>
 					{/if}
 				</p>
 			</div>
@@ -28,12 +33,12 @@
 			暂时没有系统通知
 		</div>
 		{/foreach}
-		{if $sysnotice} 
-		<p class="clear">
+		{if $sysnotice}
+		<p id="clear_systemnotice" class="clear button">
 			{if $d.isread ==0}
-			<input name="button" type="button" value="&#30693;&#36947;&#20102;" class="btn" onclick="noticeclear(2)" />
+				<input name="button" type="button" value="&#30693;&#36947;&#20102;" class="btn" onclick="noticeclear(2)" />
 			{else}
-			<input name="button" type="button" value="&#28165;&#31354;" class="btn" onclick="noticedel(2)" />
+				<input name="button" type="button" value="&#28165;&#31354;" class="btn" onclick="noticedel(2)" />
 			{/if}
 		</p>
 		{/if}
@@ -42,9 +47,9 @@
 		<div class="article" id="notice_{$d.id}">
 			<div class="delnotice">
 				{if $d.isread ==0}
-				<a href="javascript:void(0)" onClick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
+					<a href="javascript:void(0)" onclick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
 				{else}
-				<a href="javascript:void(0)" onClick="delnotice('{$d.id}','{spUrl c=blog a=delnotice id=$d.id}')">删除</a>
+					<a href="javascript:void(0)" onclick="delnotice('{$d.id}','{spUrl c=blog a=delnotice id=$d.id}')">删除</a>
 				{/if}
 			</div>
 			<div>
@@ -53,8 +58,12 @@
 					<img src="{avatar uid=$d.user.uid size=middle}" alt="{$d.tome.username}" align="absmiddle" class="face" />
 					</a>
 				</div>
-				<p><a href="{goUserHome domain=$d.user.domain uid=$d.user.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}</p>
-				<p class="info">{replay_preg msg=$d.info}  <a href="{notice_preg url=$d.location}">查看原文</a></p>
+				<p>
+					<a href="{goUserHome domain=$d.user.domain uid=$d.user.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}
+				</p>
+				<p class="info">
+					{reply_preg msg=$d.info}  <a href="{notice_preg url=$d.location}">查看原文</a>
+				</p>
 			</div>
 		</div>
 		{foreachelse}
@@ -62,12 +71,12 @@
 			暂时没有评论通知
 		</div>
 		{/foreach}
-		{if $repnotice}  
-		<p>
-			{if $d.isread ==0}
-			<input name="button" type="button" value="&#30693;&#36947;&#20102;" class="btn" onclick="noticeclear(1)" />
+		{if $repnotice}
+		<p id="clear_replynotice" class="clear button">
+			{if $d.isread == 0}
+				<input name="button" type="button" value="&#30693;&#36947;&#20102;" class="btn" onclick="noticeclear(1)" />
 			{else}
-			<input name="button" type="button" value="&#28165;&#31354;" class="btn" onclick="noticedel(1)" />
+				<input name="button" type="button" value="&#28165;&#31354;" class="btn" onclick="noticedel(1)" />
 			{/if}
 		</p>
 		{/if}
@@ -76,9 +85,9 @@
 		<div class="article fllows" id="notice_{$d.id}">
 			<div class="delnotice">
 				{if $d.isread ==0}
-				<a href="javascript:void(0)" onClick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
+					<a href="javascript:void(0)" onclick="isreadnotice('{$d.id}','{spUrl c=blog a=readnotice id=$d.id}')">了解</a>
 				{else}
-				<a href="javascript:void(0)" onClick="delnotice('{$d.id}','{spUrl c=blog a=delnotice id=$d.id}')">删除</a>
+					<a href="javascript:void(0)" onclick="delnotice('{$d.id}','{spUrl c=blog a=delnotice id=$d.id}')">删除</a>
 				{/if}
 			</div>
 			<div>
@@ -87,11 +96,23 @@
 					<img src="{avatar uid=$d.user.uid size=middle}" alt="{$d.tome.username}" align="absmiddle" class="face" />
 					</a>
 				</div>
-				<p><a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {parseTime time=$d.time}</p>
+				<p>
+					{$d.title} - {parseTime time=$d.time}
+				</p>
 				<p class="info">
-					{if $d.info =='关注了你'}关注了你 <a href="javascript:void(0)" onclick="follows('{$d.user.uid}','{spUrl c=blog a=follows}')">我也关注TA</a>{/if}
-					{if $d.info =='取消关注'}取消关注了你{/if}
-					{if $d.info =='互相关注'}你们互相关注{/if}
+					{if $d.info =='关注了你'}
+						<a href="{goUserHome domain=$d.user.domain uid=$d.uid}" title="{$d.user.username}" target="_blank">
+							{$d.user.username}
+						</a>
+						关注了你
+						<a href="javascript:void(0)" onclick="follows('{$d.user.uid}','{spUrl c=blog a=follows}')">我也关注TA</a>
+					{/if}
+					{if $d.info =='取消关注'}
+						取消关注了你
+					{/if}
+					{if $d.info =='互相关注'}
+						你们互相关注
+					{/if}
 				</p>
 			</div>
 		</div>
@@ -101,7 +122,7 @@
 		</div>
 		{/foreach}
 		{if $flownotice}
-		<p class="clear">
+		<p id="clear_flownotice" class="clear button">
 			{if $d.isread ==0}
 			<input name="button" type="button" value="&#30693;&#36947;&#20102;" class="btn" onclick="noticeclear(3)" />
 			{else}

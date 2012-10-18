@@ -163,7 +163,7 @@
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
 									<img src="' . $rs['img'] . '" class="img" alt=""/>
-									<img src="' . $site_uri . '/tpl/image/videoplay.gif" class="playbtn" alt="" />
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
 								</a>
 								<div class="area">
 									<p>
@@ -182,7 +182,7 @@
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
 									<img src="' . $rs['img'] . '" class="img" alt=""/>
-									<img src="' . $site_uri . '/tpl/image/videoplay.gif" class="playbtn" alt="" />
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
 								</a>
 								<div class="area">
 									<p>
@@ -253,7 +253,7 @@
 					} else {
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $rs['pid'] . '\', this)">
-								<img src="' . $rs['img'] . '" class="img" onerror="this.src=\'tpl/image/videobg.png\'" width="127" height="95"/><img src="' . $site_uri . '/tpl/image/videoplay.gif" class="playbtn" /></a>
+								<img src="' . $rs['img'] . '" class="img" onerror="this.src=\'tpl/image/videobg.png\'" width="127" height="95"/><img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" /></a>
 								<div class="area"> <p><a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '</p><div class="playbox"></div> </div>
 							</div>';
 					}
@@ -265,7 +265,7 @@
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $url . '\',this)">
 									<img src="' . $rs['img'] . '" class="img" alt="" />
-									<img src="' . $site_uri . '/tpl/image/videoplay.gif" class="playbtn" alt="" />
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
 								</a>
 								<div class="area">
 									<p>
@@ -307,13 +307,13 @@
 	}
 
 	//处理回复的链接
-	function replay_preg($params) {
+	function reply_preg($params) {
 		$msg = $params['msg'];
 		preg_match("/\[at=(.*?)](.*?)\[\/at\]/i", $msg, $msag); //$msg[1]
 		$msag = str_replace($msag[0], '<a href="' . goUserHome(array('uid' => $msag[1])) . '" target="_blank">' . $msag[2] . '</a>',$msg);
 		echo $msag;
 	}
-	spAddViewFunction('replay_preg', 'replay_preg');
+	spAddViewFunction('reply_preg', 'reply_preg');
 
 	//处理通知的链接
 	function notice_preg($params) {
@@ -564,7 +564,7 @@
 							<div class="mediadesc"> ' . $d['count'] . ' </div>
 							<span class="tag">' . _setTags('视频', $d['tag'], $index) . '</span>
 							<div class="video">
-								<img src="' . $site_uri . '/tpl/image/videoplay.gif" alt=""/>
+								<img src="' . $site_uri . '/tpl/images/videoplay.gif" alt=""/>
 							</div>
 							' . $d['desc'] . '
 							<a class="boxhover" href="' . goUserBlog(array('bid' => $d['bid'])) . '" target="_blank">

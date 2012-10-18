@@ -14,7 +14,7 @@
 		//连接qq
 		public function qq() {
 			if($this -> luomor['openlogin_qq_open'] == 0) {
-				exit('系统管理员没有开启QQ登陆功能');
+				exit('系统管理员没有开启QQ登录功能');
 			}
 			$this -> app = 'qq';
 			spClass('qqConnect') -> init($this -> luomor['openlogin_qq_appid'], $this -> luomor['openlogin_qq_appkey'], $this -> luomor['openlogin_qq_callback']);
@@ -28,7 +28,7 @@
 
 			if($this -> spArgs('login')) {
 				if(!$_SESSION['qq']['openid']) {
-					exit('登陆状态失效,请重新登陆');
+					exit('登录状态失效,请重新登录');
 				}
 				$type = 'QQ';  //获取类型为QQ
 				$this -> user = $_SESSION['qq'];
@@ -55,7 +55,7 @@
 							$this -> errmsg_arr = $userobj -> spVerifier($this -> spArgs());
 						}
 					} else {
-						$userobj = spClass('member'); //验证登陆
+						$userobj = spClass('member'); //验证登录
 						$userobj -> verifier = $userobj -> verifier_openConnect_Login;
 						if($userobj -> spVerifier($this -> spArgs()) == false) {
 							$params = array(
@@ -105,7 +105,7 @@
 			}
 		}
 
-		//写入登陆信息
+		//写入登录信息
 		private function setLoginInfo($result, $type) {
 			$ip = getIP();
 			$time = time();
@@ -126,7 +126,7 @@
 			$this -> setLoginInfo($result, $params['uid']);
 		}
 
-		//获取所有活动的扩展登陆信息
+		//获取所有活动的扩展登录信息
 		private function _getActionToken($uid) {
 			$rs = spClass('memberex') -> spLinker() -> findAll(array('uid' => $uid));
 			foreach($rs as $d) {

@@ -145,7 +145,7 @@
 					</head>
 					<body>
 					<div style="border:1px solid #DDDDDD; width:700px; margin:0px auto">
-						<div style="margin:10px"><img src="' . $LUOMOR['url'] . '/tpl/image/logo.png" alt="logo" /></div>
+						<div style="margin:10px"><img src="' . $LUOMOR['url'] . '/tpl/images/logo.png" alt="logo" /></div>
 						<div style="font-size:20px; margin:10px; font-weight:bold;font-family:\'黑体\'">' . $title . '</div>
 						<div style="margin:10px; line-height:2em; font-size:12px">' . $body . '</div>
 						<div style="color:#AAAAAA; font-size:12px; margin:10px;">取消邮件通知请在个人设置中取消勾选相关通知,请不要回复本系统邮件。<br/>

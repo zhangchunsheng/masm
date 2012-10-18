@@ -74,7 +74,7 @@
 					'time' => time()
 				)
 			);
-			spClass('mBlog') -> incrField(array('bid' => $row['bid']), 'replaycount'); //增加回复统计
+			spClass('mBlog') -> incrField(array('bid' => $row['bid']), 'replycount'); //增加回复统计
 			//spClass('feeds') -> replayFeeds($row, $msg, $_SESSION['uid']); //增加回复动态
 
 			$bid = spClass('mBlog') -> blogIsMe($row['bid']);
@@ -88,8 +88,8 @@
 			if($rs['uid'] == $uid || $_SESSION['admin'] == 1) {
 				$this -> deleteByPk($row['id']); //删除回复
 				 //减少回复统计
-				if($rs['blog']['replaycount'] > 0) {
-					spClass('mBlog') -> decrField(array('bid' => $rs['bid']), 'replaycount');
+				if($rs['blog']['replycount'] > 0) {
+					spClass('mBlog') -> decrField(array('bid' => $rs['bid']), 'replycount');
 				}
 				echo 'ok';
 			}

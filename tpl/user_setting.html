@@ -8,11 +8,13 @@
 				<div id="pb-post-area">
 					{if $smarty.session.username == ''}
 					<div>
-						<p style="color:#F00; font-size:14px; font-weight:bold">这是您第一次访问网站，您必须要完善<strong>昵称</strong>和<strong>个性化地址</strong>才能继续使用本网站的所有功能。</p>
+						<p style="color:#F00; font-size:14px; font-weight:bold">这是您第一次访问网站，请您完善<strong>昵称</strong>和<strong>个性化地址</strong></p>
 					</div>
 					{/if}
 					<div>
-						<h3 class="usettitle"> 我的账号 <span>(不可更改)</span> </h3>
+						<h3 class="usettitle">
+							我的账号 <span>(不可更改)</span>
+						</h3>
 						<input type="text" class="iptname" value="{$user.email}" style="width:163px;height: 28px" disabled="disabled" />
 					</div>
 					<div>

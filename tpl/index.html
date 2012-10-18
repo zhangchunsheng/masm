@@ -16,7 +16,7 @@
 					</a>
 				</div>
 				<p><a href="{$url}/{$d.user.domain}" title="{$d.user.username}" target="_blank">{$d.user.username}</a> {$d.title} - {$d.time|date_format:"%Y-%M-%d/%H:%M:%S"}</p>
-				<p class="info">{replay_preg msg=$d.info}  <a href="{notice_preg url=$d.location}">查看原文</a></p>
+				<p class="info">{reply_preg msg=$d.info}  <a href="{notice_preg url=$d.location}">查看原文</a></p>
 			</div>
 		</div>
 		{/foreach}

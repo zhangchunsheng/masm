@@ -174,7 +174,7 @@
 			$_SESSION['customize']['config'] = unserialize($rs['setup']);
 			$_SESSION['customize']['theme'] = $rs['theme'];
 			
-			parent::display('customize.html', TRUE);
+			parent :: display('customize.html', TRUE);
 		}
 
 		//设置一个临时的主题访问点

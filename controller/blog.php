@@ -125,7 +125,7 @@
 		//进行回复评论
 		function replay() {
 			if(!islogin()) {
-				exit('您需要登陆才能回复');
+				exit('您需要登录才能回复');
 			}
 			$err = spClass('reply') -> createReply($this -> spArgs());
 			if($err['err'] == '') {

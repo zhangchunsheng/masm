@@ -68,14 +68,15 @@ a:hover {color: #568D99;text-decoration: underline;}
 #message h2 {font-weight:bold; text-align:left; border-bottom:1px solid #666;  font-size: 16px; padding:2px; margin:5px;}
 #message .btn {padding:3px; border:0px; background-color:#F5F5F5; border:1px solid #CCC; color:#666; padding:4px;}
 #message .content {margin:10px}
-#message .article {margin:8px 0px;  background-color:#F0F0F0; min-height:70px; padding:5px; width:585px; position:relative;}
-#message .article .delnotice {position:absolute; right:0;}
+#message .article {margin:8px 6px;  background-color:#F0F0F0; min-height:70px; padding:5px; width:610px; position:relative;}
+#message .article .delnotice {position:absolute; right:12px;}
 #message .fllows {width:275px; float:left; margin-right:15px;}
 
 #message .article .info {padding:10px 0px}
 #message .article .facearea {width:64px; height:64px; float:left; margin-right:20px}
 #message .article quotation {display:block; margin:5px 5px 5px 20px; padding:5px; border:1px solid #CCC}
 #message .article .face {padding-right:10px}
+#message .button {margin-left:6px}
 
 /*右侧主内容*/
 #aside {width:230px; float:left; margin:20px 0px 0px 20px;_margin:20px 0px 0px 20px;overflow:hidden}
@@ -163,8 +164,23 @@ a:hover {color: #568D99;text-decoration: underline;}
 .gray-button:hover {
 	background-color: #FAFAFA;
 }
-#article .box .comment .submit a {float: right;height: 66px;line-height: 66px;text-align:center}
-#article .box .comment .submit a:hover {color: #999;text-decoration: none;}
+.input-button, .blue-button {
+    background: url(../blue-button.png) repeat-x scroll 0 0 transparent;
+    border: 1px solid #006DAB;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 20px;
+}
+.input-button:hover, .blue-button:hover {
+    background-position: 0 -36px;
+}
+#article .box .comment .submit input {float: right;width:80px;height: 66px;line-height: 66px;text-align:center}
+#article .box .comment .submit input:hover {color: #999;text-decoration: none;}
 /*feeds ajax page*/
 .feedajax {margin-top:5px;background-color: #FFFFFF; border-radius:7px;margin-left:90px;padding:10px;width:510px;text-align:center;}
 .feedajax .loading {vertical-align:middle; margin-right:10px}
@@ -202,7 +218,7 @@ a:hover {color: #568D99;text-decoration: underline;}
 	padding: 5px;resize: none;
 	width: 410px;
 }
-#article .box .comment.input em.green,#article .box .comment.submit em.green {color: #6AAE3F; float: right; margin-right: 10px; margin-top: 8px;}
+#article .box .comment em.green {color: #6AAE3F; float: right; margin-right: 90px; margin-bottom: 8px;}
 #article .box .comment ul {margin: 0;}
 #article .box .comment ul li {background: none repeat scroll 0 0 transparent; clear: both; color: #464646;line-height: 12px; margin: 0;overflow: hidden;padding: 0; position:relative}
 #article .box .comment ul li .pic {float: left;margin-left: 0;margin-right: 10px;}

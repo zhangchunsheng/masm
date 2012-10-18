@@ -30,7 +30,7 @@
 				<table width="500" border="0" align="center" cellpadding="0" cellspacing="0" id="logbox">
 					<tr>
 						<td>
-							<h1>登陆{$luomor.site_title}</h1>
+							<h1>登录{$luomor.site_title}</h1>
 							<form action="{spUrl c=main a=login}" method="post" onSubmit="return checkLogin()">
 								{if $errmsg}
 								<div id="errmsg">{$errmsg}</div>
@@ -68,7 +68,7 @@
 								</div>
 								{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weib_open == 1}
 								<div id="openconnent">
-									<h1>用合作账户登陆</h1>
+									<h1>用合作账户登录</h1>
 									<div id="area">
 										{if $luomor.openlogin_qq_open == 1}
 										<li><a href="{spUrl c=openconnect a=qq}"><img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" /></a></li>

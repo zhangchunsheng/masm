@@ -83,7 +83,7 @@
 			<!--
 				<div  class="tool">
 				{if $smarty.session.uid ==''}
-					<a href="javascript:void(0)" onClick="loginBox('{spUrl c=main a=login}')">登陆</a>
+					<a href="javascript:void(0)" onClick="loginBox('{spUrl c=main a=login}')">登录</a>
 					<a href="javascript:void(0)" onClick="regBox('{spUrl c=main a=reg}')">注册</a>
 				{else}
 				  <a href="{goUserHome domain=$smarty.session.domain uid=$smarty.session.uid}" target="_blank" title="我的主页">{$smarty.session.username}</a>

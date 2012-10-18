@@ -41,7 +41,7 @@
 
 		//我喜欢的
 		public function mylikes() {
-			$sql = "SELECT k.id, k.uid AS likeuid,k.time as ktime, b . * , m.username, m.domain
+			$sql = "SELECT k.id, k.uid AS likeuid,k.time as ktime, b.*, m.username, m.domain
 					FROM `" . DBPRE . "likes` AS k
 					LEFT JOIN `" . DBPRE . "blog` AS b ON k.bid = b.bid
 					LEFT JOIN `" . DBPRE . "member` AS m ON b.uid = m.uid WHERE k.uid = '{$_SESSION['uid']}'";
@@ -49,6 +49,7 @@
 
 			$this -> pager = spClass('likes') -> spPager() -> pagerHtml('user', 'mylikes');
 			$this -> memberinfo();
+			$this -> loadmap = "yes";
 			$this -> display('user_mylikes.html');
 		}
 
@@ -65,26 +66,27 @@
 			}
 
 			$this -> memberinfo();
+			$this -> loadmap = "yes";
 			$this -> curr_r1_4 = ' class="current"';
 			$this -> display('user_mypost.html');
 		}
 
 		//我的回复
-		public function myreplay() {
+		public function myreply() {
 			if($this -> spArgs('received') == 1) { //我收到的
-				$this -> myreplay = spClass('reply') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`repuid` = {$_SESSION['uid']}");
-				$this -> pager = spClass('reply') -> spPager() -> pagerHtml('user', 'myreplay', array('received' => 1));
-				$this -> curr_myreplay_r = ' class="current"';
+				$this -> myreply = spClass('reply') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`repuid` = {$_SESSION['uid']}");
+				$this -> pager = spClass('reply') -> spPager() -> pagerHtml('user', 'myreply', array('received' => 1));
+				$this -> curr_myreply_r = ' class="current"';
 				$this -> received = 1;
-			} else { //我发出的 回复
+			} else { //我发出的回复
 				$reply = spClass('reply');
 				$reply -> linker['blog']['enabled'] = false;
-				$this -> myreplay = $reply -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']}",'id desc');
-				$this -> pager = $reply -> spPager() -> pagerHtml('user', 'myreplay');
-				$this -> curr_myreplay = ' class="current"';
+				$this -> myreply = $reply -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll("`uid` = {$_SESSION['uid']}", 'id desc');
+				$this -> pager = $reply -> spPager() -> pagerHtml('user', 'myreply');
+				$this -> curr_myreply = ' class="current"';
 			}
 			$this -> memberinfo();
-			$this -> display('user_myreplay.html');
+			$this -> display('user_myreply.html');
 		}
 
 		//我的消息
@@ -97,7 +99,7 @@
 				$this -> curr_my_notice = ' class="current"';
 			}
 
-			if($this -> spArgs('clears')) { //清除通知
+			if($this -> spArgs('clears')) { //设置已读
 				$clear = $this -> spArgs('clears');
 				if(in_array($clear,array(1,2,3))) { //1 评论通知  2 系统通知 3关注通知
 					spClass('notice') -> update(array('uid' => $_SESSION['uid'], 'sys' => $clear), array('isread' => 1));
@@ -129,7 +131,7 @@
 			//关注通知
 			$this -> flownotice = spClass('notice') -> spLinker() -> spPager($this -> spArgs('page', 1), 10) -> findAll(array('uid' => $_SESSION['uid'], 'isread' => $isread, 'sys' => 3), 'id desc');
 			if(is_array($this -> flownotice)) {
-				$this->flownotice_c = count($this->flownotice);
+				$this -> flownotice_c = count($this->flownotice);
 			}
 			
 			$this -> memberinfo();
