@@ -102,10 +102,10 @@
 			}
 		}
 
-		//创建一个供发布或者编辑用的
+		//发布或更新轻博客
 		public function post() {
 			if($_SESSION['tempid'] == 0) {
-				$this -> error("唉，系统压力太大出错了");//丢失临时id
+				$this -> error("亲，系统压力太大出错了");//丢失临时id
 			}
 			$one = spClass("mblog") -> findBy('bid', $_SESSION['tempid']);
 			$cityCode = "";
@@ -128,21 +128,21 @@
 				} //加入属性关键字
 			}
 			
-			//音乐模型 视频模型
+			//发布音乐或视频
 			if($this -> spArgs('blog-types') == 3 || $this -> spArgs('blog-types') == 5) {
 				if($this -> spArgs('useedit') != 1) {//如果有特殊则处理
-					if($this -> spArgs('localmusicfid') == '' && $this -> spArgs('urlmusic') == '') {
+					if($this -> spArgs('localmusicfid') == '' && $this -> spArgs('urlmedia') == '') {
 						exit('未完成的内容');
 					}
-					if($this -> spArgs('urlmusic')) {//进行音乐列表的处理
-						$music = $this -> __loadMusicString($this -> spArgs('urlmusic'));
+					if($this -> spArgs('urlmedia')) {//进行音乐列表的处理
+						$music = $this -> __loadMediaString($this -> spArgs('urlmedia'));
 						$music_count = count($music); //总共几首音乐
 					}
 					$bodypre = '[attribute]' . serialize($music) . '[/attribute]';//加入属性关键字
 				}
 			}
 
-			//图片模型
+			//发布图片
 			if($this -> spArgs('blog-types') == 4) {
 				$image = $this -> _imagemodeparse($this -> spArgs('localimg')); //处理图片
 				if(is_array($image)) {
@@ -189,7 +189,7 @@
 				$farray = json_decode($files);
 				echo $files;
 			} else {
-				echo json_encode(array('err' => '丢失参数了啊', 'msg' => ''));
+				echo json_encode(array('err' => '亲，系统丢失参数', 'msg' => ''));
 			}
 		}
 
@@ -203,7 +203,7 @@
 				$farray = json_decode($files);
 				echo $files;
 			} else {
-				echo json_encode(array('err' => '丢失参数了啊', 'msg' => ''));
+				echo json_encode(array('err' => '亲，系统丢失参数', 'msg' => ''));
 			}
 		}
 
@@ -276,10 +276,11 @@
 			exit('ok');
 		}
 		
-		//解析传入的地址url,desc
-		public function links() {
-			$return = spClass('urlParse') -> seturldesc($this -> spArgs('url'), $this -> spArgs('desc'));
-			echo json_encode($return);
+		//解析多媒体地址
+		public function media() {
+			$type = $this -> spArgs("type");
+			$result = spClass('urlParse') -> setMediaDescription($this -> spArgs("url"), $this -> spArgs('desc'), $type);
+			echo json_encode($result);
 		}
 		
 		//处理发布图片模型
@@ -388,11 +389,11 @@
 		 * 需要判断是否归所属人
 		 * 如果此id没查出来则返回false 接到的方法要删除这个id
 		 */
-		private function _localMusicParse($id, $desc) {
+		private function _localMediaParse($id, $desc) {
 			$result = spClass("attach") -> findBy($id, $_SESSION['uid']); //检出文件是否存在
 			if($result['uid'] == $_SESSION['uid']) {//判断是否是我发的
 				if($desc[$d] != '描述') {
-					spClass("attach") -> update(array('id' => $id),array('blogdesc' => $desc));
+					spClass("attach") -> update(array('id' => $id), array('blogdesc' => $desc));
 				}//如果有描述则更新描述
 				return true;
 			} else {
@@ -427,7 +428,7 @@
 
 				if(is_array($result)) {
 					foreach($result as $d) {//全部搞定
-						spClass('attach')->delById($d['id'],$_SESSION['uid']);
+						spClass('attach') -> delById($d['id'], $_SESSION['uid']);
 					}
 				}
 			}
@@ -437,22 +438,25 @@
 		 * 处理发布的字符串
 		 * 发布时的文件如果小于上传的媒体文件，则本函数会自动清理
 		 */
-		private function __loadMusicString($strings) {
-			$music  = substr(trim($strings), 0, -4);
-			$music = explode('[luomor]', $music); //分隔
+		private function __loadMediaString($strings) {
+			$music = substr($strings, 0, -6);
+			$music = explode('LUOMOR', $music); //分隔
 			$locadata = ''; //本博客媒体数量
 			$compdata = array(); //上传使用了几个
 			if(is_array($music)) {
 				foreach($music as $d) {
 					$rs = explode('|', $d);
-
-					if($rs[0] =='local') {
+					if($rs[0] == 'local') {
 						$compdata[] = $rs[2];
-						if($this -> _localMusicParse($rs[2], $rs[3])) {
+						if($this -> _localMediaParse($rs[2], $rs[3])) {
 							$data[] = array('type' => 'local', 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3]);
 						} //验证成功或修改成功
 					} else {
-						$data[] = array('type' => $rs[0], 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3], 'url' => $rs[4]);
+						if($rs[0] == "xiami") {
+							$data[] = array('type' => $rs[0], 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3], 'url' => $rs[4], 'albumName' => $rs[5],'albumUrl' => $rs[6], 'singerName' => $rs[7], 'singerUrl' => $rs[8]);
+						} else {
+							$data[] = array('type' => $rs[0], 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3], 'url' => $rs[4]);
+						}
 					}
 				}
 

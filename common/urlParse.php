@@ -12,28 +12,38 @@
 			
 		}
 
-		public function seturldesc($url, $desc='', $type = 'music') {
-			$sitelist = array(
-				'xiami.com' => '_webMusicGetXiami',
-				'flamesky.com' => '_webMusicGetFlamesky'
-			); //注册引用解析
-
+		public function setMediaDescription($url, $desc = '', $type = "music") {
 			$path =  pathinfo($url);
 			$ext = $path['extension']; //页面后缀
 			$domain = $this -> getDomain($url);//引用页地址
 
-			if($ext != 'mp3' && $ext != 'wma') {
-				if (array_key_exists($domain, $sitelist)) { //网页解析
+			//如果是音乐模块则解析
+			if($type == "music") {
+				$sitelist = array(
+					'xiami.com' => '_webMusicFromXiami',
+					'flamesky.com' => '_webMusicFromFlamesky',
+					'yinyuetai.com' => '_webMusicFromYinyuetai',
+				); //注册引用解析
+				if($ext == 'mp3' || $ext == 'wma') {
+					$data = $this -> _webMusicFromWeb($url);
+				} else {
+					if(array_key_exists($domain, $sitelist)) { //网页解析
+						$data = $this -> $sitelist[$domain]($url);
+					} else {
+						$data = array();
+					}
+				}
+			} elseif($type == "video") {
+				$sitelist = array(
+					'youku.com' => '_webVideoFromYouku',
+					'tudou.com' => '_webVideoFromTudou',
+					'ku6.com' => '_webVideoFrom6',
+					'sina.com.cn' => '_webVideoFromSina'
+				); //注册引用解析
+				if(array_key_exists($domain, $sitelist)) {
 					$data = $this -> $sitelist[$domain]($url);
 				} else {
-					$data = $this -> _webMusicGetOther($url);
-				}
-			}
-
-			//如果是音乐模块则解析
-			if($type == 'music') {
-				if($ext =='mp3' || $ext== 'wma') {
-					$data = $this->_webMusicGetMp3($url);
+					$data = array();
 				}
 			}
 
@@ -42,19 +52,18 @@
 					$data['desc'] = $desc;
 				}
 				if($data['type'] == '' || $data['id'] == '' || $data['img'] == '' || $data['title'] == '') {
-					return array('error' => '我们无法解析这个地址,请尝试更换方法');
+					return array('error' => '亲，我们无法解析这个地址');
 				}
 				return $data;
 			} else {
-				return array('error' => '我们无法解析这个地址,请尝试更换方法');
+				return array('error' => '亲，我们无法解析这个地址');
 			}
 		}
 
-		//引用解析器 解析MP3
-		private function _webMusicGetMp3($url) {
+		private function _webMusicFromWeb($url) {
 			$base = pathinfo($url);
 			return array(
-				'type' => 'weblink',
+				'type' => 'music',
 				'id' => $url,
 				'url' => $url,
 				'img' => 'tpl/image/add/webmusic.png',
@@ -62,42 +71,24 @@
 			);
 		}
 
-		//引用解析器 解析优酷
-		private function _webMusicGetYouKu($url) {
-			preg_match_all("/id\_(\w+)[=.]/", $url, $matches);
-			if(!empty($matches[1][0])) {
-				$playid = $matches[1][0];
-				$text = file_get_contents($url); //获取标题
-				preg_match("/\+0800\|(.*?)\|\">/i", $text, $img);
-				preg_match("/<title>(.*?)<\/title>/i", $text, $title);
-				preg_match("/<meta name=\"title\" content=\"(.*?)\"> /i", $text, $desc);
-				$arr = array('- 视频', '- 优酷视频', '- 在线观看');
-				$rep = array('', '', '');
-				$des = str_replace($arr, $rep, $desc[1]);
-				return array(
-					'type' => 'youku',
-					'id' => $playid,
-					'img' => $img[1],
-					'title' => $des
-				);
-			} else {
-				return '';
-			}
-		}
-
-		//引用解析器 解析虾米
-		private function _webMusicGetXiami($url) {
+		//解析虾米
+		private function _webMusicFromXiami($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
 			$data['type'] = 'xiami';
 			$data['id'] = pathinfo($url, PATHINFO_BASENAME);
-			$data['img'] = $html -> find('#song_block img', 0) -> src;
-			$data['title'] = $html -> find('#albums_info a', 0) -> innertext . '-' . $html -> find('#albums_info a', 1) -> innertext;
+			$data["albumName"] = $html -> find("#albums_info a", 0) -> innertext;
+			$data["singerName"] = $html -> find("#albums_info a", 1) -> innertext;
+			$data["singerUrl"] = $html -> find("#albums_info a", 1) -> href;
+			$data['img'] = $html -> find('#albumCover img', 0) -> src;
+			$data['title'] = $html -> find('#albums_info a', 0) -> innertext . ' - ' . $html -> find('#albums_info a', 1) -> innertext;
+			//$data['title'] = $html -> find('#title h1', 0) -> innertext . '-' . $html -> find('#albums_info a', 1) -> innertext;
+			$data["albumUrl"] = $html -> find("#albumCover", 0) -> href;
 			return $data;
 		}
 
-		//引用解析器 解析雅燃
-		private function _webMusicGetFlamesky($url) {
+		//解析雅燃
+		private function _webMusicFromFlamesky($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
 			$data['type'] = 'flamesky';
@@ -107,8 +98,8 @@
 			return $data;
 		}
 
-		//引用解析器 解析音悦台
-		private function _webMusicGetYinyuetai($url) {
+		//解析音悦台
+		private function _webMusicFromYinyuetai($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
 			$data['type'] = 'yinyuetai';
@@ -119,11 +110,77 @@
 			$data['title'] = $html -> find('#videoTitle', 0) -> innertext;
 			return $data;
 		}
+		
+		//解析优酷视频
+		private function _webVideoFromYouku($url) {
+			preg_match_all("/id\_(\w+)[=.]/", $url, $matches);
+			if(!empty($matches[1][0])) {
+				$playId = $matches[1][0];
+				$url = "http://v.youku.com/player/getPlayList/VideoIDS/$playId/version/5/source/out?onData=%5Btype%20Function%5D&n=3";
+				$content = file_get_contents($url); //获取标题
+				$content = json_decode($content);
+				if(count($content -> data) > 0) {
+					$info = $content -> data[0];
+					return array(
+						'type' => 'youku',
+						'id' => $playId,
+						'img' => $info -> logo,
+						'title' => $info -> title
+					);
+				} else {
+					return array();
+				}
+			} else {
+				return array();
+			}
+		}
+		
+		//解析土豆视频
+		private function _webVideoFromTudou($url) {
+			import('htmlDomNode.php');
+			$content = file_get_contents($url);
+			$content = explode("\n", $content);
+			$data = array();
+			$data['type'] = 'tudou';
+			$id = 0;
+			foreach($content as $key => $value) {
+				if(stripos($value, "iid") > 0 || stripos($value, "iid") === 0) {
+					$id = str_replace("iid: ", "", $value);
+					break;
+				}
+			}
+			$data["id"] = $id;
+			$array = array();
+			if(strlen($id) == 6) {
+				$array[0] = "000";
+				$array[1] = substr($id, 0, 3);
+				$array[2] = substr($id, 3, 3);
+			} elseif(strlen($id) == 7) {
+				$array[0] = "00" . substr($id, 0, 1);
+				$array[1] = substr($id, 1, 3);
+				$array[2] = substr($id, 4, 3);
+			} elseif(strlen($id) == 8) {
+				$array[0] = "0" . substr($id, 0, 2);
+				$array[1] = substr($id, 2, 3);
+				$array[2] = substr($id, 5, 3);
+			} elseif(strlen($id) == 9) {
+				$array[0] = substr($id, 0, 3);
+				$array[1] = substr($id, 3, 3);
+				$array[2] = substr($id, 6, 3);
+			}
+			$url = "http://v2.tudou.com/v2/cdn?noCatch=22538&safekey=YouNeverKnowThat&refurl=&id=$id";
+			$xml = file_get_html($url);
+			$info = $xml -> find("v");
+			$data['img'] = "http://i01.img.tudou.com/data/imgs/i/$array[0]/$array[1]/$array[2]/p.jpg";
+			$data['title'] = $info[0] -> title;
+			return $data;
+		}
 
-		//引用解析器 解析6间房
-		private function _webMusicGet6($url) {
+		//解析6间房
+		private function _webVideoFrom6($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
+			$data = array();
 			$data['type'] = '6';
 			$data['id'] = $html -> find('.game a', 0) -> href;
 			$data['id'] = str_replace('/wp/', '/p/', $data['id']) . '.swf';
@@ -132,19 +189,7 @@
 			return $data;
 		}
 
-		//引用解析器 解析土豆
-		private function _webMusicGetTuDou($url) {
-			import('htmlDomNode.php');
-			$html = file_get_html($url);
-			$data['type'] = 'tudou';
-			$data['id'] = pathinfo($url, PATHINFO_BASENAME);
-			preg_match_all("/thumbnail = pic = '(.*?)'/", $html, $result);
-			$data['img'] = $result[1][0];
-			$data['title'] = iconv('GBK', 'UTF-8', $html -> find('#video_details .v_title', 0) -> innertext);
-			return $data;
-		}
-
-		private function _webMusicGetSina($url) {
+		private function _webVideoFromSina($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
 			$data['type'] = 'sina';
@@ -152,19 +197,6 @@
 			preg_match_all("/pic: '(.*?)'/", $html, $result);
 			$data['img'] = $result[1][0];
 			$data['title'] = $html -> find('#videoTitle',0) -> innertext;
-			return $data;
-		}
-
-		private function _webMusicGetOther($url) {
-			$urlArr = parse_url($url);
-			$domainArr = explode('.', $urlArr['host']);
-			$data['type'] = $domainArr[count($domainArr) - 2];
-			$str = $this -> formPost('http://share.pengyou.com/index.php?mod=usershare&act=geturlinfo', array('url' => $url));
-			$arr = json_decode($str, true);
-			$data['id'] = $arr['result']['flash'];
-			$data['title'] = $arr['result']['title'];
-			$data['img'] = $arr['result']['coverurl'];
-			$data['url'] = $url;
 			return $data;
 		}
 

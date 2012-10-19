@@ -47,7 +47,7 @@
 
 		public function exec($sql) {
 			$this -> arrSql[] = $sql;
-			if($result = mysql_query($sql, $this->conn)) {
+			if($result = mysql_query($sql, $this -> conn)) {
 				return $result;
 			} else {
 				spError("{$sql}<br />执行错误: " . mysql_error());
@@ -75,8 +75,8 @@
 		}
 
 		public function outAllData() {
-			$strinstart = "-- {$GLOBALS['YB']['soft']} {$GLOBALS['YB']['version']} SQL Dump" . $this->ln;
-			$strinstart .= "-- {$GLOBALS['YB']['url']}" . $this->ln;
+			$strinstart = "-- {$GLOBALS['LUOMOR']['soft']} {$GLOBALS['LUOMOR']['version']} SQL Dump" . $this->ln;
+			$strinstart .= "-- {$GLOBALS['LUOMOR']['url']}" . $this->ln;
 			$strinstart .= "-- 生成日期：" . date('Y年 m月 d日 H:i') . $this->ln;
 			$strinstart .= "-- 服务器版本:" . $this -> version(). $this -> ln;
 			$strinstart .= "-- PHP版本:". phpversion(). $this -> ln;
@@ -91,13 +91,13 @@
 			$strinstart .=  $this -> ln;
 
 			mysql_select_db($this -> database, $this -> conn) or spError("无法链接数据库或者没有" . $this -> database . "数据库访问权限。");
-			$rs = $this->getArray('show tables');
+			$rs = $this -> getArray('show tables');
 
 			$data = '';
 			foreach($rs as $d) {
-				$str = $this -> getTableCreateSql($d['Tables_in_' . $this -> database]);
-				$str2 = $this -> getTableInfo($d['Tables_in_' . $this -> database]);
-				$data .= $str . $str2;
+				$createSql = $this -> getTableCreateSql($d['Tables_in_' . $this -> database]);
+				$insertSql = $this -> getTableInfo($d['Tables_in_' . $this -> database]);
+				$data .= $createSql . $insertSql;
 			}
 			$filename = $this -> database . '_' . date('YmdHis', time()) . '.sql';
 			$this -> output($filename, $strinstart . $data);
@@ -111,7 +111,7 @@
 		private function getTableCreateSql($table) {
 			mysql_select_db($this -> database, $this -> conn) or spError("无法链接数据库或者没有" . $this -> database . "数据库访问权限。");
 			$sql = "SHOW CREATE TABLE `$table`";
-			$rs = $this -> getArray($sql); //获取crate sql
+			$rs = $this -> getArray($sql); //获取create sql
 			$string = $rs[0]['Create Table'];
 			$tbname = $rs[0]['Table'];
 
@@ -124,7 +124,7 @@
 			$strinstart .= $this -> ln;
 
 			mysql_select_db('information_schema', $this -> conn) or spError("无法链接数据库或者没有" . $this -> database . "数据库访问权限。"); //切换到信息表查询引擎 字符集信息
-			$sql = "SELECT * FROM `TABLES` where TABLE_SCHEMA = '$this -> database' and TABLE_NAME = '$tbname'";
+			$sql = "SELECT * FROM `TABLES` where TABLE_SCHEMA = '$this->database' and TABLE_NAME = '$tbname'";
 			$rs =  $this -> getArray($sql);
 			$charset = explode('_', $rs[0]['TABLE_COLLATION']); //获取字符集
 			if($rs[0]['AUTO_INCREMENT'] != '') {

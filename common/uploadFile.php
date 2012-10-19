@@ -193,19 +193,19 @@
 							$imghd -> square(20);
 							$imghd -> save($dirname . '/' . $small);
 
-							unlink($this->uploaded);
+							unlink($this -> uploaded);
 						}
 
 						if($this -> imgresize && $this -> img_resized($this -> imgmask)) {
 							$nfilename = $tfilename . '||' . $nfilename;
 						}
 
-						//如果原图水印
+						//水印
 						if($this -> imgmask) {
-							$imghd = spClass('imageUtil');
+							/*$imghd = spClass('imageUtil');
 							$imghd -> load($this -> uploaded);
 							$imghd -> waterMark($this -> mark_src);
-							$imghd -> save($this -> uploaded);
+							$imghd -> save($this -> uploaded);*/
 						}
 						$msg = "{'url':'" . $nfilename . "','localname':'" . $this -> jsonString($localName) . "','filesize':'$bytes','mime':'$mime','fid':'$insertid'}";
 					}

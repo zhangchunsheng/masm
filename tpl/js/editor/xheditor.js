@@ -7,7 +7,6 @@
  * @licence LGPL(http://xheditor.com/license/lgpl.txt)
  *
  * @Version: 1.1.8 (build 110707)
- 修改simple
  */
 (function($,undefined){
 if($.xheditor)return false;//防止JS重复加载

@@ -84,7 +84,9 @@ $(document).ready(function () {
 				}
 			});
 			upload.start();
-		} else alert('请上传' + sExt + '文件');
+		} else {
+			alert('请上传' + sExt + '文件')
+		};
 	});
 
 	var jUpload = $('#upload_mp3 input');
@@ -347,40 +349,6 @@ $(document).ready(function () {
 		$('#form_publish').submit();
 	});
 
-	//发布music
-	$('#submit_music').click(function() {
-		var umus = ''; //获取发布音乐字符串
-		$('#musicList .list').each(function () {
-			umus += $(this).attr('type') + '|' + $(this).attr('img') + '|' + $(this).attr('pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('url') + '[YB]';
-		}) //获取音乐字串
-		if(!setTags()) {
-			tips('亲，定义一个标签呗~回车确定标签');
-			return false;
-		}
-
-		if($('#useedit').val() == 1) {
-			$.dialog({
-				content: '您确认使用编辑器中的媒体作为最终发布的内容吗？',
-				lock: true,
-				yesFn: function () {
-					$('#urlmusic').val(umus); //写入数据
-					$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-					$('#form_publish').submit();
-				},
-				noFn: true
-			});
-		} else {
-			if(umus == '') {
-				tips('请添加一个网络音乐或者上传音乐');
-				return false;
-			}
-			$('#urlmusic').val(umus); //写入数据
-			$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
-			$('#form_publish').submit();
-		}
-		//return false;
-	});
-
 	//发布image
 	$('#submit_image').click(function() {
 		var umus = ''; //获取发布音乐字符串
@@ -395,17 +363,54 @@ $(document).ready(function () {
 			tips('亲，定义一个标签呗~回车确定标签');
 			return false;
 		}
-		$('#urlmusic').val(umus); //写入数据
+		$('#urlmedia').val(umus); //写入数据
 		$('#submit_image,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
 		$('#form_publish').submit();
 	});
 
+	//发布music
+	$('#submit_music').click(function() {
+		var umus = ''; //获取发布音乐字符串
+		$('#mediaList .list').each(function () {
+			if($(this).attr("data-type") == "xiami") {
+				umus += $(this).attr('data-type') + '|' + $(this).attr('data-img') + '|' + $(this).attr('data-pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('data-url') + '|' + $(this).attr('data-albumName') + '|' + $(this).attr('data-albumUrl') + '|' + $(this).attr('data-singerName') + '|' + $(this).attr('data-singerUrl') + 'LUOMOR';
+			} else {
+				umus += $(this).attr('data-type') + '|' + $(this).attr('data-img') + '|' + $(this).attr('data-pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('data-url') + 'LUOMOR';
+			}
+		});
+		if(!setTags()) {
+			tips('亲，定义一个标签呗~回车确定标签');
+			return false;
+		}
+
+		if($('#useedit').val() == 1) {
+			$.dialog({
+				content: '您确认使用编辑器中的媒体作为最终发布的内容吗？',
+				lock: true,
+				yesFn: function () {
+					$('#urlmedia').val(umus); //写入数据
+					$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
+					$('#form_publish').submit();
+				},
+				noFn: true
+			});
+		} else {
+			if(umus == '') {
+				tips('请添加一个网络音乐或者上传音乐');
+				return false;
+			}
+			$('#urlmedia').val(umus); //写入数据
+			$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
+			$('#form_publish').submit();
+		}
+	});
+
 	//发布video
 	$('#submit_video').click(function() {
-		var umus = ''; //获取发布音乐字符串
-		$('#musicList .list').each(function () {
-			umus += $(this).attr('type') + '|' + $(this).attr('img') + '|' + $(this).attr('pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('url') + '[YB]';
-		}) //获取音乐字串
+		var umus = ''; //获取发布视频字符串
+		$('#mediaList .list').each(function () {
+			umus += $(this).attr('data-type') + '|' + $(this).attr('data-img') + '|' + $(this).attr('data-pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('data-url') + 'LUOMOR';
+		});
 		if(umus == '') {
 			tips('请添加一个网络视频,并点击保存');
 			return false;
@@ -414,8 +419,8 @@ $(document).ready(function () {
 			tips('亲，定义一个标签呗~回车确定标签');
 			return false;
 		}
-		$('#urlmusic').val(umus); //写入数据
-		$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
+		$('#urlmedia').val(umus); //写入数据
+		$('#submit_video,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
 		$('#form_publish').submit();
 	});
 });
@@ -437,21 +442,20 @@ function setTags() {
 	}
 }
 
-//处理音乐模型需要的方法
-
-//网络音乐和编辑器切换
-function SelectLink() {
-	$('#musicFrom').show();
-	$('#musicUpload').hide();
+//网络音乐
+function selectLink() {
+	$('#mediaFrom').show();
+	$('#mediaUpload').hide();
 	$('#useedit').val(0);
 	$('#mountchange ul li').removeClass('curr');
 	$('#url_link').addClass('curr');
 }
 
-function SelectUpload(that) {
-	$('#musicFrom').hide();
-	$('#musicUpload').show();
-	$('#useedit').val(0)
+//本地音乐
+function selectUpload(that) {
+	$('#mediaFrom').hide();
+	$('#mediaUpload').show();
+	$('#useedit').val(1)
 	$('#mountchange ul li').removeClass('curr');
 	$('#url_upload').addClass('curr');
 }
@@ -474,19 +478,28 @@ function musicMosout(thisa, t) {
 
 //保存一个条目
 function saveMusicList(url) {
-	var url = $('#musicurl').val();
+	saveMediaList(url, "music");
+}
+
+//保存一个条目
+function saveVideoList(url) {
+	saveMediaList(url, "video")
+}
+
+function saveMediaList(url, type) {
+	var url = $('#mediaUrl').val();
 	if (url == 'http://') {
 		tips('请填写一个引用地址');
 		return false;
 	}
 
-	$("#musicFrom").disable();
+	$("#mediaFrom").disable();
 	$("#urlParseLoading").val('正在解析...');
-	$.post(urlpath + '/index.php?c=publisher&a=links', {
-		'url': url
+	$.post(urlpath + '/index.php?c=publisher&a=media', {
+		'url': url,
+		'type': type
 	}, function (result) {
-		// alert(result);
-		$("#musicFrom").enable();
+		$("#mediaFrom").enable();
 		$("#urlParseLoading").val('添加地址');
 		var data = eval("(" + result + ")");
 		if (data.error != undefined) {
@@ -497,26 +510,36 @@ function saveMusicList(url) {
 			data.img = 'tpl/images/publisher/webmusic.png';
 		}
 		desc = data.title;
-		var html = '<div class="list" type="' + data.type + '" pid="' + data.id + '" img="' + data.img + '" url="' + url + '"> <div class="uri">已添加：' + url + '</div>' + '<input type="text" name="musicList[' + data.id + ']" value="' + desc + '" />' + '<a href="javascript:void(0)" onclick="musicDItem(this)">移除</a> </div>';
-		$('#musicList').prepend(html);
+		html = "";
+		if(data.type == "xiami") {
+			html += '<li class="list" data-type="' + data.type + '" data-pid="' + data.id + '" data-img="' + data.img + '" data-url="' + url + '" data-albumName="' + data.albumName + '" data-albumUrl="' + data.albumUrl + '" data-singerName="' + data.singerName + '" data-singerUrl="' + data.singerUrl + '">';
+		} else {
+			html += '<li class="list" data-type="' + data.type + '" data-pid="' + data.id + '" data-img="' + data.img + '" data-url="' + url + '">';
+		}
+		html += '<div class="uri">已添加：' + desc + '</div>';
+		html += '<input type="hidden" name="mediaList[' + data.id + ']" value="' + desc + '" />';
+		html += '<a href="javascript:void(0)" onclick="mediaDItem(this)">移除</a>';
+		html += '</li>';
+		$('#mediaList').prepend(html);
+		desc = $("div[class='uri']")[0].innerHTML.replace("已添加：", "");
 		$('#pb-text-title').val(desc);
-		$('#musicurl').val('http://');
-	})
+		$('#mediaUrl').val('http://');
+	});
 }
 
-//删除音乐发布的一个条目 DOM
-function musicDItem(that) {
+//删除多媒体发布的一个条目 DOM
+function mediaDItem(that) {
 	$(that).parent().remove();
 }
 
-//添加MP3类型媒体 如果localmusic 存在 则说明是在音乐模型
+//添加MP3类型媒体 如果是localmusic则说明是在音乐模型
 function iattachMMouse(that, id) {
-	if (id == 0) {
+	if(id == 0) {
 		if ($(that).val() == '描述') {
 			$(that).val('');
 		}
 	}
-	if (id == 1) {
+	if(id == 1) {
 		if ($(that).val() == '') {
 			$(that).val('描述');
 		}
@@ -533,7 +556,7 @@ function removeIattachMp3(that, id) {
 function iattachMp3(id, name) {
 	if ($('#blog-types').val() == 2) {
 		var html = '<div class="list" type="local" pid="' + id + '" img="0"><div class="uri">已添加：来自本地音乐</div>' + '<div><input type="text" name="localMusic[' + id + ']" value="' + name + '" />' + '<a href="javascript:void(0)" onclick="musicDItem(this)">移除</a></div> </div>';
-		$('#musicList').prepend(html);
+		$('#mediaList').prepend(html);
 		$('#attach_' + id).hide();
 	}
 }

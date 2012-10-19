@@ -83,38 +83,67 @@
 
 		$more = 0;
 
-		if($type == 1) { //文字
-			//只有limit不显示全部的时候才显示
+		if($type == 1) {//地图
+			if($limit == "all") {
+				echo $content;
+			} else {
+				if($attr != "") {
+					if(file_exists($attr)) {
+						echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
+						$outimg = 1;
+					}
+				}
+				
+				if(utf8_strlen($content) > 700) {
+					if(!$outimg) {
+						$content = utf8_substr(strip_tags($content, "<div><p><ul><li><br><img>"), 0, 700);
+					} else {
+						$content = utf8_substr(strip_tags($content, "<div><p><ul><li><br>"), 0, 700);
+					}
+					$more = 1;
+				} else {
+					if(!$outimg) {
+						$content = strip_tags($content, "<div><p><ul><li><br><img>");
+					} else {
+						$content = strip_tags($content, "<div><p><ul><li><br>");
+					}
+				}
+				echo $content;
+			}
+		} if($type == 2) {//文字
 			if($limit == 'all') {
 				echo $content;
 			} else {
 				if($attr != '') {
 					if(file_exists($attr)) {
-						echo '<img src="' . $site_uri . '/' . $attr . '" alt=""/>';
+						echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
 						$outimg = 1;
-					} //是否有代表图封面
+					}
 				}
 
 				if(utf8_strlen($content) > 700) {
 					if(!$outimg) {
-						$content = utf8_substr(strip_tags($content, '<p><ul><li><br><img>'), 0, 700);
+						$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br><img>'), 0, 700);
 					} else {
-						$content = utf8_substr(strip_tags($content, '<p><ul><li><br>'), 0, 700);
+						$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br>'), 0, 700);
 					}
 					$more = 1;
 				} else {
 					if(!$outimg) {
-						$content = strip_tags($content, '<p><ul><li><br><img>');
+						$content = strip_tags($content, '<div><p><ul><li><br><img>');
 					} else {
-						$content = strip_tags($content, '<p><ul><li><br>');
+						$content = strip_tags($content, '<div><p><ul><li><br>');
 					}
 				}
 				echo $content;
 			}
-		} elseif($type == 3) {//图片
-			if($limit == 'all') {//如果显示全部
+		} elseif($type == 4) {//图片
+			if($limit == 'all') {//显示全部
 				foreach($attr['img'] as $d) {
-					echo '<a class="highslide" href="' . getBigImg($d['url']) . '" onclick="return hs.expand(this)"><img src="' . $site_uri . '/' . $d['url'] . '" class="feedimg" alt="' . $d['desc'] . '"/></a><p>' . $d['desc'] . '</p>';
+					echo '<a class="highslide" href="' . getBigImg($d['url']) . '" onclick="return hs.expand(this)">
+							<img src="' . $site_uri . '/' . $d['url'] . '" class="feedimg" alt="' . $d['desc'] . '" title="' . $d["desc"] . '"/>
+						</a>
+						<p>' . $d["desc"] . '</p>';
 				}
 				echo $content;
 			} else {
@@ -124,38 +153,114 @@
 				} //不然只显示4个
 				$img = '<div class="highslide-gallery">';
 				foreach($attr['img'] as $d) {
-					$img .= '<a class="highslide" href="' . $site_uri . '/' . getBigImg($d['url']) . '" onclick="return hs.expand(this)"><img src="' . $site_uri . '/' . $d['url'] . '"  alt="' . $d['desc'] . '" class="feedimg"/></a>';
+					$img .= '<a class="highslide" href="' . $site_uri . '/' . getBigImg($d['url']) . '" onclick="return hs.expand(this)">
+								<img src="' . $site_uri . '/' . $d['url'] . '"  alt="' . $d['desc'] . '" title="' . $d["desc"] . '" class="feedimg"/>
+							</a>';
 				}
 				$img .= '</div>';
 				
 				if(utf8_strlen($content) > 700) {
-					$content = utf8_substr(strip_tags($content, '<p><ul><li><br><img>'), 0, 700);
+					$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br><img>'), 0, 700);
 					$more = 1;
 				} else {
-					$content = strip_tags($content, '<p><ul><li><br><img>');
+					$content = strip_tags($content, '<div><p><ul><li><br><img>');
 				}
 				echo $img . $content;
 				if($more == 1) {
 					echo '<p>共' . $attr['count'] . '张图</p>';
 				}
 			}
-		} elseif($type == 2 || $type == 4) {//如果是音乐
-			if($limit != 'all') {//如果不显示全部
+		} elseif($type == 3 || $type == 5) {//音乐和视频
+			if($limit != 'all') {//不显示全部
 				$count = count($attr);
 				if($count > $limit) {
 					$more = 1;
 					$attr = arrayPage($attr, $limit);
 				}
 				if(utf8_strlen($content) > 700) {//如果内容超过700字则标记
-					$content = utf8_substr(strip_tags($content, '<p><ul><li><br><img>'), 0, 700);
+					$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br><img>'), 0, 700);
 					$more = 1;
 				} else {
-					$content = strip_tags($content, '<p><ul><li><br><img>');
+					$content = strip_tags($content, '<div><p><ul><li><br><img>');
 				}
 			}
 			
 			foreach($attr as $rs) {
-				if($rs['type'] == 'youku') {
+				if($rs['type'] == 'xiami') {
+					$url = "http://www.xiami.com";
+					echo '<div class="xiami clearfix">
+							<a href="' . $url . $rs["albumUrl"] . '" target="_blank"><img src="' . $rs['img'] . '" class="img" alt=""/></a>
+							<div><a href="' . $url . $rs["albumUrl"] . '" target="_blank">' . $rs['albumName'] . '</a> - <a href="' . $url . $rs["singerUrl"] . '" target="_blank">' . $rs['singerName'] . '</a></div>
+							<embed src="http://www.xiami.com/widget/0_' . $rs['pid'] . '/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
+							<div class="clear"></div>
+						</div>';
+				} elseif($rs['type'] == 'flamesky') {
+					echo '<div class="xiami clearfix">
+							<img src="' . $rs['img'] . '" class="img" alt=""/>
+							<div>' . $rs['desc'] . '</div>
+							<embed src="http://www.flamesky.com/track/' . $rs['pid'] . '/ffp.swf" quality="high" width="310" height="45" allowScriptAccess="allways" wmode="transparent" type="application/x-shockwave-flash" />
+						</div>';
+				} elseif($rs['type'] == 'yinyuetai') {
+					if($show == 1) {
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($rs['pid'] . '?autostart=false');
+					} else {
+						echo '<div class="player">
+								<a href="javascript:;" onclick="OMP(\'' . $rs['pid'] . '\', this)">
+									<img src="' . $rs['img'] . '" class="img" onerror="this.src=\'tpl/image/videobg.png\'" width="127" height="95"/>
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" />
+								</a>
+								<div class="area">
+									<p>
+										<a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '
+									</p>
+									<div class="playbox">
+									</div>
+								</div>
+							</div>';
+					}
+				} elseif($rs['type'] == 'local') {
+					if(stripos($rs['desc'], 'mp3')) {
+						$mtype = 1;
+					} else {
+						$mtype = 3;
+					}
+					echo '<div class="localmu">
+							<p>' . $rs['desc'] . '</p>
+							<div id="player_' . $bid . '"></div>
+						</div>
+						<script type="text/javascript">
+							var flashvars = {
+								name: "烙馍网 - 本地音乐",
+								skin: "' . $site_uri . '/tpl/swf/skins/mini/blueplayer.zip",
+								src: "' . spUrl('blog', 'getmusic', array('id' => $rs['pid'])) . '",
+								type: ' . $mtype . ',
+								label: "' . $rs['desc'] . '"
+							};
+							var html = CMP.create("cmp", "100%", "50", "' . $site_uri . '/tpl/swf/cmp.swf", flashvars);
+							document.getElementById("player_' . $bid . '").innerHTML = html;
+						</script>';
+				} elseif($rs['type'] == 'music') {
+					if(stripos($rs['pid'], 'mp3')) {
+						$mtype = 1;
+					} else {
+						$mtype = 3;
+					}
+					echo '<div class="localmu">
+							<p>' . $rs['desc'] . ' / <a href="' . $rs['pid'] . '" target="_blank">点击下载</a></p>
+							<div id="player_' . $bid . '"></div>
+						</div>
+						<script type="text/javascript">
+							var flashvars = {
+								name: "烙馍网 - 网络音乐",
+								skin: "' . $site_uri . '/tpl/swf/skins/mini/blueplayer.zip",
+								src: "' . $rs['pid'] . '",
+								type: ' . $mtype . ',
+								label: "' . $rs['desc'] . '"
+							};
+							var html = CMP.create("cmp", "100%", "50", "' . $site_uri . '/tpl/swf/cmp.swf", flashvars);
+							document.getElementById("player_' . $bid . '").innerHTML = html;
+						</script>';
+				} elseif($rs['type'] == 'youku') {
 					$url = 'http://player.youku.com/player.php/sid/' . $rs['pid'] . '/v.swf';
 					if($show == 1) {
 						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url);
@@ -192,71 +297,6 @@
 								</div>
 							</div>';
 					}
-				} elseif($rs['type'] == 'xiami') {
-					echo '<div class="xiami clearfix">
-							<img src="' . $rs['img'] . '" class="img" alt=""/>
-							<div>' . $rs['desc'] . '</div>
-							<embed src="http://www.xiami.com/widget/0_' . $rs['pid'] . '/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
-							<div class="clear"></div>
-						</div>';
-				} elseif($rs['type'] == 'flamesky') {
-					echo '<div class="xiami clearfix">
-							<img src="' . $rs['img'] . '" class="img" alt=""/>
-							<div>' . $rs['desc'] . '</div>
-							<embed src="http://www.flamesky.com/track/' . $rs['pid'] . '/ffp.swf" quality="high" width="310" height="45" allowScriptAccess="allways" wmode="transparent" type="application/x-shockwave-flash" />
-						</div>';
-				} elseif($rs['type'] == 'local') {
-					if(stripos($rs['desc'],'mp3')) {
-						$mtype = 1;
-					} else {
-						$mtype = 3;
-					}
-					echo '<div class="localmu">
-							<p>' . $rs['desc'] . '</p>
-							<div id="player_' . $bid . '"></div>
-						</div>
-						<script type="text/javascript">
-							var flashvars = {
-								name: "烙馍网 - 本地音乐",
-								skin: "' . $site_uri . '/tpl/swf/skins/mini/blueplayer.zip",
-								src: "' . spUrl('blog', 'getmusic', array('id' => $rs['pid'])) . '",
-								type: ' . $mtype . ',
-								label: "' . $rs['desc'] . '"
-							};
-							var html = CMP.create("cmp", "100%", "50", "' . $site_uri . '/tpl/swf/cmp.swf", flashvars);
-							document.getElementById("player_' . $bid . '").innerHTML = html;
-						</script>';
-				} elseif($rs['type'] == 'weblink') {
-					if(stripos($rs['pid'], 'mp3')) {
-						$mtype = 1;
-					} else {
-						$mtype = 3;
-					}
-					echo '<div class="localmu">
-							<p>' . $rs['desc'] . ' / <a href="' . $rs['pid'] . '" target="_blank">点击下载</a></p>
-							<div id="player_' . $bid . '"></div>
-						</div>
-						<script type="text/javascript">
-							var flashvars = {
-								name: "烙馍网 - 网络音乐",
-								skin: "' . $site_uri . '/tpl/swf/skins/mini/blueplayer.zip",
-								src: "' . $rs['pid'] . '",
-								type: ' . $mtype . ',
-								label: "' . $rs['desc'] . '"
-							};
-							var html = CMP.create("cmp", "100%", "50", "' . $site_uri . '/tpl/swf/cmp.swf", flashvars);
-							document.getElementById("player_' . $bid . '").innerHTML = html;
-						</script>';
-				} elseif($rs['type'] == 'yinyuetai') {
-					if($show == 1) {
-						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($rs['pid'] . '?autostart=false');
-					} else {
-						echo '<div class="player">
-								<a href="javascript:;" onclick="OMP(\'' . $rs['pid'] . '\', this)">
-								<img src="' . $rs['img'] . '" class="img" onerror="this.src=\'tpl/image/videobg.png\'" width="127" height="95"/><img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" /></a>
-								<div class="area"> <p><a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '</p><div class="playbox"></div> </div>
-							</div>';
-					}
 				} else {
 					$url = $rs['pid'];
 					if($show == 1) {
@@ -282,7 +322,7 @@
 		
 		if($more == 1) {
 			echo '<p class="readMore">
-					<a href="' . goUserBlog(array('bid' => $bid, 'domain' => $d['domain'], 'uid' => $uid)) . '">未完,阅读全文</a>
+					<a href="' . goUserBlog(array('bid' => $bid, 'domain' => $d['domain'], 'uid' => $uid)) . '">阅读全文</a>
 				</p>';
 		}
 
@@ -294,9 +334,16 @@
 	}
 	spAddViewFunction('feeds', 'feeds');
 	
+	function getUrl($params) {
+		$url = $params["url"];
+		$url = substr($url, 0, stripos($url, "[LUOMOR]"));
+		echo $url;
+	}
+	spAddViewFunction("getUrl", "getUrl");
+	
 	//feed parse getswfplayer
 	function _getSwfplayer($playUrl) {
-		$player = '<object width="630" height="385">
+		$player = '<object width="100%" height="385">
 						<param name="allowscriptaccess" value="always"></param>
 						<param name="allowFullScreen" value="true"></param>
 						<param name="wmode" value="Opaque"></param>
@@ -780,20 +827,33 @@
 				foreach($data as $d) {
 					$img = $desc = $midetype =  $pid = '';
 					$rs = split_attribute($d['body']); //解析内容
-					if($d['type'] == 1) {//文字
+					if($d["type"] == 1) {//地图
+						$img = $rs["attr"];
+						$content = utf8_substr(strip_tags($rs["content"], "<br>"), 0, 400);
+						$rsdata[] = array(
+							"bid" => $d["bid"],
+							"btype" => $d["type"],
+							"img" => $img,
+							"content" => $content,
+							"uid" => $d["user"]["uid"],
+							"username" => $d["user"]["username"],
+							"domain" => $d["user"]["domain"],
+							"tag" => $d["tag"]
+						);
+					} elseif($d['type'] == 2) {//文字
 						$img = $rs['attr'];
 						$content = utf8_substr(strip_tags($rs['content'], '<br>'), 0, 400);
 						$rsdata[] = array(
-										'bid' => $d['bid'],
-										'btype' => $d['type'],
-										'img' => $img,
-										'content' => $content,
-										'uid' => $d['user']['uid'],
-										'username' => $d['user']['username'],
-										'domian' => $d['user']['domain'],
-										'tag' => $d['tag']
-									);
-					} elseif($d['type'] == 2 || $d['type'] == 4) { //音乐
+							'bid' => $d['bid'],
+							'btype' => $d['type'],
+							'img' => $img,
+							'content' => $content,
+							'uid' => $d['user']['uid'],
+							'username' => $d['user']['username'],
+							'domain' => $d['user']['domain'],
+							'tag' => $d['tag']
+						);
+					} elseif($d['type'] == 3 || $d['type'] == 5) { //音乐
 						if($rs['attr']) {
 							$img = $rs['attr'][0]['img'];
 							$desc = $rs['attr'][0]['desc'];
@@ -801,31 +861,31 @@
 							$pid = $rs['attr'][0]['pid'];
 						}
 						$rsdata[] = array(
-										'bid' => $d['bid'],
-										'btype' => $d['type'],
-										'metype' => $midetype,
-										'img' => $img,
-										'pid' => $pid,
-										'desc' => $desc,
-										'uid' => $d['user']['uid'],
-										'username' => $d['user']['username'],
-										'domian' => $d['user']['domain'],
-										'tag' => $d['tag']
-									);
-					} elseif($d['type'] == 3) { //图片
+							'bid' => $d['bid'],
+							'btype' => $d['type'],
+							'metype' => $midetype,
+							'img' => $img,
+							'pid' => $pid,
+							'desc' => $desc,
+							'uid' => $d['user']['uid'],
+							'username' => $d['user']['username'],
+							'domain' => $d['user']['domain'],
+							'tag' => $d['tag']
+						);
+					} elseif($d['type'] == 4) { //图片
 						$count  = $rs['attr']['count'];
 						if($rs['attr']['img']) {
 							$img = $rs['attr']['img'][0]['url'];
 							$rsdata[] = array(
-											'bid' => $d['bid'],
-											'btype' => $d['type'],
-											'img' => $img,
-											'count' => $count,
-											'uid' => $d['user']['uid'],
-											'username' => $d['user']['username'],
-											'domian' => $d['user']['domain'],
-											'tag' => $d['tag']
-										);
+								'bid' => $d['bid'],
+								'btype' => $d['type'],
+								'img' => $img,
+								'count' => $count,
+								'uid' => $d['user']['uid'],
+								'username' => $d['user']['username'],
+								'domain' => $d['user']['domain'],
+								'tag' => $d['tag']
+							);
 						}
 					}
 				}

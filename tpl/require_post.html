@@ -9,18 +9,17 @@
 		<li><a href="{spUrl c=publisher a=text}" class="text">文字</a></li>
 		<li class="ln"></li>
 		{/if}
-		{if $luomor.allowPublishmusic ==1}
-		<li><a href="{spUrl c=publisher a=music}" class="music">音乐</a></li>
-		<li class="ln"></li>
-		{/if}
 		{if $luomor.allowPublishimg ==1}
 		<li><a href="{spUrl c=publisher a=image}" class="photo">图片</a></li>
+		<li class="ln"></li>
+		{/if}
+		{if $luomor.allowPublishmusic ==1}
+		<li><a href="{spUrl c=publisher a=music}" class="music">音乐</a></li>
 		<li class="ln"></li>
 		{/if}
 		{if $luomor.allowPublishvideo ==1}
 		<li><a href="{spUrl c=publisher a=video}" class="video">视频</a></li>
 		<li class="ln"></li>
 		{/if}
-		<!--<li><a href="#" class="link">其他</a></li>-->
 	</div>
 </div>

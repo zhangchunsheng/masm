@@ -188,18 +188,17 @@ hr.separator {border-bottom: 1px solid #FEFFFE;border-top: 1px solid #E2E6E8;bor
 .alt-row {background-color:#EEE}
 
 /*·¢²¼ÒôÀÖ*/
-#musicFrom,#musicUpload {display:block; background-color:#EEEEEE; padding:10px;}
-#musicList .list {margin:2px 0px;}
-#musicList .list input {width:220px; font-size:12px; line-height:18px; color:#999}
-#musicList .list img {width:130px; height:100px}
-#musicList .list .uri {width:250px;white-space: nowrap; float:left}
-#musicList .list .body {float:left}
-
-.musicurl {color:#666; font-size:12px;width:560px; height:24px; line-height:24px; background:url(../comm/post_input.jpg) repeat-x top left #FFFFFF; border:1px solid #999; padding:2px; margin-bottom:10px}
+#mediaFrom,#mediaUpload {display:block; background-color:#EEEEEE; padding:10px;}
+#mediaList .list {margin:2px 0px;}
+#mediaList .list input {width:220px; font-size:12px; line-height:18px; color:#999}
+#mediaList .list img {width:130px; height:100px}
+#mediaList .list .uri {width: 560px;overflow:hidden;white-space: nowrap; float:left;text-overflow: ellipsis;}
+#mediaList .list .body {float:left}
+#mediaList .list>a {float:right}
+#mediaFrom .mediaurl {color:#666; font-size:12px;width:560px; height:24px; line-height:24px; background:url(../comm/post_input.jpg) repeat-x top left #FFFFFF; border:1px solid #999; padding:2px; margin-bottom:10px}
 #localMusic {margin:10px 0px;}
-
-#musicList a,#musicList a:hover {color:#999}
-#musicUpload strong {font-weight:bold}
+#mediaList a,#mediaList a:hover {color:#999}
+#mediaUpload strong {font-weight:bold}
 .notice {margin:10px 0px;}
 .notice li {list-style:inside; list-style-type:disc; color:#666}
 

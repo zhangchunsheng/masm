@@ -31,7 +31,12 @@
 			</tr>
 			{foreach from=$table.rs item=d}
 			<tr>
-				<td>{$d.TABLE_NAME}{if $d.TABLE_COMMENT != ''}({$d.TABLE_COMMENT}){/if}</td>
+				<td>
+					{$d.TABLE_NAME}
+					{if $d.TABLE_COMMENT != ''}
+						({$d.TABLE_COMMENT})
+					{/if}
+				</td>
 				<td valign="middle">{$d.ENGINE}</td>
 				<td valign="middle">{$d.TABLE_COLLATION}</td>
 				<td valign="middle">{formatBytes size=$d.DATA_LENGTH}</td>
@@ -42,12 +47,14 @@
 				<td valign="middle">{parseTime time=strtotime($d.CHECK_TIME)}</td>
 				<td valign="middle">{if $d.DATA_FREE !=0}{formatBytes size=$d.DATA_FREE} {else}正常 {/if}</td>
 				<td align="right" valign="middle">
-					{if $d.DATA_FREE !=0}<input type="button" name="button" id="button" value="&#20248;&#21270;&#34920;" onclick="tableOp('{$d.TABLE_NAME}')" /> {/if}
+					{if $d.DATA_FREE !=0}
+						<input type="button" name="button" id="button" value="&#20248;&#21270;&#34920;" onclick="tableOp('{$d.TABLE_NAME}')" />
+					{/if}
 					{if $d.CHECK_TABLE  !='OK' && $d.CHECK_TABLE !='NCHECK'}
-					<input type="button" name="button" id="button" value="&#20462;&#22797;&#34920;" onclick="tableRep('{$d.TABLE_NAME}','{$d.CHECK_TABLE}')" />
+						<input type="button" name="button" id="button" value="&#20462;&#22797;&#34920;" onclick="tableRep('{$d.TABLE_NAME}','{$d.CHECK_TABLE}')" />
 					{/if}
 					{if $d.DATA_FREE =0  || $d.CHECK_TABLE !='NCHECK' || $d.CHECK_TABLE !='OK'} 
-					<input type="button" name="button" id="tab_o_{$d.TABLE_NAME}" value="&#23548;&#20986;" onclick="outputTab('{$d.TABLE_NAME}')" />
+						<input type="button" name="button" id="tab_o_{$d.TABLE_NAME}" value="&#23548;&#20986;" onclick="outputTab('{$d.TABLE_NAME}')" />
 					{/if}
 				</td>
 			</tr>

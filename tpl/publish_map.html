@@ -18,11 +18,24 @@
 					<input type="hidden" name="pb-text-latitude" id="pb-text-latitude" value="{$blog.latitude}" />
 					<input type="hidden" name="pb-text-longitude" id="pb-text-longitude" value="{$blog.longitude}" />
 					<div>
-						<h3 class="title"> 标题 <span>(亲，可以填写餐馆名称等)</span> </h3>
+						<h3 class="title">
+							标题 <span>(亲，可以填写餐馆名称等)</span>
+						</h3>
 						<input type="text" name="pb-text-title" id="pb-text-title" class="input" tabindex="2" value="{$blog.title}"></input>
 					</div>
 					<div>
-						<h3 class="title">感受 <span>(亲，谈谈对这个地方的感受)</span></h3>
+						<h3 class="title">
+							感受 <span>(亲，谈谈对这个地方的感受)</span>
+						</h3>
+						<span id="uploadpic">
+							<span id="upload_bar">
+								<div class="uploadBtn" id="upload_img">
+									<span>上传图片</span>
+									<input type="file" size="1" name="filedata" ext="jpg,jpeg,gif,png" />
+								</div>
+							</span>
+							<span id="uploading" style="display:none">正在上传...</span>
+						</span>
 						<textarea name="textarea" id="textarea" style="width:100%">{$body.content}</textarea>
 					</div>
 				</div>

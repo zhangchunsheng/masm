@@ -69,8 +69,8 @@
 				'fileinput' => 'filedata', //默认文件上传域
 				'dirtype' => 4, //文件夹保存格式
 				'imgresize' => TRUE, //图片文件自动创建缩略图
-				'imgmask' => TRUE, //图片自动加水银
-				'imgmasksrc' => SP_PATH . '/Extensions/font/logo.png', //水印文字
+				'imgmask' => TRUE, //图片自动加水印
+				'imgmasksrc' => "烙馍网", //水印文字
 				'imgresizew' => 500 //缩略图比例宽度
 			),
 			'spVerifyCode' => array( //验证码扩展

@@ -7,11 +7,22 @@
 				<h2 id="title">发布文字</h2>
 				<div id="pb-post-area">
 					<div>
-						<h3 class="title"> 标题 <span>(亲，起个标题吧)</span> </h3><!-- 小吃名称 -->
+						<h3 class="title">
+							标题 <span>(亲，起个标题吧)</span>
+						</h3><!-- 小吃名称 -->
 						<input type="text" name="pb-text-title" id="pb-text-title" class="input" tabindex="1" value="{$blog.title}" />
 					</div>
 					<div>
 						<h3 class="title">内容</h3>
+						<span id="uploadpic">
+							<span id="upload_bar">
+								<div class="uploadBtn" id="upload_img">
+									<span>上传图片</span>
+									<input type="file" size="1" name="filedata" ext="jpg,jpeg,gif,png" />
+								</div>
+							</span>
+							<span id="uploading" style="display:none">正在上传...</span>
+						</span>
 						<textarea name="textarea" id="textarea" style="width:100%">{$body.content}</textarea>
 					</div>
 					{if is_array($attach)}

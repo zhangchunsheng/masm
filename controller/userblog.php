@@ -45,7 +45,7 @@
 			
 			if(is_array($this -> d)) {
 				spClass('mBlog') -> incrField(array('bid' => $this -> spArgs('bid')), 'hitcount');
-				$this -> display('list.html', $this -> result);
+				$this -> display('blog.html', $this -> result);
 			} else {
 				err404('您查看的内容可能已经修改或者删除。');
 			}
