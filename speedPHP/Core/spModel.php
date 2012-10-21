@@ -406,33 +406,32 @@
 		/**
 		 * 函数式使用模型辅助类的输入函数
 		 */
-		public function __input(& $obj, $args){
-			$this->model_obj = $obj;
-			$this->input_args = $args;
+		public function __input(& $obj, $args) {
+			$this -> model_obj = $obj;
+			$this -> input_args = $args;
 			return $this;
 		}
 		/**
 		 * 魔术函数，支持多重函数式使用类的方法
 		 */
-		public function __call($func_name, $func_args){
-			if( ( 'findAll' == $func_name || 'findSql' == $func_name ) && 0 != $this->input_args[0]){
-				return $this->runpager($func_name, $func_args);
-			}elseif(method_exists($this,$func_name)){
+		public function __call($func_name, $func_args) {
+			if(($func_name == "findAll" || $func_name == "findSql") && $this -> input_args[0] != 0) {
+				return $this -> runpager($func_name, $func_args);
+			} elseif(method_exists($this, $func_name)) {
 				return call_user_func_array(array($this, $func_name), $func_args);
-			}else{
-				return call_user_func_array(array($this->model_obj, $func_name), $func_args);
+			} else {
+				return call_user_func_array(array($this -> model_obj, $func_name), $func_args);
 			}
 		}
 		/**
 		 * 获取分页数据
 		 */
-		public function getPager(){
-			return $this->pageData;
+		public function getPager() {
+			return $this -> pageData;
 		}
 
 		/**获取html版本的分页**/
-		public function pagerHtml($c='main',$a='index',$filter = array())
-		{
+		public function pagerHtml($c='main',$a='index',$filter = array()) {
 			 $pager =$this->getPager();
 			 $pages = $this->makepage($pager); //获得截断的pages
 			 $pageHtml = Null;
@@ -583,7 +582,6 @@
 	 * 数据验证程序
 	 */
 	class spVerifier {
-
 		/**
 		 * 附加的检验规则函数
 		 */
@@ -606,15 +604,19 @@
 		/**
 		 * 函数式使用模型辅助类的输入函数
 		 */
-		public function __input(& $obj, $args){
-			$this->verifier = (null != $obj->verifier) ? $obj->verifier : array();
-			if(isset($args[1]) && is_array($args[1])){
-				$this->verifier["rules"] = $this->verifier["rules"] + $args[1]["rules"];
-				$this->verifier["messages"] = isset($args[1]["messages"]) ? ( $this->verifier["messages"] + $args[1]["messages"] ) : $this->verifier["messages"];
+		public function __input(& $obj, $args) {
+			$this -> verifier = ($obj -> verifier != null) ? $obj -> verifier : array();
+			if(isset($args[1]) && is_array($args[1])) {
+				$this -> verifier["rules"] = $this -> verifier["rules"] + $args[1]["rules"];
+				$this -> verifier["messages"] = isset($args[1]["messages"]) ? ( $this -> verifier["messages"] + $args[1]["messages"] ) : $this -> verifier["messages"];
 			}
-			if(is_array($obj->addrules) && !empty($obj->addrules) ){foreach($obj->addrules as $addrule => $addveri)$this->addrules($addrule, $addveri);}
-			if(empty($this->verifier["rules"]))spError("无对应的验证规则！");
-			return is_array($args[0]) ? $this->checkrules($args[0]) : TRUE; // TRUE为不通过验证
+			if(is_array($obj -> addrules) && !empty($obj -> addrules)) {
+				foreach($obj -> addrules as $addrule => $addveri)
+					$this -> addrules($addrule, $addveri);
+			}
+			if(empty($this -> verifier["rules"]))
+				spError("无对应的验证规则！");
+			return is_array($args[0]) ? $this -> checkrules($args[0]) : TRUE; // TRUE为不通过验证
 		}
 
 		/**
@@ -625,8 +627,8 @@
 		 * 第一种是  '验证函数名'，这是当函数是一个单纯的函数时使用
 		 * 第二种是 array('类名', '方法函数名')，这是当函数是一个类的某个方法函数时候使用。
 		 */
-		public function addrules($rule_name, $checker){
-			$this->add_rules[$rule_name] = $checker;
+		public function addrules($rule_name, $checker) {
+			$this -> add_rules[$rule_name] = $checker;
 		}
 		/**
 		 * 按规则验证数据
@@ -634,33 +636,38 @@
 		 * @param values    验证值
 		 */
 		private function checkrules($values){
-			$this->checkvalues = $values;
-			foreach( $this->verifier["rules"] as $rkey => $rval ){
+			$this -> checkvalues = $values;
+			foreach($this -> verifier["rules"] as $rkey => $rval) {
 				$inputval = isset($values[$rkey]) ? $values[$rkey] : '';
-				foreach( $rval as $rule => $rightval ){
-					if(method_exists($this, $rule)){
-						if(TRUE == $this->$rule($inputval, $rightval))continue;
-					}elseif(null != $this->add_rules && isset($this->add_rules[$rule])){
-						if( function_exists($this->add_rules[$rule]) ){
-							if(TRUE == $this->add_rules[$rule]($inputval, $rightval, $values))continue;
-						}elseif( is_array($this->add_rules[$rule]) ){
-							if(TRUE == spClass($this->add_rules[$rule][0])->{$this->add_rules[$rule][1]}($inputval, $rightval, $values))continue;
+				foreach($rval as $rule => $rightval) {
+					if(method_exists($this, $rule)) {
+						if($this -> $rule($inputval, $rightval) == true)
+							continue;
+					} elseif($this -> add_rules != null && isset($this -> add_rules[$rule])) {
+						if(function_exists($this -> add_rules[$rule])) {
+							if($this -> add_rules[$rule]($inputval, $rightval, $values) == true)
+								continue;
+						} elseif(is_array($this -> add_rules[$rule])) {
+							if(spClass($this -> add_rules[$rule][0]) -> {$this -> add_rules[$rule][1]}($inputval, $rightval, $values) == TRUE)
+								continue;
 						}
-					}else{
+					} else {
 						spError("未知规则！");
 					}
-					$this->messages[$rkey][] = (isset($this->verifier["messages"][$rkey][$rule])) ? $this->verifier["messages"][$rkey][$rule] : "{$rule}";
+					$this -> messages[$rkey][] = (isset($this -> verifier["messages"][$rkey][$rule])) ? $this -> verifier["messages"][$rkey][$rule] : "{$rule}";
 				}
 			}
 			// 返回FALSE则通过验证，返回数组则未能通过验证，返回的是提示信息。
-			return (null == $this->messages) ? FALSE : $this->messages;
+			return ($this -> messages == null) ? FALSE : $this -> messages;
 		}
 		/**
 		 * 内置验证器，检查字符串非空
 		 * @param val    待验证字符串
 		 * @param right    正确值
 		 */
-		private function notnull($val, $right){return $right === ( strlen($val) > 0 );}
+		private function notnull($val, $right) {
+			return $right === (strlen($val) > 0);
+		}
 		/**
 		 * 内置验证器，检查字符串是否小于指定长度
 		 * @param val    待验证字符串

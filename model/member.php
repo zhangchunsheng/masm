@@ -9,76 +9,81 @@
 		var $table = "member"; // 数据表的名称
 
 		var $addrules = array(
-			'isused' => array('member', 'checkname'), //  检查用户是否重复
-			'isverifcode' => array('member', 'checkverifycode'), //检查验证马是否输入正确
-			'checklogin' => array('member', 'checklogin'), //检查验证马是否输入正确
-			'isopen'     => array('member', 'noopen'),     //检查是否允许登录
-			'keepmail'   => array('member', 'keepmail'),   //检查是否被限制
-			'ninameused' => array('member', 'ninameused'), //检查昵称是否使用
+			'emailHasUsed' => array('member', 'emailHasUsed'), //检查用户名是否重复
+			'isverifycode' => array('member', 'checkverifycode'), //检查验证码是否输入正确
+			'checklogin' => array('member', 'checklogin'), //检查登录信息
+			'hasEmail' => array("member", "hasEmail"),
+			'isopen' => array('member', 'isopen'), //检查是否允许登录
+			'keepmail' => array('member', 'keepmail'), //检查是否被限制
+			'userNameHasUsed' => array('member', 'userNameHasUsed') //检查昵称是否使用
 		);
 
 		var $verifier_login  = array(
 		   "rules" => array(
 				'email' => array(
-					'notnull' => TRUE, // username不能为空
-					'minlength' => 5,  // username长度不能小于5
-					'maxlength' => 50, // username长度不能大于
-					'isopen'    => true, //是否被禁用
+					'notnull' => TRUE, //username不能为空
+					'minlength' => 5, //username长度不能小于5
+					'maxlength' => 50, //username长度不能大于
 					'email' => TRUE,
+					"hasEmail" => 'email',
+					'isopen' => true //是否被禁用
 				),
 				'password' => array(
 					'notnull' => TRUE,
-					'minlength' => 6,
+					'minlength' => 6
 				),
 				'verifycode' => array(
 					'notnull' => TRUE,
-					'isverifcode' => 'verifycode',
-					'checklogin' => TRUE,
-				),
-			),
-		   "messages" => array( // 提示信息
-				'email' => array(
-					'notnull' => "邮箱不能为空",
-					'minlength' => "邮箱不能少于5个字符",
-					'maxlength' => "邮箱不能大于50个字符",
-					'isopen'    => "账号被限制访问",
-					'email' => "请输入邮箱",
-				),
-				'password' => array(
-					'notnull' => "密码不能为空",
-					'minlength' => "密码不能少于6个字符",
-				),
-				'verifycode' => array(
-					'notnull' => "请填写验证码",
-					'isverifcode' => "请输入正确的验证码",
-					'checklogin' => "用户名或密码不正确",
-				),
-			)
-		);
-
-		//连接登录的验证 没有验证码的
-		var $verifier_openConnect_Login  = array(
-			"rules" => array(
-				'email' => array(
-					'notnull' => TRUE, // username不能为空
-					'minlength' => 5,  // username长度不能小于5
-					'maxlength' => 50, // username长度不能大于
-					'email' => TRUE,
-					'isopen'    => true, //是否被禁用
-				),
-				'password' => array(
-					'notnull' => TRUE,
-					'minlength' => 6,
+					'isverifycode' => 'verifycode',
 					'checklogin' => TRUE
-				),
+				)
 			),
-			"messages" => array( // 提示信息
+		   "messages" => array( //提示信息
 				'email' => array(
 					'notnull' => "邮箱不能为空",
 					'minlength' => "邮箱不能少于5个字符",
 					'maxlength' => "邮箱不能大于50个字符",
 					'email' => "请输入正确的邮箱",
-					'isopen' => "账号被限制访问",
+					"hasEmail" => "用户名或密码错误",
+					'isopen' => "帐号已被锁定"
+				),
+				'password' => array(
+					'notnull' => "密码不能为空",
+					'minlength' => "密码不能少于6个字符"
+				),
+				'verifycode' => array(
+					'notnull' => "请填写验证码",
+					'isverifycode' => "请输入正确的验证码",
+					'checklogin' => "用户名或密码不正确"
+				)
+			)
+		);
+
+		//连接登录的验证
+		var $verifier_openConnect_Login  = array(
+			"rules" => array(
+				'email' => array(
+					'notnull' => TRUE, //username不能为空
+					'minlength' => 5,  //username长度不能小于5
+					'maxlength' => 50, //username长度不能大于
+					'email' => TRUE,
+					"hasEmail" => 'email',
+					'isopen' => true //是否被禁用
+				),
+				'password' => array(
+					'notnull' => TRUE,
+					'minlength' => 6,
+					'checklogin' => TRUE
+				)
+			),
+			"messages" => array( //提示信息
+				'email' => array(
+					'notnull' => "邮箱不能为空",
+					'minlength' => "邮箱不能少于5个字符",
+					'maxlength' => "邮箱不能大于50个字符",
+					'email' => "请输入正确的邮箱",
+					"hasEmail" => "用户名或密码错误",
+					'isopen' => "帐号已被锁定"
 				),
 				'password' => array(
 					'notnull' => "密码不能为空",
@@ -91,100 +96,100 @@
 	   var $verifier_reg  = array(
 			"rules" => array(
 				'email' => array(
-					'notnull' => TRUE, // username不能为空
-					'minlength' => 5,  // username长度不能小于5
-					'maxlength' => 50, // username长度不能大于
+					'notnull' => TRUE, //username不能为空
+					'minlength' => 5,  //username长度不能小于5
+					'maxlength' => 50, //username长度不能大于
 					'email' => TRUE,
 					'keepmail' => TRUE,
-					'isused' => 'email', //如果真重复了
+					'emailHasUsed' => 'email'
 				),
 				'password' => array(
 					'notnull' => TRUE,
-					'minlength' => 6,
+					'minlength' => 6
 				),
 				'username'=>array(
-					'minlength' => 3,  // username长度不能小于5
-					'maxlength' => 12, // username长度不能大于
-					'ninameused' => TRUE,
+					'minlength' => 3,  //username长度不能小于5
+					'maxlength' => 12, //username长度不能大于
+					'userNameHasUsed' => TRUE
 				),
 				'password2' => array(
-					'equalto' => 'password',
-				),
+					'equalto' => 'password'
+				)
 			),
-			"messages" => array( // 提示信息
+			"messages" => array( //提示信息
 				'email' => array(
 					'notnull' => "注册邮箱不能为空",
 					'minlength' => "注册邮箱不能少于5个字符",
 					'maxlength' => "注册邮箱不能大于50个字符",
 					'email' => "请输入正确的邮箱",
 					'keepmail' => "该邮箱被限制使用请更换",
-					'isused' => "注册邮箱已经存在,试试绑定?",
+					'emailHasUsed' => "注册邮箱已经存在,试试绑定?"
 				),
 				'username' => array(
-					'minlength' => "昵称不能小于3个字",  // username长度不能小于5
-					'maxlength' => "昵称不能超过12个字", // username长度不能大于
-					'ninameused' => "昵称已被使用请更换",
+					'minlength' => "昵称不能小于3个字",  //username长度不能小于5
+					'maxlength' => "昵称不能超过12个字", //username长度不能大于
+					'userNameHasUsed' => "昵称已被使用请更换"
 				),
 				'password' => array(
 					'notnull' => "密码不能为空",
-					'minlength' => "密码不能少于5个字符",
+					'minlength' => "密码不能少于5个字符"
 				),
 				'password2' => array(
-					'equalto' => '两次密码输入不一致',
+					'equalto' => '两次密码输入不一致'
 				),
 				'verifycode' => array(
 					'notnull' => "请填写验证码",
-					'isverifcode'=> "请输入正确的验证码",
-				),
-			),
+					'isverifycode'=> "请输入正确的验证码"
+				)
+			)
 		);
 
 		//连接注册的验证
 		 var $verifier_openConnect_Reg  = array(
 			"rules" => array(
 				'email' => array(
-					'notnull' => TRUE, // username不能为空
-					'minlength' => 5,  // username长度不能小于5
-					'maxlength' => 50, // username长度不能大于
+					'notnull' => TRUE, //username不能为空
+					'minlength' => 5,  //username长度不能小于5
+					'maxlength' => 50, //username长度不能大于
 					'email' => TRUE,
 					'keepmail' => TRUE,
-					'isused' => 'email', //如果真重复了
+					'emailHasUsed' => 'email' //如果真重复了
 				),
 				'password' => array(
 					'notnull' => TRUE,
-					'minlength' => 6,
+					'minlength' => 6
 				),
-				'username'=>array(
-					'minlength' => 3,  // username长度不能小于5
-					'maxlength' => 12, // username长度不能大于
-					'ninameused' => TRUE,
+				'username' => array(
+					'minlength' => 3,  //username长度不能小于5
+					'maxlength' => 12, //username长度不能大于
+					'userNameHasUsed' => TRUE
 				),
 				'password2' => array(
-					'equalto' => 'password',
+					'equalto' => 'password'
 				),
 			),
-			"messages" => array( // 提示信息
+			"messages" => array( //提示信息
 				'email' => array(
 					'notnull' => "注册邮箱不能为空",
 					'minlength' => "注册邮箱不能少于5个字符",
 					'maxlength' => "注册邮箱不能大于50个字符",
 					'email' => "请输入正确的邮箱",
 					'keepmail' => "该邮箱被限制使用请更换",
-					'isused' => "注册邮箱已经存在,试试绑定?",
+					'emailHasUsed' => "注册邮箱已经存在,试试绑定?"
 				),
 				'username' => array(
-					'minlength' => "昵称不能小于3个字",  // username长度不能小于5
-					'maxlength' => "昵称不能超过12个字", // username长度不能大于
-					'ninameused' => "昵称已被使用请更换",
+					'minlength' => "昵称不能小于3个字",  //username长度不能小于5
+					'maxlength' => "昵称不能超过12个字", //username长度不能大于
+					'userNameHasUsed' => "昵称已被使用请更换"
 				),
 				'password' => array(
 					'notnull' => "密码不能为空",
-					'minlength' => "密码不能少于5个字符",
+					'minlength' => "密码不能少于5个字符"
 				),
 				'password2' => array(
-					'equalto' => "两次密码输入不一致",
-				),
-			),
+					'equalto' => "两次密码输入不一致"
+				)
+			)
 		);
 		
 		//用户登录，规则验证
@@ -211,8 +216,8 @@
 			return $uid;
 		}
 
-		//注册验证是否重名
-		function checkname($val, $right) {
+		//检查邮箱是否已经使用
+		function emailHasUsed($val, $right) {
 			$result = $this -> findBy('email', $val);
 			if(is_array($result)) {
 				return FALSE;
@@ -220,8 +225,9 @@
 				return TRUE;
 			}
 		}
+		
 		//注册昵称是否重复
-		function ninameused($val, $right, $all) {
+		function userNameHasUsed($val, $right, $all) {
 			$result = $this -> findBy('username', $all['username']);
 			if(is_array($result)) {
 				return FALSE;
@@ -245,9 +251,18 @@
 				return true;
 			}
 		}
+		
+		function hasEmail($val, $right, $all) {
+			$result = $this -> findBy("email", $all["email"]);
+			if(!is_array($result)) {
+				return false;
+			} else {
+				return true;
+			}
+		}
 
 		//检查账号是否被禁用
-		function noopen($val, $right, $all) {
+		function isopen($val, $right, $all) {
 			$result = $this -> findBy('email', $all['email']);
 			if($result['open'] == 0) {
 				return false;
@@ -262,7 +277,7 @@
 			if($all['email'] == '' || $all['password'] == '') {
 				return false;
 			}
-			$password = password_encode($all['password'],$result['salt']);
+			$password = password_encode($all['password'], $result['salt']);
 			if($result['password'] == $password) {
 				$ip = getIP();
 				$_SESSION["uid"] = $result["uid"];
