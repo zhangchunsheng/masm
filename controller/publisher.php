@@ -454,6 +454,8 @@
 					} else {
 						if($rs[0] == "xiami") {
 							$data[] = array('type' => $rs[0], 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3], 'url' => $rs[4], 'albumName' => $rs[5],'albumUrl' => $rs[6], 'singerName' => $rs[7], 'singerUrl' => $rs[8]);
+						} elseif($rs[0] == "sina") {
+							$data[] = array('type' => $rs[0], 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3], 'url' => $rs[4], 'swfUrl' => $rs[5]);
 						} else {
 							$data[] = array('type' => $rs[0], 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3], 'url' => $rs[4]);
 						}

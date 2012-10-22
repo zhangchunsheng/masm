@@ -96,6 +96,18 @@ $(document).ready(function () {
 	$("div[data-type='comment']").each(function() {
 		indexPostTab("comment", $(this).attr("data-id"), $(this).attr("data-url"), "init");
 	});
+	$("img.playbtn").each(function() {
+		var width = $(this).parent().children()[0].width;
+		var height = $(this).parent().children()[0].height;
+		$(this).css("left", (width / 2 - 33 / 2) + "px");
+		$(this).css("top", (height / 2 - 33 / 2) + "px");
+		$($(this).parent().children()[0]).bind("load", function(e) {
+			var width = this.width;
+			var height = this.height;
+			$($(this).parent().children()[1]).css("left", (width / 2 - 33 / 2) + "px");
+			$($(this).parent().children()[1]).css("top", (height / 2 - 33 / 2) + "px");
+		});
+	});
 	$('#menuSideBtn').click(function () {
 		$('#menuSide').toggle();
 		$(this).toggleClass('curr');
@@ -495,8 +507,13 @@ function noticedel(sysid) {
 }
 
 function OMP(url, that) {
-	var prgm = '<object width="500" height="385"><param name="allowscriptaccess" value="always"></param>' + '<param name="wmode" value="Opaque"></param><param name="movie" value="' + url + '"></param>' + '<embed src="' + url + '" width="500" height="385" allowscriptaccess="always" wmode="window"  type="application/x-shockwave-flash"></embed>' + '</object>';
-	$(that).parent().find('div .playbox').html(prgm);
+	var player = '<object width="500" height="385">';
+	player += '<param name="allowscriptaccess" value="always"></param>';
+	player += '<param name="wmode" value="Opaque"></param>';
+	player += '<param name="movie" value="' + url + '"></param>';
+	player += '<embed src="' + url + '" width="500" height="385" allowscriptaccess="always" wmode="window" type="application/x-shockwave-flash"></embed>';
+	player += '</object>';
+	$(that).parent().find('div .playbox').html(player);
 	$(that).parent().parent().find('.feed_content').addClass('feed_content_h');
 	$(that).parent().find('div').show();
 	$(that).hide();

@@ -21,7 +21,6 @@
 			if($type == "music") {
 				$sitelist = array(
 					'xiami.com' => '_webMusicFromXiami',
-					'flamesky.com' => '_webMusicFromFlamesky',
 					'yinyuetai.com' => '_webMusicFromYinyuetai',
 				); //注册引用解析
 				if($ext == 'mp3' || $ext == 'wma') {
@@ -36,9 +35,9 @@
 			} elseif($type == "video") {
 				$sitelist = array(
 					'youku.com' => '_webVideoFromYouku',
-					'tudou.com' => '_webVideoFromTudou',
-					'ku6.com' => '_webVideoFrom6',
-					'sina.com.cn' => '_webVideoFromSina'
+					//'tudou.com' => '_webVideoFromTudou',
+					'sina.com.cn' => '_webVideoFromSina',
+					'ku6.com' => '_webVideoFrom6'
 				); //注册引用解析
 				if(array_key_exists($domain, $sitelist)) {
 					$data = $this -> $sitelist[$domain]($url);
@@ -66,7 +65,7 @@
 				'type' => 'music',
 				'id' => $url,
 				'url' => $url,
-				'img' => 'tpl/image/add/webmusic.png',
+				'img' => 'tpl/images/add/webmusic.png',
 				'title' => urldecode($base['basename'])
 			);
 		}
@@ -87,24 +86,13 @@
 			return $data;
 		}
 
-		//解析雅燃
-		private function _webMusicFromFlamesky($url) {
-			import('htmlDomNode.php');
-			$html = file_get_html($url);
-			$data['type'] = 'flamesky';
-			$data['id'] = pathinfo($url, PATHINFO_BASENAME);
-			$data['img'] = 'http://www.flamesky.com' . $html -> find('#conter img', 0) -> src;
-			$data['title'] = $html -> find('.tracktitle a', 0) -> innertext;
-			return $data;
-		}
-
 		//解析音悦台
 		private function _webMusicFromYinyuetai($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
 			$data['type'] = 'yinyuetai';
 			$data['id'] = pathinfo($url, PATHINFO_BASENAME);
-			$data['img'] = 'http://www.yinyuetai.com' . $html -> find('.mv_list_simple .thumb a img', 0) -> src;
+			$data['img'] = $html -> find('.mv_list_simple .thumb a img', 0) -> src;
 			$tmparr = explode('?', $data['img'], 2);
 			$data['img'] = $tmparr[0];
 			$data['title'] = $html -> find('#videoTitle', 0) -> innertext;
@@ -143,9 +131,15 @@
 			$data = array();
 			$data['type'] = 'tudou';
 			$id = 0;
+			$pid = "";
 			foreach($content as $key => $value) {
 				if(stripos($value, "iid") > 0 || stripos($value, "iid") === 0) {
 					$id = str_replace("iid: ", "", $value);
+					break;
+				}
+				if(stripos($value, "icode") > 0 || stripos($value, "icode") === 0) {
+					$pid = str_replace(",icode: ", "", $value);
+					$pid = str_replace("'", "", $pid);
 					break;
 				}
 			}
@@ -171,32 +165,38 @@
 			$url = "http://v2.tudou.com/v2/cdn?noCatch=22538&safekey=YouNeverKnowThat&refurl=&id=$id";
 			$xml = file_get_html($url);
 			$info = $xml -> find("v");
+			//$pid = $info[0] -> code;
+			$data["id"] = $pid;
 			$data['img'] = "http://i01.img.tudou.com/data/imgs/i/$array[0]/$array[1]/$array[2]/p.jpg";
 			$data['title'] = $info[0] -> title;
 			return $data;
 		}
 
-		//解析6间房
-		private function _webVideoFrom6($url) {
-			import('htmlDomNode.php');
-			$html = file_get_html($url);
-			$data = array();
-			$data['type'] = '6';
-			$data['id'] = $html -> find('.game a', 0) -> href;
-			$data['id'] = str_replace('/wp/', '/p/', $data['id']) . '.swf';
-			$data['img'] = $html -> find('.vlist2 .vpic1 img', 0) -> src;
-			$data['title'] = $html -> find('#watchRelVideoSS a', 0) -> innertext;
-			return $data;
-		}
-
+		//解析新浪视频
 		private function _webVideoFromSina($url) {
 			import('htmlDomNode.php');
 			$html = file_get_html($url);
 			$data['type'] = 'sina';
-			$data['id'] = rtrim(pathinfo($url, PATHINFO_BASENAME), '.' . pathinfo($url, PATHINFO_EXTENSION ));
+			$data['id'] = rtrim(pathinfo($url, PATHINFO_BASENAME), '.' . pathinfo($url, PATHINFO_EXTENSION));
 			preg_match_all("/pic: '(.*?)'/", $html, $result);
 			$data['img'] = $result[1][0];
-			$data['title'] = $html -> find('#videoTitle',0) -> innertext;
+			//$script = $html -> find("script", 0) -> innertext;
+			preg_match_all("/swfOutsideUrl:'(.*?)'/", $html, $result);
+			$data["swfUrl"] = $result[1][0];
+			$data['title'] = $html -> find('#videoTitle', 0) -> innertext;
+			return $data;
+		}
+
+		//解析6间房
+		private function _webVideoFrom6room($url) {
+			import('htmlDomNode.php');
+			$html = file_get_html($url);
+			$data = array();
+			$data['type'] = '6room';
+			$data['id'] = $html -> find('.game a', 0) -> href;
+			$data['id'] = str_replace('/wp/', '/p/', $data['id']) . '.swf';
+			$data['img'] = $html -> find('.vlist2 .vpic1 img', 0) -> src;
+			$data['title'] = $html -> find('#watchRelVideoSS a', 0) -> innertext;
 			return $data;
 		}
 

@@ -409,7 +409,11 @@ $(document).ready(function () {
 	$('#submit_video').click(function() {
 		var umus = ''; //获取发布视频字符串
 		$('#mediaList .list').each(function () {
-			umus += $(this).attr('data-type') + '|' + $(this).attr('data-img') + '|' + $(this).attr('data-pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('data-url') + 'LUOMOR';
+			if($(this).attr("data-type") == "sina") {
+				umus += $(this).attr('data-type') + '|' + $(this).attr('data-img') + '|' + $(this).attr('data-pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('data-url') + '|' + $(this).attr("data-swfUrl") + 'LUOMOR';
+			} else {
+				umus += $(this).attr('data-type') + '|' + $(this).attr('data-img') + '|' + $(this).attr('data-pid') + '|' + $(this).find('input').val() + '|' + $(this).attr('data-url') + 'LUOMOR';
+			}
 		});
 		if(umus == '') {
 			tips('请添加一个网络视频,并点击保存');
@@ -513,6 +517,8 @@ function saveMediaList(url, type) {
 		html = "";
 		if(data.type == "xiami") {
 			html += '<li class="list" data-type="' + data.type + '" data-pid="' + data.id + '" data-img="' + data.img + '" data-url="' + url + '" data-albumName="' + data.albumName + '" data-albumUrl="' + data.albumUrl + '" data-singerName="' + data.singerName + '" data-singerUrl="' + data.singerUrl + '">';
+		} else if(data.type == "sina") {
+			html += '<li class="list" data-type="' + data.type + '" data-pid="' + data.id + '" data-img="' + data.img + '" data-url="' + url + '" data-swfUrl="' + data.swfUrl + '">';
 		} else {
 			html += '<li class="list" data-type="' + data.type + '" data-pid="' + data.id + '" data-img="' + data.img + '" data-url="' + url + '">';
 		}

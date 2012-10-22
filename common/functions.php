@@ -194,27 +194,22 @@
 							<embed src="http://www.xiami.com/widget/0_' . $rs['pid'] . '/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
 							<div class="clear"></div>
 						</div>';
-				} elseif($rs['type'] == 'flamesky') {
-					echo '<div class="xiami clearfix">
-							<img src="' . $rs['img'] . '" class="img" alt=""/>
-							<div>' . $rs['desc'] . '</div>
-							<embed src="http://www.flamesky.com/track/' . $rs['pid'] . '/ffp.swf" quality="high" width="310" height="45" allowScriptAccess="allways" wmode="transparent" type="application/x-shockwave-flash" />
-						</div>';
 				} elseif($rs['type'] == 'yinyuetai') {
+					$url = 'http://player.yinyuetai.com/video/player/' . $rs["pid"] . '/v_0.swf';
 					if($show == 1) {
-						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($rs['pid'] . '?autostart=false');
+						echo '<p> ' . $rs['desc'] . '</p>' . _getYinyuetaiSwfplay($url, 640);
 					} else {
+						//echo '<p> ' . $rs['desc'] . '</p>' . _getYinyuetaiSwfplay($url, 500);
 						echo '<div class="player">
-								<a href="javascript:;" onclick="OMP(\'' . $rs['pid'] . '\', this)">
-									<img src="' . $rs['img'] . '" class="img" onerror="this.src=\'tpl/image/videobg.png\'" width="127" height="95"/>
-									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" />
+								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
+									<img class="img" src="' . $rs['img'] . '" onerror="this.src=\'tpl/images/videobg.png\'" width="127px" height="95px"/>
+									<img class="playbtn" src="' . $site_uri . '/tpl/images/videoplay.gif" />
 								</a>
 								<div class="area">
 									<p>
 										<a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '
 									</p>
-									<div class="playbox">
-									</div>
+									<div class="playbox"></div>
 								</div>
 							</div>';
 					}
@@ -263,8 +258,29 @@
 				} elseif($rs['type'] == 'youku') {
 					$url = 'http://player.youku.com/player.php/sid/' . $rs['pid'] . '/v.swf';
 					if($show == 1) {
-						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url);
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
 					} else {
+						//echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 500);
+						echo '<div class="player">
+								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
+									<img src="' . $rs['img'] . '" class="img" alt=""/>
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
+								</a>
+								<div class="area">
+									<p>
+										<a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '
+									</p>
+									<div class="playbox"></div>
+								</div>
+							</div>';
+					}
+				} elseif($rs["type"] == "tudou") {
+					// /a /v /o 不同内容url不同a=albumplay v=view o=oplay
+					$url = 'http://www.tudou.com/v/' . $rs["pid"] . '/&resourceId=0_05_05_99&bid=05/v.swf';
+					if($show == 1) {
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
+					} else {
+						//echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 500);
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
 									<img src="' . $rs['img'] . '" class="img" alt=""/>
@@ -279,10 +295,11 @@
 							</div>';
 					}
 				} elseif($rs['type'] == 'sina') {
-					$pid = str_replace('-', '_', $rs['pid']);
-					$url = 'http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=' . $pid;
+					//$pid = str_replace('-', '_', $rs['pid']);
+					//$url = 'http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=' . $pid;
+					$url = $rs["swfUrl"];
 					if($show == 1) {
-						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url);
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
 					} else {
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
@@ -300,7 +317,7 @@
 				} else {
 					$url = $rs['pid'];
 					if($show == 1) {
-						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url);
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
 					} else {
 						echo '<div class="player">
 								<a href="javascript:;" onclick="OMP(\'' . $url . '\',this)">
@@ -342,14 +359,38 @@
 	spAddViewFunction("getUrl", "getUrl");
 	
 	//feed parse getswfplayer
-	function _getSwfplayer($playUrl) {
+	function _getSwfplayer($playUrl, $width) {
 		$player = '<object width="100%" height="385">
 						<param name="allowscriptaccess" value="always"></param>
 						<param name="allowFullScreen" value="true"></param>
 						<param name="wmode" value="Opaque"></param>
 						<param name="movie" value="' . $playUrl . '"></param>
-						<embed src="' . $playUrl . '" width="640" height="385" type="application/x-shockwave-flash"></embed>
-				  </object>';
+						<embed src="' . $playUrl . '" width="' . $width . 'px" height="385px" type="application/x-shockwave-flash"></embed>
+				</object>';
+		return $player;
+	}
+	
+	function _getYinyuetaiSwfplay($url, $width) {
+		$player = '<object width="100%" height="385">
+					<embed src="' . $url . '"
+						quality="high" width="' . $width . 'px" height="385px" align="middle"
+						allowScriptAccess="sameDomain" allowfullscreen="true"
+						type="application/x-shockwave-flash"></embed>
+				</object>';
+		return $player;
+	}
+	
+	function _getYoukuSwfplay($url, $width) {
+		$player = '<object width="100%" height="385">
+					<embed src="' . $url . '" allowFullScreen="true" quality="high" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash" width="' . $width . 'px" height="385px"></embed>
+				</object>';
+		return $player;
+	}
+	
+	function _getTudouSwfplay($url, $width) {
+		$player = '<object width="100%" height="385">
+					<embed src="' . $url . '" type="application/x-shockwave-flash" align="middle" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="' . $width . 'px" height="385px"></embed>
+				</object>';
 		return $player;
 	}
 
@@ -583,7 +624,7 @@
 							<div class="mediadesc"> ' . $d['count'] . ' </div>
 							<span class="tag">' . _setTags('音乐', $d['tag'], $index) . '</span>
 							<div class="music" href="javascript:alert(1)">
-								<img src="tpl/image/music.png" alt=""/>
+								<img src="tpl/images/music.png" alt=""/>
 							</div>' . $d['desc'] . '
 							<a class="boxhover" href="' . goUserBlog(array('bid' => $d['bid'])) . '" target="_blank">
 								<div class="img">
@@ -605,7 +646,7 @@
 						</div>';
 			} elseif($d['btype'] == 5) {//视频
 				if($d['metype'] == 'local')
-					$d['img']  = 'tpl/image/add/local.png';
+					$d['img']  = 'tpl/images/add/local.png';
 				$msg .= '<div class="box">
 							<img src="' . $d['img'] . '" width="180" alt=""/>
 							<div class="mediadesc"> ' . $d['count'] . ' </div>

@@ -27,7 +27,7 @@
 			exit;
 		}
 		$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'middle';
-		$avatar_url = 'tpl/image/noavatar_' . $size . '.jpg';
+		$avatar_url = 'tpl/images/noavatar_' . $size . '.jpg';
 	}
 
 	if(empty($random)) {

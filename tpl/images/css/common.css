@@ -245,7 +245,7 @@ a:hover {color: #568D99;text-decoration: underline;}
 .player .area {display:none}
 .player .area p {font-size:14px; margin-bottom:5px;}
 .player .img {border:1px solid #999;border: 1px solid #999; border-radius:5px; box-shadow:3px 3px 2px #ccc;   }
-.playbtn {border:0px;position:absolute;left:50px;top:280px;opacity:0.5;filter:alpha(opacity=50); cursor:pointer}
+.playbtn {border:0px;opacity:0.5;filter:alpha(opacity=50);cursor:pointer;position:absolute;top:0px;left:0px;}
 .playbtn:hover {opacity:100;filter:alpha(opacity=100);}
 .clear {clear:both; display:block}
 .feed_content_h {width:100%; display:block; clear:both}

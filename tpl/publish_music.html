@@ -23,7 +23,7 @@
 						<input type="text" id="mediaUrl" class="mediaurl" value="http://" onfocus="musicMouse(this)" onblur="musicMosout(this,'u')" />
 						<input type="button" id="urlParseLoading" value="&#28155;&#21152;&#22320;&#22336;" onclick="saveMusicList($('#mediaUrl').val())" style="padding:5px" />
 						<ul class="notice">
-							<li>请输入来自虾米/雅燃/音乐台的单曲简介页面</li>
+							<li>请输入来自虾米/音乐台的单曲简介页面</li>
 							<li>您也可以直接输入后缀为mp3的网络音频链接地址</li>
 							<li>
 								<a href="{spUrl c=masm a=help}" target="_blank">需要获取帮助?</a>
@@ -45,7 +45,7 @@
 					<div id="localMusic"></div>
 					<ul id="mediaList">
 						{foreach $body.attr item=d}
-						<li class="list" data-img="{$d.img}" data-pid="{$d.pid}" data-type="{$d.type}" data-albumName="{$d.albumName}" data-albumUrl="{$d.albumUrl}" data-singerName="{$d.singerName}" data-singerUrl="{$d.singerUrl}">
+						<li class="list" data-img="{$d.img}" data-pid="{$d.pid}" data-type="{$d.type}" data-albumName="{$d.albumName}" data-albumUrl="{$d.albumUrl}" data-singerName="{$d.singerName}" data-singerUrl="{$d.singerUrl}" data-url="{$d.url}">
 							<div class="uri">
 								已添加：
 								{if $d.type == 'local'}
