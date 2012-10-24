@@ -531,7 +531,7 @@ function saveMediaList(url, type) {
 		html += '<div class="uri">已添加：';
 		html += '<input type="text" name="mediaList[' + data.id + ']" value="' + desc + '" />';
 		html += '</div>';
-		html += '<a href="javascript:void(0)" onclick="mediaDItem(this)">移除</a>';
+		html += '<a href="javascript:void(0)" onclick="mediaDItem(this, 1, \'' + data.id + '\')">移除</a>';
 		html += '</li>';
 		$('#mediaList').prepend(html);
 		desc = $("div[class='uri']")[0].innerHTML.replace("已添加：", "");
@@ -541,8 +541,11 @@ function saveMediaList(url, type) {
 }
 
 //删除多媒体发布的一个条目 DOM
-function mediaDItem(that) {
+function mediaDItem(that, type, id) {
 	$(that).parent().remove();
+	if(type == 2) {
+		$("#attach_" + id).show();
+	}
 }
 
 //添加MP3类型媒体 如果是localmusic则说明是在音乐模型
@@ -564,15 +567,14 @@ function removeIattachMp3(that, id) {
 	$(that).parent().parent().remove();
 	$('#attach_' + id).show();
 }
-
-//音乐模型独立体结束
+//本地音乐
 function iattachMp3(id, name) {
-	if ($('#blog-types').val() == 3) {
+	if($('#blog-types').val() == 3) {
 		var html = '<li class="list" data-type="local" data-pid="attach_' + id + '" data-img="0" data-url="">';
 		html += '<div class="uri">已添加： ';
 		html += '<input type="text" name="localMusic[' + id + ']" value="' + name + '" />';
 		html += '</div>';
-		html += '<a href="javascript:void(0)" onclick="musicDItem(this)">移除</a>';
+		html += '<a href="javascript:void(0)" onclick="mediaDItem(this, 2, \'' + id + '\')">移除</a>';
 		html += '</li>';
 		$('#mediaList').prepend(html);
 		$("#pb-text-title").val(name);
@@ -580,7 +582,6 @@ function iattachMp3(id, name) {
 	}
 }
 
-//音乐模型共同体以及全部结束
 function iattachBigImg(x) {
 	var x = x.split('|');
 	if ($('#blog-types').val() == 2) {

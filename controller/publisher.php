@@ -130,16 +130,14 @@
 			
 			//发布音乐或视频
 			if($this -> spArgs('blog-types') == 3 || $this -> spArgs('blog-types') == 5) {
-				if($this -> spArgs('useedit') != 1) {//如果有特殊则处理
-					if($this -> spArgs('localmusicfid') == '' && $this -> spArgs('urlmedia') == '') {
-						exit('未完成的内容');
-					}
-					if($this -> spArgs('urlmedia')) {//进行音乐列表的处理
-						$music = $this -> __loadMediaString($this -> spArgs('urlmedia'));
-						$music_count = count($music); //总共几首音乐
-					}
-					$bodypre = '[attribute]' . serialize($music) . '[/attribute]';//加入属性关键字
+				if($this -> spArgs('localmusicfid') == '' && $this -> spArgs('urlmedia') == '') {
+					exit('未完成的内容');
 				}
+				if($this -> spArgs('urlmedia')) {//进行音乐列表的处理
+					$music = $this -> __loadMediaString($this -> spArgs('urlmedia'));
+					$music_count = count($music); //总共几首音乐
+				}
+				$bodypre = '[attribute]' . serialize($music) . '[/attribute]';//加入属性关键字
 			}
 
 			//发布图片
