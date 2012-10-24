@@ -534,7 +534,6 @@ function saveMediaList(url, type) {
 		html += '<a href="javascript:void(0)" onclick="mediaDItem(this, 1, \'' + data.id + '\')">移除</a>';
 		html += '</li>';
 		$('#mediaList').prepend(html);
-		desc = $("div[class='uri']")[0].innerHTML.replace("已添加：", "");
 		$('#pb-text-title').val(desc);
 		$('#mediaUrl').val('http://');
 	});
