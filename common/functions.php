@@ -219,9 +219,9 @@
 					} else {
 						$mtype = 3;
 					}
-					echo '<div class="localmu">
+					echo '<div class="localmusic">
 							<p>' . $rs['desc'] . '</p>
-							<div id="player_' . $bid . '"></div>
+							<div id="player_' . $rs['pid'] . '"></div>
 						</div>
 						<script type="text/javascript">
 							var flashvars = {
@@ -232,7 +232,7 @@
 								label: "' . $rs['desc'] . '"
 							};
 							var html = CMP.create("cmp", "100%", "50", "' . $site_uri . '/tpl/swf/cmp.swf", flashvars);
-							document.getElementById("player_' . $bid . '").innerHTML = html;
+							document.getElementById("player_' . $rs['pid'] . '").innerHTML = html;
 						</script>';
 				} elseif($rs['type'] == 'music') {
 					if(stripos($rs['pid'], 'mp3')) {
@@ -240,9 +240,9 @@
 					} else {
 						$mtype = 3;
 					}
-					echo '<div class="localmu">
+					echo '<div class="webmusic">
 							<p>' . $rs['desc'] . ' / <a href="' . $rs['pid'] . '" target="_blank">点击下载</a></p>
-							<div id="player_' . $bid . '"></div>
+							<div id="player_' . $rs['pid'] . '"></div>
 						</div>
 						<script type="text/javascript">
 							var flashvars = {
@@ -253,7 +253,7 @@
 								label: "' . $rs['desc'] . '"
 							};
 							var html = CMP.create("cmp", "100%", "50", "' . $site_uri . '/tpl/swf/cmp.swf", flashvars);
-							document.getElementById("player_' . $bid . '").innerHTML = html;
+							document.getElementById("player_' . $rs['pid'] . '").innerHTML = html;
 						</script>';
 				} elseif($rs['type'] == 'youku') {
 					$url = 'http://player.youku.com/player.php/sid/' . $rs['pid'] . '/v.swf';
@@ -314,14 +314,50 @@
 								</div>
 							</div>';
 					}
-				} else {
-					$url = $rs['pid'];
+				} elseif($rs["type"] == "ku6") {
+					$url = "http://player.ku6.com/refer/" . $rs["pid"] . "/v.swf";
 					if($show == 1) {
 						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
 					} else {
 						echo '<div class="player">
-								<a href="javascript:;" onclick="OMP(\'' . $url . '\',this)">
-									<img src="' . $rs['img'] . '" class="img" alt="" />
+								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
+									<img src="' . $rs['img'] . '" class="img" alt=""/>
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
+								</a>
+								<div class="area">
+									<p>
+										<a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '
+									</p>
+									<div class="playbox"></div>
+								</div>
+							</div>';
+					}
+				} elseif($rs["type"] == "6room") {
+					$url = "http://player.ku6.com/refer/" . $rs["pid"] . "/v.swf";
+					if($show == 1) {
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
+					} else {
+						echo '<div class="player">
+								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
+									<img src="' . $rs['img'] . '" class="img" alt=""/>
+									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
+								</a>
+								<div class="area">
+									<p>
+										<a href="javascript:;;" onclick="LMP(this)">收起</a> ' . $rs['desc'] . '
+									</p>
+									<div class="playbox"></div>
+								</div>
+							</div>';
+					}
+				} else {
+					$url = $rs["pid"];
+					if($show == 1) {
+						echo '<p> ' . $rs['desc'] . '</p>' . _getSwfplayer($url, 640);
+					} else {
+						echo '<div class="player">
+								<a href="javascript:;" onclick="OMP(\'' . $url . '\', this)">
+									<img src="' . $rs['img'] . '" class="img" alt=""/>
 									<img src="' . $site_uri . '/tpl/images/videoplay.gif" class="playbtn" alt="" />
 								</a>
 								<div class="area">

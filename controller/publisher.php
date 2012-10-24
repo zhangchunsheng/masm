@@ -390,7 +390,8 @@
 		 * 如果此id没查出来则返回false 接到的方法要删除这个id
 		 */
 		private function _localMediaParse($id, $desc) {
-			$result = spClass("attach") -> findBy($id, $_SESSION['uid']); //检出文件是否存在
+			$id = str_replace("attach_", "", $id);
+			$result = spClass("attach") -> findById($id); //检出文件是否存在
 			if($result['uid'] == $_SESSION['uid']) {//判断是否是我发的
 				if($desc[$d] != '描述') {
 					spClass("attach") -> update(array('id' => $id), array('blogdesc' => $desc));
@@ -447,7 +448,7 @@
 				foreach($music as $d) {
 					$rs = explode('|', $d);
 					if($rs[0] == 'local') {
-						$compdata[] = $rs[2];
+						$compdata[] = str_replace("attach_", "", $rs[2]);
 						if($this -> _localMediaParse($rs[2], $rs[3])) {
 							$data[] = array('type' => 'local', 'img' => $rs[1], 'pid' => $rs[2], 'desc' => $rs[3]);
 						} //验证成功或修改成功

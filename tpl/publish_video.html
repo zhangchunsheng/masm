@@ -7,7 +7,7 @@
 				<h2 id="title">发布视频</h2>
 				<div id="pb-post-area">
 					<div id="mediaFrom">
-						<div id="musicNotice">请输入来自优酷/新浪/6房间网站的播放页面地址</div>
+						<div id="musicNotice">请输入来自优酷/新浪/酷6网站的播放页面地址</div>
 						<input type="text" id="mediaUrl" class="mediaurl" value="http://" onfocus="musicMouse(this)" onblur="musicMosout(this,'u')" />
 						<input type="button" id="urlParseLoading" value="&#20445;&#23384;" onclick="saveVideoList($('#mediaUrl').val())" style="padding:2px 15px" />
 					</div>
@@ -16,9 +16,9 @@
 						{foreach $body.attr item=d}
 						<li class="list" data-img="{$d.img}" data-pid="{$d.pid}" data-type="{$d.type}" data-url="{$d.url}" data-swfUrl="{$d.swfUrl}">
 							<div class="uri">
-								已添加：<a href="{$d.url}" target="_blank">{$d.desc}</a>
+								已添加：
+								<input type="text" value="{$d.desc}" name="mediaList[{$d.pid}]" />
 							</div>
-							<input type="hidden" value="{$d.desc}" name="mediaList[{$d.pid}]" />
 							<a onclick="mediaDItem(this)" href="javascript:void(0)">移除</a>
 						</li>
 						{/foreach}

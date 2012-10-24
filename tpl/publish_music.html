@@ -48,13 +48,8 @@
 						<li class="list" data-img="{$d.img}" data-pid="{$d.pid}" data-type="{$d.type}" data-albumName="{$d.albumName}" data-albumUrl="{$d.albumUrl}" data-singerName="{$d.singerName}" data-singerUrl="{$d.singerUrl}" data-url="{$d.url}">
 							<div class="uri">
 								已添加：
-								{if $d.type == 'local'}
-									来自本地音乐
-								{else}
-									<a href="{$d.url}">{$d.desc}</a>
-								{/if}
+								<input type="text" value="{$d.desc}" name="mediaList[{$d.pid}]" />
 							</div>
-							<input type="hidden" value="{$d.desc}" name="mediaList[{$d.pid}]" />
 							<a onclick="mediaDItem(this)" href="javascript:void(0)">移除</a>
 						</li>
 						{/foreach}

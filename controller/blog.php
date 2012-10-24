@@ -26,7 +26,8 @@
 
 		//获取本地歌曲
 		function getmusic() {
-			$result = spClass('attach') -> findById($this -> spArgs('id'));
+			$id = str_replace("attach_", "", $this -> spArgs("id"));
+			$result = spClass('attach') -> findById($id);
 			if(is_array($result)) {
 				$head = fopen($result['path'], 'r');
 				$output = fread($head, filesize($result['path']));

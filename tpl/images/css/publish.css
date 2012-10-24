@@ -190,7 +190,7 @@ hr.separator {border-bottom: 1px solid #FEFFFE;border-top: 1px solid #E2E6E8;bor
 /*∑¢≤º“Ù¿÷*/
 #mediaFrom,#mediaUpload {display:block; background-color:#EEEEEE; padding:10px;}
 #mediaList .list {margin:2px 0px;}
-#mediaList .list input {width:220px; font-size:12px; line-height:18px; color:#999}
+#mediaList .list input {width:220px; font-size:12px; line-height:18px;}
 #mediaList .list img {width:130px; height:100px}
 #mediaList .list .uri {width: 560px;overflow:hidden;white-space: nowrap; float:left;text-overflow: ellipsis;}
 #mediaList .list .body {float:left}

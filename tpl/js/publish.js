@@ -69,12 +69,12 @@ $(document).ready(function () {
 					textbody.loadBookmark();
 					var urls = data.msg.url.split('||');
 					if (urls.length == 2) {
-						if ($('#blog-types').val() == 1) {
+						if ($('#blog-types').val() == 2) {
 							$('#blog-attach').val(urls[0]);
 						}
 						textbody.pasteHTML('<a href="' + urls[1] + '"><img src="' + urls[0] + '" class="feedimg" /></a>');
 					} else {
-						if ($('#blog-types').val() == 1) {
+						if ($('#blog-types').val() == 2) {
 							$('#blog-attach').val(data.msg.url);
 						}
 						textbody.pasteHTML('<img src="' + data.msg.url + '" class="feedimg" />');
@@ -128,7 +128,6 @@ $(document).ready(function () {
 
 				var data = Object,
 					bOK = false;
-
 				try {
 					data = eval('(' + sText + ')');
 				} catch (ex) {
@@ -384,7 +383,7 @@ $(document).ready(function () {
 		}
 
 		if($('#useedit').val() == 1) {
-			$.dialog({
+			/*$.dialog({
 				content: '您确认使用编辑器中的媒体作为最终发布的内容吗？',
 				lock: true,
 				yesFn: function () {
@@ -393,7 +392,14 @@ $(document).ready(function () {
 					$('#form_publish').submit();
 				},
 				noFn: true
-			});
+			});*/
+			if(umus == '') {
+				tips('请添加一个网络音乐或者上传音乐');
+				return false;
+			}
+			$('#urlmedia').val(umus); //写入数据
+			$('#submit_music,#draft,#preview,#cancel,#pb-submiting-tip').toggle();
+			$('#form_publish').submit();
 		} else {
 			if(umus == '') {
 				tips('请添加一个网络音乐或者上传音乐');
@@ -522,8 +528,9 @@ function saveMediaList(url, type) {
 		} else {
 			html += '<li class="list" data-type="' + data.type + '" data-pid="' + data.id + '" data-img="' + data.img + '" data-url="' + url + '">';
 		}
-		html += '<div class="uri">已添加：' + desc + '</div>';
-		html += '<input type="hidden" name="mediaList[' + data.id + ']" value="' + desc + '" />';
+		html += '<div class="uri">已添加：';
+		html += '<input type="text" name="mediaList[' + data.id + ']" value="' + desc + '" />';
+		html += '</div>';
 		html += '<a href="javascript:void(0)" onclick="mediaDItem(this)">移除</a>';
 		html += '</li>';
 		$('#mediaList').prepend(html);
@@ -560,9 +567,15 @@ function removeIattachMp3(that, id) {
 
 //音乐模型独立体结束
 function iattachMp3(id, name) {
-	if ($('#blog-types').val() == 2) {
-		var html = '<div class="list" type="local" pid="' + id + '" img="0"><div class="uri">已添加：来自本地音乐</div>' + '<div><input type="text" name="localMusic[' + id + ']" value="' + name + '" />' + '<a href="javascript:void(0)" onclick="musicDItem(this)">移除</a></div> </div>';
+	if ($('#blog-types').val() == 3) {
+		var html = '<li class="list" data-type="local" data-pid="attach_' + id + '" data-img="0" data-url="">';
+		html += '<div class="uri">已添加： ';
+		html += '<input type="text" name="localMusic[' + id + ']" value="' + name + '" />';
+		html += '</div>';
+		html += '<a href="javascript:void(0)" onclick="musicDItem(this)">移除</a>';
+		html += '</li>';
 		$('#mediaList').prepend(html);
+		$("#pb-text-title").val(name);
 		$('#attach_' + id).hide();
 	}
 }
@@ -570,14 +583,14 @@ function iattachMp3(id, name) {
 //音乐模型共同体以及全部结束
 function iattachBigImg(x) {
 	var x = x.split('|');
-	if ($('#blog-types').val() == 1) {
+	if ($('#blog-types').val() == 2) {
 		$('#blog-attach').val(x[1]);
 	}
 	textbody.pasteHTML('<a href="' + x[0] + '" target="_blank"><img src="' + x[1] + '" alt="" class="feedimg"/></a>')
 }
 
 function iattachImg(x) {
-	if ($('#blog-types').val() == 1) {
+	if ($('#blog-types').val() == 2) {
 		$('#blog-attach').val(x);
 	}
 	textbody.pasteHTML('<img src="' + x + '" alt="" class="feedimg"/>')

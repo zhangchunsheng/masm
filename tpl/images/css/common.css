@@ -256,11 +256,13 @@ a:hover {color: #568D99;text-decoration: underline;}
 .xiami embed {margin:10px 0px 10px 10px}
 
 /*localmusic*/
-.localmu {padding:5px; border:1px solid #CCC; overflow:hidden;}
-.localmu p {font-size:12px;}
+.localmusic {padding:5px; border:1px solid #CCC; overflow:hidden;}
+.localmusic p {font-size:12px;}
 
 /*web music*/
 .weblink {padding:5px; border:1px solid #ccc; overflow:hidden; margin:10px 0px}
+.webmusic {padding:5px; border:1px solid #CCC; overflow:hidden;}
+.webmusic p {font-size:12px;}
 
 .site .h1 {font-size:32px;}
 .site .info {border-top: 1px solid #D3D5D7;margin-top: 20px;}

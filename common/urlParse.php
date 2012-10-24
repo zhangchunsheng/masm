@@ -37,7 +37,7 @@
 					'youku.com' => '_webVideoFromYouku',
 					//'tudou.com' => '_webVideoFromTudou',
 					'sina.com.cn' => '_webVideoFromSina',
-					'ku6.com' => '_webVideoFrom6'
+					'ku6.com' => '_webVideoFromKu6'
 				); //注册引用解析
 				if(array_key_exists($domain, $sitelist)) {
 					$data = $this -> $sitelist[$domain]($url);
@@ -184,6 +184,29 @@
 			preg_match_all("/swfOutsideUrl:'(.*?)'/", $html, $result);
 			$data["swfUrl"] = $result[1][0];
 			$data['title'] = $html -> find('#videoTitle', 0) -> innertext;
+			return $data;
+		}
+		
+		//解析新浪视频
+		private function _webVideoFromKu6($url) {
+			import('htmlDomNode.php');
+			$html = file_get_html($url);
+			$data['type'] = 'ku6';
+			$data['id'] = rtrim(pathinfo($url, PATHINFO_BASENAME), '.' . pathinfo($url, PATHINFO_EXTENSION));
+			preg_match_all("/data: (.*?) , commData:/", $html, $result);
+			$videoInfo = $result[1][0];
+			$videoInfo = json_decode($videoInfo);
+			$data['img'] = $videoInfo -> data -> bigpicpath;
+			preg_match_all("/A.VideoInfo = (.*?), data:/", $html, $result);
+			$videoInfo = str_replace(" ", "", $result[1][0]);
+			$videoInfo = str_replace("{", "{\"", $videoInfo);
+			$videoInfo = str_replace(":", "\":", $videoInfo);
+			$videoInfo = str_replace(",", ",\"", $videoInfo);
+			$videoInfo = str_replace("http\"", "http", $videoInfo);
+			$videoInfo .= "}";
+			$videoInfo = json_decode($videoInfo);
+			$data['id'] = $videoInfo -> id;
+			$data['title'] = $videoInfo -> title;
 			return $data;
 		}
 
