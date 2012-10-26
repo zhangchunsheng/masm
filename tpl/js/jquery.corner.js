@@ -34,7 +34,7 @@ var style = document.createElement('div').style,
     })();
 
 $.support = $.support || {};
-$.support.borderRadius = moz || webkit || radius; // so you can do:  if (!$.support.borderRadius) $('#myDiv').corner();
+$.support.borderRadius = moz || webkit || radius; // so you can do:  if(!$.support.borderRadius) $('#myDiv').corner();
 
 function sz(el, p) {
     return parseInt($.css(el,p))||0;
@@ -46,14 +46,14 @@ function hex2(s) {
 function gpc(node) {
     while(node) {
         var v = $.css(node,'backgroundColor'), rgb;
-        if (v && v != 'transparent' && v != 'rgba(0, 0, 0, 0)') {
-            if (v.indexOf('rgb') >= 0) {
+        if(v && v != 'transparent' && v != 'rgba(0, 0, 0, 0)') {
+            if(v.indexOf('rgb') >= 0) {
                 rgb = v.match(/\d+/g);
                 return '#'+ hex2(rgb[0]) + hex2(rgb[1]) + hex2(rgb[2]);
             }
             return v;
         }
-        if (node.nodeName.toLowerCase() == 'html')
+        if(node.nodeName.toLowerCase() == 'html')
             break;
         node = node.parentNode; // keep walking if transparent
     }
@@ -88,8 +88,8 @@ function getWidth(fx, i, width) {
 
 $.fn.corner = function(options) {
     // in 1.3+ we can fix mistakes with the ready state
-    if (this.length == 0) {
-        if (!$.isReady && this.selector) {
+    if(this.length == 0) {
+        if(!$.isReady && this.selector) {
             var s = this.selector, c = this.context;
             $(function() {
                 $(s,c).corner(options);
@@ -117,18 +117,18 @@ $.fn.corner = function(options) {
             // vars used in func later
             strip, pad, cssHeight, j, bot, d, ds, bw, i, w, e, c, common, $horz;
 
-        if ( !opts.TL && !opts.TR && !opts.BL && !opts.BR )
+        if( !opts.TL && !opts.TR && !opts.BL && !opts.BR )
             opts = { TL:1, TR:1, BL:1, BR:1 };
 
         // support native rounding
-        if ($.fn.corner.defaults.useNative && fx == 'round' && (radius || moz || webkit) && !cc && !sc) {
-            if (opts.TL)
+        if($.fn.corner.defaults.useNative && fx == 'round' && (radius || moz || webkit) && !cc && !sc) {
+            if(opts.TL)
                 $this.css(radius ? 'border-top-left-radius' : moz ? '-moz-border-radius-topleft' : '-webkit-border-top-left-radius', width + 'px');
-            if (opts.TR)
+            if(opts.TR)
                 $this.css(radius ? 'border-top-right-radius' : moz ? '-moz-border-radius-topright' : '-webkit-border-top-right-radius', width + 'px');
-            if (opts.BL)
+            if(opts.BL)
                 $this.css(radius ? 'border-bottom-left-radius' : moz ? '-moz-border-radius-bottomleft' : '-webkit-border-bottom-left-radius', width + 'px');
-            if (opts.BR)
+            if(opts.BR)
                 $this.css(radius ? 'border-bottom-right-radius' : moz ? '-moz-border-radius-bottomright' : '-webkit-border-bottom-right-radius', width + 'px');
             return;
         }
@@ -148,15 +148,15 @@ $.fn.corner = function(options) {
             B: parseInt($.css(this,'paddingBottom'))||0,  L: parseInt($.css(this,'paddingLeft'))||0
         };
 
-        if (typeof this.style.zoom != undefined) this.style.zoom = 1; // force 'hasLayout' in IE
-        if (!keep) this.style.border = 'none';
+        if(typeof this.style.zoom != undefined) this.style.zoom = 1; // force 'hasLayout' in IE
+        if(!keep) this.style.border = 'none';
         strip.style.borderColor = cc || gpc(this.parentNode);
         cssHeight = $(this).outerHeight();
 
-        for (j in edges) {
+        for(j in edges) {
             bot = edges[j];
             // only add stips if needed
-            if ((bot && (opts.BL || opts.BR)) || (!bot && (opts.TL || opts.TR))) {
+            if((bot && (opts.BL || opts.BR)) || (!bot && (opts.TL || opts.TR))) {
                 strip.style.borderStyle = 'none '+(opts[j+'R']?'solid':'none')+' none '+(opts[j+'L']?'solid':'none');
                 d = document.createElement('div');
                 $(d).addClass('jquery-corner');
@@ -164,24 +164,24 @@ $.fn.corner = function(options) {
 
                 bot ? /*this.appendChild(d)*/$(this).append(d) : $(this.firstChild).insertBefore(d);//this.insertBefore(d, this.firstChild);
 
-                if (bot && cssHeight != 'auto') {
-                    if ($.css(this,'position') == 'static')
+                if(bot && cssHeight != 'auto') {
+                    if($.css(this,'position') == 'static')
                         this.style.position = 'relative';
                     ds.position = 'absolute';
                     ds.bottom = ds.left = ds.padding = ds.margin = '0';
-                    if (expr)
+                    if(expr)
                         ds.setExpression('width', 'this.parentNode.offsetWidth');
                     else
                         ds.width = '100%';
                 }
-                else if (!bot && $.browser.msie) {
-                    if ($.css(this,'position') == 'static')
+                else if(!bot && $.browser.msie) {
+                    if($.css(this,'position') == 'static')
                         this.style.position = 'relative';
                     ds.position = 'absolute';
                     ds.top = ds.left = ds.right = ds.padding = ds.margin = '0';
 
                     // fix ie6 problem when blocked element has a border width
-                    if (expr) {
+                    if(expr) {
                         bw = sz(this,'borderLeftWidth') + sz(this,'borderRightWidth');
                         ds.setExpression('width', 'this.parentNode.offsetWidth - '+bw+'+ "px"');
                     }
@@ -194,19 +194,19 @@ $.fn.corner = function(options) {
                                         (pad.B-width)+'px -'+pad.R+'px -'+pad.B+'px -'+pad.L+'px';
                 }
 
-                for (i=0; i < width; i++) {
+                for(i=0; i < width; i++) {
                     w = Math.max(0,getWidth(fx,i, width));
                     e = strip.cloneNode(false);
                     e.style.borderWidth = '0 '+(opts[j+'R']?w:0)+'px 0 '+(opts[j+'L']?w:0)+'px';
                     bot ? d.appendChild(e) : d.insertBefore(e, d.firstChild);
                 }
 
-                if (fold && $.support.boxModel) {
-                    if (bot && noBottomFold) continue;
-                    for (c in opts) {
-                        if (!opts[c]) continue;
-                        if (bot && (c == 'TL' || c == 'TR')) continue;
-                        if (!bot && (c == 'BL' || c == 'BR')) continue;
+                if(fold && $.support.boxModel) {
+                    if(bot && noBottomFold) continue;
+                    for(c in opts) {
+                        if(!opts[c]) continue;
+                        if(bot && (c == 'TL' || c == 'TR')) continue;
+                        if(!bot && (c == 'BL' || c == 'BR')) continue;
 
                         common = { position: 'absolute', border: 'none', margin: 0, padding: 0, overflow: 'hidden', backgroundColor: strip.style.borderColor };
                         $horz = $('<div/>').css(common).css({ width: width + 'px', height: '1px' });
@@ -234,7 +234,7 @@ $.fn.corner = function(options) {
 };
 
 $.fn.uncorner = function() {
-    if (radius || moz || webkit)
+    if(radius || moz || webkit)
         this.css(radius ? 'border-radius' : moz ? '-moz-border-radius' : '-webkit-border-radius', 0);
     $('div.jquery-corner', this).remove();
     return this;

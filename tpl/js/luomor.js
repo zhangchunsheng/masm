@@ -3,7 +3,7 @@
         p = [4, 8, 4, 0, -4, -8, -4, 0],
         fx = function (a) {
             style.marginLeft = a.shift() + 'px';
-            if (a.length > 0) {
+            if(a.length > 0) {
                 setTimeout(function () {
                     fx(a);
                 }, 13);
@@ -65,7 +65,7 @@ $(document).ready(function () {
 				var st = $(document).scrollTop(), winh = $(window).height();
 				(st > 0)? $backToTopEle.show(): $backToTopEle.hide();
 				//IE6下的定位
-				if (!window.XMLHttpRequest) {
+				if(!window.XMLHttpRequest) {
 					$backToTopEle.css("top", st + winh - 166);
 				}
 			};
@@ -112,7 +112,7 @@ $(document).ready(function () {
 		$('#menuSide').toggle();
 		$(this).toggleClass('curr');
 	});
-	if ($('img').attr('alt') == '') {
+	if($('img').attr('alt') == '') {
 		$('img').attr('alt', ' ');
 	}
 	$('aside nav#menu li').hover(function () {
@@ -122,11 +122,11 @@ $(document).ready(function () {
 	});
 
 	$('#search .ipt').click(function () {
-		if ($(this).val() == '搜索标签,发现兴趣') {
+		if($(this).val() == '搜索标签,发现兴趣') {
 			$(this).val('')
 		}
 	}).blur(function () {
-		if ($(this).val() == '') {
+		if($(this).val() == '') {
 			$(this).val('搜索标签,发现兴趣')
 		}
 	});
@@ -139,17 +139,17 @@ function feedToolBar(id) {
 		$(window).bind("scroll", function(event) {
 			var fold = $(window).height() + $(window).scrollTop();
 
-			if (fold >= $('#' + id).offset().top - 20) {
+			if(fold >= $('#' + id).offset().top - 20) {
 				p = parseInt($('#' + id).attr('page'));
 				nextpage = p + 1;
 				url = $('#' + id).attr('query');
 
 				maxpage = parseInt($('#' + id).attr('max'));
-				if (globalcount == 1) {
+				if(globalcount == 1) {
 					return false;
 				} //如果进入队列的就跳出
 
-				if (p >= maxpage) {
+				if(p >= maxpage) {
 					$('#' + id).html('<a href="javascript:void(0)" onclick="continueShow(\'' + id + '\')"><img src="tpl/images/hand.gif" class="loading"/>点击查看更多...</a>');
 				} else {
 					globalcount = 1; //已经进入队列了
@@ -157,7 +157,7 @@ function feedToolBar(id) {
 					$.post(url, {
 						page: p
 					}, function (rs) {
-						if (rs != '') {
+						if(rs != '') {
 							area = $('#' + id).attr('area');
 							$('#' + area).append(rs);
 							$('#' + id).attr('page', nextpage);
@@ -193,7 +193,7 @@ function continueShow(id) {
 	$.post(url, {
 		page: p
 	}, function (rs) {
-		if (rs.length < 10) {
+		if(rs.length < 10) {
 			$('#' + id).html('没有更多了');
 			globalcount = 1; //出队列
 		} else {
@@ -207,7 +207,7 @@ function continueShow(id) {
 
 function searchTag() {
 	var tag = $('#search .ipt').val();
-	if (tag == '搜索标签,发现兴趣' || tag == '') {
+	if(tag == '搜索标签,发现兴趣' || tag == '') {
 		tiper('请填写标签');
 	} else {
 		$('#search .btn').addClass('loading');
@@ -230,7 +230,7 @@ function delblogs(id, url) {
 		yesFn: function () {
 			//window.location.href=url;
 			$.post(url, function (result) {
-				if (result == 'ok') {
+				if(result == 'ok') {
 					tipok('已删除');
 					$('#blog_' + id).hide('slow');
 				} else {
@@ -249,7 +249,7 @@ function delrep(id, url) {
 		yesFn: function () {
 			//window.location.href=url;
 			$.post(url, function (result) {
-				if (result == 'ok') {
+				if(result == 'ok') {
 					tipok('已删除');
 					$('#feed_' + id).hide('slow');
 				} else {
@@ -263,7 +263,7 @@ function delrep(id, url) {
 
 //发送站内信
 function sendpm(uid, info) {
-	if (info == undefined) {
+	if(info == undefined) {
 		info = ''
 	}
 	$.dialog.open(urlpath + '/index.php?c=user&a=postpm&uid=' + uid + '&info=' + info, {
@@ -279,7 +279,7 @@ function sendpm(uid, info) {
 function doPmSubmit(call) {
 	var u = $('#postpm').find('input[name=uid]').val();
 	var i = $('#postpm').find('textarea').val();
-	if (i == '') {
+	if(i == '') {
 		tiper('请填写内容');
 		return false;
 	}
@@ -289,25 +289,25 @@ function doPmSubmit(call) {
 		uid: u,
 		info: i
 	}, function (rs) {
-		if (rs == -1) {
+		if(rs == -1) {
 			alert('发送频率限制,请30秒后再试');
-			if (call == 1) {
+			if(call == 1) {
 				art.dialog.open.api.close();
 			}
 		}
-		if (rs == -2) {
+		if(rs == -2) {
 			alert('自己不能给自己发送');
 		}
-		if (rs == 0) {
+		if(rs == 0) {
 			alert('内容没有填写');
 		}
 
-		if (rs == 1) {
+		if(rs == 1) {
 			art.dialog({
 				content: '发送成功了',
 				time: 2,
 				closeFn: function () {
-					if (call == 1) {
+					if(call == 1) {
 						art.dialog.open.api.close();
 					} else {
 						window.location.reload();
@@ -325,7 +325,7 @@ function doPmSubmit(call) {
 function delnotice(id, url) {
 	art.dialog.confirm('删除后对方也无法查看,确定吗?', function () {
 		$.post(url, function (result) {
-			if (result == 1) {
+			if(result == 1) {
 				$('#notice_' + id).hide('slow');
 			} else {
 				tiper(result);
@@ -337,7 +337,7 @@ function delnotice(id, url) {
 //已读通知
 function isreadnotice(id, url) {
 	$.post(url, function (result) {
-		if (result == 1) {
+		if(result == 1) {
 			$('#notice_' + id).hide('slow');
 		} else {
 			tiper(result);
@@ -398,7 +398,7 @@ function replays(id, user, uid) {
 //提交文本框的回复
 function sendReplay(id, url) {
 	var ipt = $('#replyInput_' + id).val();
-	if (ipt == '') {
+	if(ipt == '') {
 		tiper('内容不能为空喔');
 		return false;
 	}
@@ -408,7 +408,7 @@ function sendReplay(id, url) {
 		bid: id,
 		repuid: $('#replyTo_' + id).val()
 	}, function (result) {
-		if (result == 1) {
+		if(result == 1) {
 			tipok('回复成功');
 		} else {
 			tiper(result);
@@ -424,9 +424,9 @@ function likes(id, url) {
 	$.post(url, {
 		bid: id
 	}, function (result) {
-		if (result == 1) {
+		if(result == 1) {
 			tipok('您已经喜欢');
-		} else if (result == 2) {
+		} else if(result == 2) {
 			tipok('您取消喜欢');
 		} else {
 			tiper(result);
@@ -439,10 +439,10 @@ function follows(uid, url) {
 	$.post(url, {
 		uid: uid
 	}, function (result) {
-		if (result == 1) {
+		if(result == 1) {
 			$('#follow_' + uid).html('已关注');
 			tipok('成功加为关注');
-		} else if (result == 2) {
+		} else if(result == 2) {
 			tipok('您已经取消了关注');
 			$('#myfollow_' + uid).hide();
 		} else {
@@ -456,10 +456,10 @@ function addMytag(tagName, url) {
 	$.post(url, {
 		tag: tagName
 	}, function (result) {
-		if (result == 1) {
+		if(result == 1) {
 			tipok('已经添加该标签');
 			$('#flowTag').html('取消标签关注');
-		} else if (result == 2) {
+		} else if(result == 2) {
 			tipok('已经取消该标签');
 			$('#flowTag').html('添加标签关注');
 		} else {

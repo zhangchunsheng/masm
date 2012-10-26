@@ -29,7 +29,7 @@ $(document).ready(function () {
 					var imghttp = imgs.substring(0, 7);
 					var imgar = imgs.substr(imgs.length - 3, imgs.length);
 
-					if (imghttp == 'http://' && imgs != '') {
+					if(imghttp == 'http://' && imgs != '') {
 						_this.pasteHTML('<img src=' + jTestInput.val() + ' alt="" class="feedimg" />');
 					}
 					_this.hidePanel();
@@ -54,7 +54,7 @@ $(document).ready(function () {
 		var $this = $(this),
 			sExt = $this.attr('ext'),
 			$prev = $this.prev();
-		if ($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
+		if($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
 			$('#uploading').show();
 			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=publisher&a=uploadimg', function (sText) {
 				$('#uploading').hide();
@@ -65,16 +65,16 @@ $(document).ready(function () {
 				} catch (ex) {
 					alert(sText)
 				};
-				if (!data.err) {
+				if(!data.err) {
 					textbody.loadBookmark();
 					var urls = data.msg.url.split('||');
-					if (urls.length == 2) {
-						if ($('#blog-types').val() == 2) {
+					if(urls.length == 2) {
+						if($('#blog-types').val() == 2) {
 							$('#blog-attach').val(urls[0]);
 						}
 						textbody.pasteHTML('<a href="' + urls[1] + '"><img src="' + urls[0] + '" class="feedimg" /></a>');
 					} else {
-						if ($('#blog-types').val() == 2) {
+						if($('#blog-types').val() == 2) {
 							$('#blog-attach').val(data.msg.url);
 						}
 						textbody.pasteHTML('<img src="' + data.msg.url + '" class="feedimg" />');
@@ -96,7 +96,7 @@ $(document).ready(function () {
 		var $this = $(this),
 			sExt = $this.attr('ext'),
 			$prev = $this.prev();
-		if ($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
+		if($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
 			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=publisher&a=uploadmedia', function (sText) {
 				$('#uploading').hide();
 				var data = Object,
@@ -104,7 +104,7 @@ $(document).ready(function () {
 				try {
 					data = eval('(' + sText + ')');
 				} catch (ex) {};
-				if (!data.err) {
+				if(!data.err) {
 					iattachMp3(data.msg.fid, data.msg.localname);
 				} else {
 					alert(data.err);
@@ -123,7 +123,7 @@ $(document).ready(function () {
 		var $this = $(this),
 			sExt = $this.attr('ext'),
 			$prev = $this.prev();
-		if ($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
+		if($this.val().match(new RegExp('\.(' + sExt.replace(/,/g, '|') + ')$', 'i'))) {
 			var upload = new textbody.html4Upload(this, urlpath + '/index.php?c=user&a=upavatar', function (sText) {
 
 				var data = Object,
@@ -133,7 +133,7 @@ $(document).ready(function () {
 				} catch (ex) {
 					alert(sText)
 				};
-				if (!data.err) {
+				if(!data.err) {
 					textbody.loadBookmark();
 					$uploading.html('已完成');
 					tipok('头像上传完成');
@@ -151,16 +151,16 @@ $(document).ready(function () {
 	});
 
 	var qsearch = '添加标签,写一个回车一下'
-	if ($('#post-tag-input').val() == '') {
+	if($('#post-tag-input').val() == '') {
 		$('#post-tag-input').val(qsearch);
 	}
 	$('#post-tag-input').click(function () {
-		if ($('#post-tag-input').val() == qsearch) {
+		if($('#post-tag-input').val() == qsearch) {
 			$('#post-tag-input').val('');
 		}
 	});
 	$('#post-tag-input').blur(function () {
-		if ($('#post-tag-input').val() == '') {
+		if($('#post-tag-input').val() == '') {
 			$('#post-tag-input').val(qsearch);
 		} else {
 			var tags = $('#post-tag-input').val();
@@ -180,7 +180,7 @@ $(document).ready(function () {
 
 	$('#draft').click(function () {
 		$('#blog-open').val(0);
-		if ($('#textarea').val() == '') {
+		if($('#textarea').val() == '') {
 			$.dialog({
 				icon: 'alert',
 				content: '内容不能为空喔',
@@ -193,9 +193,9 @@ $(document).ready(function () {
 	});
 
 	$('#post-tag-input').bind('keyup', function (event) {
-		if (event.keyCode == "13") {
+		if(event.keyCode == "13") {
 			var tags = $('#post-tag-input').val();
-			if (tags != '') $('#post-tag-list').append('<li tag="' + tags + '"><span>' + tags + '</span><a href="javascript:;" onclick="remTags(this)" title="删除">x</a></li>');
+			if(tags != '') $('#post-tag-list').append('<li tag="' + tags + '"><span>' + tags + '</span><a href="javascript:;" onclick="remTags(this)" title="删除">x</a></li>');
 			$('#post-tag-input').val('');
 		}
 	});
@@ -214,7 +214,7 @@ $(document).ready(function () {
 			tag_str += $(this).attr('tag') + ',';
 		})
 		chks = /^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){1,15}$/;
-		if (!chks.exec(domain)) {
+		if(!chks.exec(domain)) {
 			tips('个性域名不符合要求');
 			return false;
 		}
@@ -241,15 +241,15 @@ $(document).ready(function () {
 					var pwd = $('#pwd');
 					var pwd1 = $('#pwd1');
 					var pwd2 = $('#pwd2');
-					if (pwd.val() == '') {
+					if(pwd.val() == '') {
 						pwd.focus();
 						return false;
 					}
-					if (pwd1.val() == '') {
+					if(pwd1.val() == '') {
 						pwd1.focus();
 						return false;
 					}
-					if (pwd2.val() == '') {
+					if(pwd2.val() == '') {
 						pwd2.focus();
 						return false;
 					}
@@ -268,7 +268,7 @@ $(document).ready(function () {
 						'pwd2': pwd2.val()
 					}, function (result) {
 						$('#loadings').toggle();
-						if (result == 'ok') {
+						if(result == 'ok') {
 							$.dialog({
 								id: 'alerts',
 								icon: 'success',
@@ -325,7 +325,7 @@ $(document).ready(function () {
 	});
 	
 	$("#post-tag,#post-tag2").bind("click", function(e) {
-		if ($('#post-tag-input').val() == qsearch) {
+		if($('#post-tag-input').val() == qsearch) {
 			$('#post-tag-input').val('');
 		}
 		$("#post-tag-input").focus();
@@ -445,7 +445,7 @@ function setTags() {
 		tag_str += $(this).attr('tag') + ',';
 	})
 	$('#blog-tags').val(tag_str); //写入标签
-	if ($('#blog-tags').val() == '') {
+	if($('#blog-tags').val() == '') {
 		return false
 	} else {
 		return true
@@ -472,16 +472,16 @@ function selectUpload(that) {
 
 //判断添加网络音乐的mouseover事件
 function musicMouse(thisa) {
-	if ($(thisa).val() == 'http://' || $(thisa).val() == '介绍(选填)') {
+	if($(thisa).val() == 'http://' || $(thisa).val() == '介绍(选填)') {
 		$(thisa).val('');
 	}
 }
 //判断添加网络音乐的mouseout的事件
 function musicMosout(thisa, t) {
-	if ($(thisa).val() == '' && t == 'u') {
+	if($(thisa).val() == '' && t == 'u') {
 		$(thisa).val('http://');
 	}
-	if ($(thisa).val() == '' && t == 'c') {
+	if($(thisa).val() == '' && t == 'c') {
 		$(thisa).val('介绍(选填)');
 	}
 }
@@ -498,7 +498,7 @@ function saveVideoList(url) {
 
 function saveMediaList(url, type) {
 	var url = $('#mediaUrl').val();
-	if (url == 'http://') {
+	if(url == 'http://') {
 		tips('请填写一个引用地址');
 		return false;
 	}
@@ -512,11 +512,11 @@ function saveMediaList(url, type) {
 		$("#mediaFrom").enable();
 		$("#urlParseLoading").val('添加地址');
 		var data = eval("(" + result + ")");
-		if (data.error != undefined) {
+		if(data.error != undefined) {
 			tips(data.error);
 			return false;
 		}
-		if (data.type == 'mp3' || data.type == 'wma' || data.type == 'swf') {
+		if(data.type == 'mp3' || data.type == 'wma' || data.type == 'swf') {
 			data.img = 'tpl/images/publisher/webmusic.png';
 		}
 		desc = data.title;
@@ -550,12 +550,12 @@ function mediaDItem(that, type, id) {
 //添加MP3类型媒体 如果是localmusic则说明是在音乐模型
 function iattachMMouse(that, id) {
 	if(id == 0) {
-		if ($(that).val() == '描述') {
+		if($(that).val() == '描述') {
 			$(that).val('');
 		}
 	}
 	if(id == 1) {
-		if ($(that).val() == '') {
+		if($(that).val() == '') {
 			$(that).val('描述');
 		}
 	}
@@ -583,14 +583,14 @@ function iattachMp3(id, name) {
 
 function iattachBigImg(x) {
 	var x = x.split('|');
-	if ($('#blog-types').val() == 2) {
+	if($('#blog-types').val() == 2) {
 		$('#blog-attach').val(x[1]);
 	}
 	textbody.pasteHTML('<a href="' + x[0] + '" target="_blank"><img src="' + x[1] + '" alt="" class="feedimg"/></a>')
 }
 
 function iattachImg(x) {
-	if ($('#blog-types').val() == 2) {
+	if($('#blog-types').val() == 2) {
 		$('#blog-attach').val(x);
 	}
 	textbody.pasteHTML('<img src="' + x + '" alt="" class="feedimg"/>')
@@ -605,7 +605,7 @@ function delAttach(id) {
 			$.post(urlpath + '/index.php?c=publisher&a=delattach', {
 				'id': id
 			}, function (result) {
-				if (result == 'ok') {
+				if(result == 'ok') {
 					$('#attach_' + id).hide();
 					tips('已删除');
 				} else {
@@ -626,7 +626,7 @@ function delAttachIMAGE(id) {
 			$.post(urlpath + '/index.php?c=publisher&a=delattach', {
 				'id': id
 			}, function (result) {
-				if (result == 'ok') {
+				if(result == 'ok') {
 					$('#attach_' + id).remove();
 				} else {
 					tips('请稍后再试');
@@ -647,16 +647,16 @@ function tuiTag(x, y) {
 	$(y).parent().remove();
 }
 
-//网编辑器插入媒体
+//编辑器插入媒体
 function iattach(x, y) {
 	var x = x.split('|');
-	if (x[0] == 'img') {
-		if (x[2] == undefined) {//如果不存在缩略图
+	if(x[0] == 'img') {
+		if(x[2] == undefined) {//如果不存在缩略图
 			parent.textbody.pasteHTML('<img src="' + x[1] + '" />');
 		} else {
 			parent.textbody.pasteHTML('<a href="' + x[1] + '" target="_blank"><img src="' + x[2] + '" alt="" /></a>')
 		}
-	} else if (x[0] == 'mp3' || x[0] == 'mid' || x[0] == 'midi' || x[0] == 'wma') {
+	} else if(x[0] == 'mp3' || x[0] == 'mid' || x[0] == 'midi' || x[0] == 'wma') {
 		parent.textbody.pasteHTML('[music]' + x[1] + x[2] + '[/muisc]');
 	} else {
 		parent.textbody.pasteHTML('<a href="' + x[2] + '">' + x[1] + '</a>');

@@ -24,7 +24,7 @@ hs.lang.number = '第 %1 张/共 %2 张';
 hs.lang.restoreTitle = '点击关闭, 点击并拖动可移动图片';
 
 try {
-	if (tplpath) {
+	if(tplpath) {
 		hs.graphicsDir = tplpath + 'images/gallery.show/';
 	}
 } catch (exception) {
@@ -93,7 +93,7 @@ hs.addSlideshow({
 	hs.dimmingOpacity = .75;
 
 	// Add the controlbar
-	if (hs.addSlideshow) hs.addSlideshow({
+	if(hs.addSlideshow) hs.addSlideshow({
 		//slideshowGroup: 'group1',
 		interval: 5000,
 		repeat: false,
@@ -116,7 +116,7 @@ hs.addSlideshow({
 	//hs.dimmingOpacity = 0.75;
  
 	// Add the controlbar
-	if (hs.addSlideshow) hs.addSlideshow({
+	if(hs.addSlideshow) hs.addSlideshow({
 		//slideshowGroup: 'group1',
 		interval: 5000,
 		repeat: false,
@@ -141,7 +141,7 @@ hs.addSlideshow({
 
  
 	// Add the controlbar
-	if (hs.addSlideshow) hs.addSlideshow({
+	if(hs.addSlideshow) hs.addSlideshow({
 		//slideshowGroup: 'group1',
 		interval: 5000,
 		repeat: false,

@@ -10,7 +10,7 @@ $(document).ready(function () {
 	count = getQuery('count') || count;
 	useget = getQuery('useget') || useget;
 	var tmpParams = getQuery('params');
-	if (tmpParams) {
+	if(tmpParams) {
 		try {
 			eval("tmpParams=" + tmpParams);
 		} catch (ex) {};
@@ -75,10 +75,10 @@ var swfu, selQueue = [],
 
 function removeFile() {
 	var file;
-	if (!selectID) return;
-	for (var i in selQueue) {
+	if(!selectID) return;
+	for(var i in selQueue) {
 		file = selQueue[i];
-		if (file.id == selectID) {
+		if(file.id == selectID) {
 			selQueue.splice(i, 1);
 			allSize -= file.size;
 			swfu.cancelUpload(file.id);
@@ -92,7 +92,7 @@ function removeFile() {
 }
 
 function startUploadFiles() {
-	if (swfu.getStats().files_queued > 0) {
+	if(swfu.getStats().files_queued > 0) {
 		//$('#controlBtns').hide();
 		swfu.startUpload();
 	} else alert('上传前请先添加文件');
@@ -105,8 +105,8 @@ function setFileState(fileid, txt) {
 function fileQueued(file) {//队列添加成功
 	$('#submit_image,#draft,#preview,#cancel').hide();
 	$('#pb-submiting-tip').show();
-	for (var i in selQueue) {
-		if (selQueue[i].name == file.name) {
+	for(var i in selQueue) {
+		if(selQueue[i].name == file.name) {
 			swfu.cancelUpload(file.id);
 			return false;
 		} //防止同名文件重复添加
@@ -153,7 +153,7 @@ function uploadProgress(file, bytesLoaded, bytesTotal) {//单文件上传进度
 }
 
 function upimgclk(that) {
-	if (that.value == '图片说明可选') {
+	if(that.value == '图片说明可选') {
 		that.value = '';
 	}
 }
@@ -165,11 +165,11 @@ function uploadSuccess(file, serverData) {//单文件上传成功
 	} catch (ex) {
 		
 	};
-	if (data.err != undefined && data.msg != undefined) {
+	if(data.err != undefined && data.msg != undefined) {
 		//alert(data.msg.url);
-		if (!data.err) {
+		if(!data.err) {
 			var urls = data.msg.url.split('||');
-			if (urls.length == 2) {
+			if(urls.length == 2) {
 				var url = urls[0];
 			} else {
 				var url = urls;
@@ -195,7 +195,7 @@ function uploadError(file, errorCode, message) {//单文件上传错误
 }
 
 function uploadComplete(file) {//文件上传周期结束
-	if (swfu.getStats().files_queued > 0)
+	if(swfu.getStats().files_queued > 0)
 		swfu.startUpload();
 	else
 		uploadAllComplete();

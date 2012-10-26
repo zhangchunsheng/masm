@@ -17,7 +17,7 @@
 /* ******************* */
 var SWFUpload;
 
-if (SWFUpload == undefined) {
+if(SWFUpload == undefined) {
 	SWFUpload = function (settings) {
 		this.initSWFUpload(settings);
 	};
@@ -94,14 +94,14 @@ SWFUpload.WINDOW_MODE = {
 // Private: takes a URL, determines if it is relative and converts to an absolute URL
 // using the current site. Only processes the URL if it can, otherwise returns the URL untouched
 SWFUpload.completeURL = function(url) {
-	if (typeof(url) !== "string" || url.match(/^https?:\/\//i) || url.match(/^\//)) {
+	if(typeof(url) !== "string" || url.match(/^https?:\/\//i) || url.match(/^\//)) {
 		return url;
 	}
 	
 	var currentURL = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":" + window.location.port : "");
 	
 	var indexSlash = window.location.pathname.lastIndexOf("/");
-	if (indexSlash <= 0) {
+	if(indexSlash <= 0) {
 		path = "/";
 	} else {
 		path = window.location.pathname.substr(0, indexSlash) + "/";
@@ -185,11 +185,11 @@ SWFUpload.prototype.initSettings = function () {
 	this.customSettings = this.settings.custom_settings;
 	
 	// Update the flash url if needed
-	if (!!this.settings.prevent_swf_caching) {
+	if(!!this.settings.prevent_swf_caching) {
 		this.settings.flash_url = this.settings.flash_url + (this.settings.flash_url.indexOf("?") < 0 ? "?" : "&") + "preventswfcaching=" + new Date().getTime();
 	}
 	
-	if (!this.settings.preserve_relative_urls) {
+	if(!this.settings.preserve_relative_urls) {
 		//this.settings.flash_url = SWFUpload.completeURL(this.settings.flash_url);	// Don't need to do this one since flash doesn't look at it
 		this.settings.upload_url = SWFUpload.completeURL(this.settings.upload_url);
 		this.settings.button_image_url = SWFUpload.completeURL(this.settings.button_image_url);
@@ -203,14 +203,14 @@ SWFUpload.prototype.loadFlash = function () {
 	var targetElement, tempParent;
 
 	// Make sure an element with the ID we are going to use doesn't already exist
-	if (document.getElementById(this.movieName) !== null) {
+	if(document.getElementById(this.movieName) !== null) {
 		throw "ID " + this.movieName + " is already in use. The Flash Object could not be added";
 	}
 
 	// Get the element where we will be placing the flash movie
 	targetElement = document.getElementById(this.settings.button_placeholder_id) || this.settings.button_placeholder;
 
-	if (targetElement == undefined) {
+	if(targetElement == undefined) {
 		throw "Could not find the placeholder element: " + this.settings.button_placeholder_id;
 	}
 
@@ -220,7 +220,7 @@ SWFUpload.prototype.loadFlash = function () {
 	targetElement.parentNode.replaceChild(tempParent.firstChild, targetElement);
 
 	// Fix IE Flash/Form bug
-	if (window[this.movieName] == undefined) {
+	if(window[this.movieName] == undefined) {
 		window[this.movieName] = this.getMovieElement();
 	}
 	
@@ -277,11 +277,11 @@ SWFUpload.prototype.getFlashVars = function () {
 // Public: getMovieElement retrieves the DOM reference to the Flash element added by SWFUpload
 // The element is cached after the first lookup
 SWFUpload.prototype.getMovieElement = function () {
-	if (this.movieElement == undefined) {
+	if(this.movieElement == undefined) {
 		this.movieElement = document.getElementById(this.movieName);
 	}
 
-	if (this.movieElement === null) {
+	if(this.movieElement === null) {
 		throw "Could not find Flash element";
 	}
 	
@@ -294,9 +294,9 @@ SWFUpload.prototype.buildParamString = function () {
 	var postParams = this.settings.post_params; 
 	var paramStringPairs = [];
 
-	if (typeof(postParams) === "object") {
-		for (var name in postParams) {
-			if (postParams.hasOwnProperty(name)) {
+	if(typeof(postParams) === "object") {
+		for(var name in postParams) {
+			if(postParams.hasOwnProperty(name)) {
 				paramStringPairs.push(encodeURIComponent(name.toString()) + "=" + encodeURIComponent(postParams[name].toString()));
 			}
 		}
@@ -319,11 +319,11 @@ SWFUpload.prototype.destroy = function () {
 		var movieElement = null;
 		movieElement = this.getMovieElement();
 		
-		if (movieElement && typeof(movieElement.CallFunction) === "unknown") { // We only want to do this in IE
+		if(movieElement && typeof(movieElement.CallFunction) === "unknown") { // We only want to do this in IE
 			// Loop through all the movie's properties and remove all function references (DOM/JS IE 6/7 memory leak workaround)
-			for (var i in movieElement) {
+			for(var i in movieElement) {
 				try {
-					if (typeof(movieElement[i]) === "function") {
+					if(typeof(movieElement[i]) === "function") {
 						movieElement[i] = null;
 					}
 				} catch (ex1) {}
@@ -417,7 +417,7 @@ SWFUpload.prototype.displayDebugInfo = function () {
 */
 // Public: (Deprecated) addSetting adds a setting value. If the value given is undefined or null then the default_value is used.
 SWFUpload.prototype.addSetting = function (name, value, default_value) {
-    if (value == undefined) {
+    if(value == undefined) {
         return (this.settings[name] = default_value);
     } else {
         return (this.settings[name] = value);
@@ -426,7 +426,7 @@ SWFUpload.prototype.addSetting = function (name, value, default_value) {
 
 // Public: (Deprecated) getSetting gets a setting. Returns an empty string if the setting was not found.
 SWFUpload.prototype.getSetting = function (name) {
-    if (this.settings[name] != undefined) {
+    if(this.settings[name] != undefined) {
         return this.settings[name];
 	}
 
@@ -453,7 +453,7 @@ SWFUpload.prototype.callFlash = function (functionName, argumentArray) {
 	}
 	
 	// Unescape file post param values
-	if (returnValue != undefined && typeof returnValue.post === "object") {
+	if(returnValue != undefined && typeof returnValue.post === "object") {
 		returnValue = this.unescapeFilePostParams(returnValue);
 	}
 
@@ -494,7 +494,7 @@ SWFUpload.prototype.startUpload = function (fileID) {
 // If you do not specify a fileID the current uploading file or first file in the queue is cancelled.
 // If you do not want the uploadError event to trigger you can specify false for the triggerErrorEvent parameter.
 SWFUpload.prototype.cancelUpload = function (fileID, triggerErrorEvent) {
-	if (triggerErrorEvent !== false) {
+	if(triggerErrorEvent !== false) {
 		triggerErrorEvent = true;
 	}
 	this.callFlash("CancelUpload", [fileID, triggerErrorEvent]);
@@ -530,7 +530,7 @@ SWFUpload.prototype.setStats = function (statsObject) {
 // Public: getFile retrieves a File object by ID or Index.  If the file is
 // not found then 'null' is returned.
 SWFUpload.prototype.getFile = function (fileID) {
-	if (typeof(fileID) === "number") {
+	if(typeof(fileID) === "number") {
 		return this.callFlash("GetFileByIndex", [fileID]);
 	} else {
 		return this.callFlash("GetFile", [fileID]);
@@ -619,7 +619,7 @@ SWFUpload.prototype.setRequeueOnError = function (requeueOnError) {
 
 // Public: setHTTPSuccess changes the http_success setting
 SWFUpload.prototype.setHTTPSuccess = function (http_status_codes) {
-	if (typeof http_status_codes === "string") {
+	if(typeof http_status_codes === "string") {
 		http_status_codes = http_status_codes.replace(" ", "").split(",");
 	}
 	
@@ -641,7 +641,7 @@ SWFUpload.prototype.setDebugEnabled = function (debugEnabled) {
 
 // Public: setButtonImageURL loads a button image sprite
 SWFUpload.prototype.setButtonImageURL = function (buttonImageURL) {
-	if (buttonImageURL == undefined) {
+	if(buttonImageURL == undefined) {
 		buttonImageURL = "";
 	}
 	
@@ -655,7 +655,7 @@ SWFUpload.prototype.setButtonDimensions = function (width, height) {
 	this.settings.button_height = height;
 	
 	var movie = this.getMovieElement();
-	if (movie != undefined) {
+	if(movie != undefined) {
 		movie.style.width = width + "px";
 		movie.style.height = height + "px";
 	}
@@ -712,14 +712,14 @@ SWFUpload.prototype.setButtonCursor = function (cursor) {
 SWFUpload.prototype.queueEvent = function (handlerName, argumentArray) {
 	// Warning: Don't call this.debug inside here or you'll create an infinite loop
 	
-	if (argumentArray == undefined) {
+	if(argumentArray == undefined) {
 		argumentArray = [];
-	} else if (!(argumentArray instanceof Array)) {
+	} else if(!(argumentArray instanceof Array)) {
 		argumentArray = [argumentArray];
 	}
 	
 	var self = this;
-	if (typeof this.settings[handlerName] === "function") {
+	if(typeof this.settings[handlerName] === "function") {
 		// Queue the event
 		this.eventQueue.push(function () {
 			this.settings[handlerName].apply(this, argumentArray);
@@ -730,7 +730,7 @@ SWFUpload.prototype.queueEvent = function (handlerName, argumentArray) {
 			self.executeNextEvent();
 		}, 0);
 		
-	} else if (this.settings[handlerName] !== null) {
+	} else if(this.settings[handlerName] !== null) {
 		throw "Event handler " + handlerName + " is unknown or is not a function";
 	}
 };
@@ -741,7 +741,7 @@ SWFUpload.prototype.executeNextEvent = function () {
 	// Warning: Don't call this.debug inside here or you'll create an infinite loop
 
 	var  f = this.eventQueue ? this.eventQueue.shift() : null;
-	if (typeof(f) === "function") {
+	if(typeof(f) === "function") {
 		f.apply(this);
 	}
 };
@@ -754,12 +754,12 @@ SWFUpload.prototype.unescapeFilePostParams = function (file) {
 	var unescapedPost = {};
 	var uk;
 
-	if (file != undefined) {
-		for (var k in file.post) {
-			if (file.post.hasOwnProperty(k)) {
+	if(file != undefined) {
+		for(var k in file.post) {
+			if(file.post.hasOwnProperty(k)) {
 				uk = k;
 				var match;
-				while ((match = reg.exec(uk)) !== null) {
+				while((match = reg.exec(uk)) !== null) {
 					uk = uk.replace(match[0], String.fromCharCode(parseInt("0x" + match[1], 16)));
 				}
 				unescapedPost[uk] = file.post[k];
@@ -787,7 +787,7 @@ SWFUpload.prototype.flashReady = function () {
 	// Check that the movie element is loaded correctly with its ExternalInterface methods defined
 	var movieElement = this.getMovieElement();
 
-	if (!movieElement) {
+	if(!movieElement) {
 		this.debug("Flash called back ready but the flash movie can't be found.");
 		return;
 	}
@@ -802,11 +802,11 @@ SWFUpload.prototype.flashReady = function () {
 SWFUpload.prototype.cleanUp = function (movieElement) {
 	// Pro-actively unhook all the Flash functions
 	try {
-		if (this.movieElement && typeof(movieElement.CallFunction) === "unknown") { // We only want to do this in IE
+		if(this.movieElement && typeof(movieElement.CallFunction) === "unknown") { // We only want to do this in IE
 			this.debug("Removing Flash functions hooks (this should only run in IE and should prevent memory leaks)");
-			for (var key in movieElement) {
+			for(var key in movieElement) {
 				try {
-					if (typeof(movieElement[key]) === "function") {
+					if(typeof(movieElement[key]) === "function") {
 						movieElement[key] = null;
 					}
 				} catch (ex) {
@@ -821,7 +821,7 @@ SWFUpload.prototype.cleanUp = function (movieElement) {
 	// it doesn't display errors.
 	window["__flash__removeCallback"] = function (instance, name) {
 		try {
-			if (instance) {
+			if(instance) {
 				instance[name] = null;
 			}
 		} catch (flashEx) {
@@ -864,16 +864,16 @@ SWFUpload.prototype.uploadStart = function (file) {
 
 SWFUpload.prototype.returnUploadStart = function (file) {
 	var returnValue;
-	if (typeof this.settings.upload_start_handler === "function") {
+	if(typeof this.settings.upload_start_handler === "function") {
 		file = this.unescapeFilePostParams(file);
 		returnValue = this.settings.upload_start_handler.call(this, file);
-	} else if (this.settings.upload_start_handler != undefined) {
+	} else if(this.settings.upload_start_handler != undefined) {
 		throw "upload_start_handler must be a function";
 	}
 
 	// Convert undefined to true so if nothing is returned from the upload_start_handler it is
 	// interpretted as 'true'.
-	if (returnValue === undefined) {
+	if(returnValue === undefined) {
 		returnValue = true;
 	}
 	
@@ -928,13 +928,13 @@ SWFUpload.prototype.debug = function (message) {
 // call the debug() function.  When overriding the function your own function should
 // check to see if the debug setting is true before outputting debug information.
 SWFUpload.prototype.debugMessage = function (message) {
-	if (this.settings.debug) {
+	if(this.settings.debug) {
 		var exceptionMessage, exceptionValues = [];
 
 		// Check for an exception object and print it nicely
-		if (typeof message === "object" && typeof message.name === "string" && typeof message.message === "string") {
-			for (var key in message) {
-				if (message.hasOwnProperty(key)) {
+		if(typeof message === "object" && typeof message.name === "string" && typeof message.message === "string") {
+			for(var key in message) {
+				if(message.hasOwnProperty(key)) {
 					exceptionValues.push(key + ": " + message[key]);
 				}
 			}
@@ -955,7 +955,7 @@ SWFUpload.Console.writeLine = function (message) {
 	try {
 		console = document.getElementById("SWFUpload_Console");
 
-		if (!console) {
+		if(!console) {
 			documentForm = document.createElement("form");
 			document.getElementsByTagName("body")[0].appendChild(documentForm);
 
