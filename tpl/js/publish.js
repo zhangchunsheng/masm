@@ -31,6 +31,8 @@ $(document).ready(function () {
 
 					if(imghttp == 'http://' && imgs != '') {
 						_this.pasteHTML('<img src=' + jTestInput.val() + ' alt="" class="feedimg" />');
+					} else if(imghttp == "https:/") {
+						tips("亲，暂时不支持https");
 					}
 					_this.hidePanel();
 					return false;
@@ -72,7 +74,7 @@ $(document).ready(function () {
 						if($('#blog-types').val() == 2) {
 							$('#blog-attach').val(urls[0]);
 						}
-						textbody.pasteHTML('<a href="' + urls[1] + '"><img src="' + urls[0] + '" class="feedimg" /></a>');
+						textbody.pasteHTML('<img src="' + urls[0] + '" class="feedimg" />');
 					} else {
 						if($('#blog-types').val() == 2) {
 							$('#blog-attach').val(data.msg.url);

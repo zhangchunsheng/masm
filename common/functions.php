@@ -89,24 +89,18 @@
 			} else {
 				if($attr != "") {
 					if(file_exists($attr)) {
-						echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
-						$outimg = 1;
+						//echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
 					}
 				}
 				
 				if(utf8_strlen($content) > 700) {
-					if(!$outimg) {
-						$content = utf8_substr(strip_tags($content, "<div><p><ul><li><br><img>"), 0, 700);
-					} else {
-						$content = utf8_substr(strip_tags($content, "<div><p><ul><li><br>"), 0, 700);
-					}
+					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
+					$text_content = utf8_substr($content, 700, strlen($content));
+					$pos = stripos($text_content, "</") || stripos($text_content, "/>");
+					$content = utf8_substr($content, 0, (700 + $pos));
 					$more = 1;
 				} else {
-					if(!$outimg) {
-						$content = strip_tags($content, "<div><p><ul><li><br><img>");
-					} else {
-						$content = strip_tags($content, "<div><p><ul><li><br>");
-					}
+					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
 				}
 				echo $content;
 			}
@@ -116,24 +110,14 @@
 			} else {
 				if($attr != '') {
 					if(file_exists($attr)) {
-						echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
-						$outimg = 1;
+						//echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
 					}
 				}
 
 				if(utf8_strlen($content) > 700) {
-					if(!$outimg) {
-						$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br><img>'), 0, 700);
-					} else {
-						$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br>'), 0, 700);
-					}
-					$more = 1;
+					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
 				} else {
-					if(!$outimg) {
-						$content = strip_tags($content, '<div><p><ul><li><br><img>');
-					} else {
-						$content = strip_tags($content, '<div><p><ul><li><br>');
-					}
+					$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
 				}
 				echo $content;
 			}
@@ -160,10 +144,13 @@
 				$img .= '</div>';
 				
 				if(utf8_strlen($content) > 700) {
-					$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br><img>'), 0, 700);
+					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
+					$text_content = utf8_substr($content, 700, strlen($content));
+					$pos = stripos($text_content, "</") || stripos($text_content, "/>");
+					$content = utf8_substr($content, 0, (700 + $pos));
 					$more = 1;
 				} else {
-					$content = strip_tags($content, '<div><p><ul><li><br><img>');
+					$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
 				}
 				echo $img . $content;
 				if($more == 1) {
@@ -178,10 +165,13 @@
 					$attr = arrayPage($attr, $limit);
 				}
 				if(utf8_strlen($content) > 700) {//如果内容超过700字则标记
-					$content = utf8_substr(strip_tags($content, '<div><p><ul><li><br><img>'), 0, 700);
+					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
+					$text_content = utf8_substr($content, 700, strlen($content));
+					$pos = stripos($text_content, "</") || stripos($text_content, "/>");
+					$content = utf8_substr($content, 0, (700 + $pos));
 					$more = 1;
 				} else {
-					$content = strip_tags($content, '<div><p><ul><li><br><img>');
+					$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
 				}
 			}
 			
@@ -1005,7 +995,7 @@
 	 * @return string 截取的字符串
 	 * $type=1 等于1时末尾加'...'不然不加
 	 *********************************/
-	function utf8_substr($str, $position, $length,$type = 1) {
+	function utf8_substr($str, $position, $length, $type = 1) {
 		$startPos = strlen($str);
 		$startByte = 0;
 		$endPos = strlen($str);
@@ -1015,12 +1005,12 @@
 				$startPos = $i;
 				$startByte = $count;
 			}
-			if(($count-$startByte) >= $length) {
+			if(($count - $startByte) >= $length) {
 				$endPos = $i;
 				break;
 			}
 			$value = ord($str[$i]);
-			if($value > 127){
+			if($value > 127) {
 				$count++;
 				if($value >= 192 && $value <= 223)
 					$i++;
@@ -1033,10 +1023,10 @@
 			}
 			$count++;
 		}
-		if($type == 1 && ($endPos - 6) > $length){
+		if($type == 1 && ($endPos - 6) > $length) {
 			return substr($str, $startPos, $endPos - $startPos) . "...";
 		} else {
-			return substr($str, $startPos, $endPos-$startPos);
+			return substr($str, $startPos, $endPos - $startPos);
 		}
 	}
 	
@@ -1065,7 +1055,7 @@
 	function strreplaces($str) {
 		$farr = array(
 			"/\s+/", //过滤多余的空白
-			"/<(\/?)(script|i?frame|object|html|body|title|link|meta|div|\?|\%)([^>]*?)>/isU", //过滤tag
+			"/<(\/?)(script|i?frame|object|html|body|title|link|meta|\?|\%)([^>]*?)>/isU", //过滤tag
 			"/(<[^>]*)on[a-zA-Z]+\s*=([^>]*>)/isU", //过滤javascript的on事件
 		);
 		$tarr = array(

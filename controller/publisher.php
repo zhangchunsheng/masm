@@ -379,37 +379,17 @@
 				}
 			}
 		}
-
-		/**
-		 * 进行发布音乐的处理
-		 * id  附件id
-		 * desc 描述
-		 * 需要判断是否归所属人
-		 * 如果此id没查出来则返回false 接到的方法要删除这个id
-		 */
-		private function _localMediaParse($id, $desc) {
-			$id = str_replace("attach_", "", $id);
-			$result = spClass("attach") -> findById($id); //检出文件是否存在
-			if($result['uid'] == $_SESSION['uid']) {//判断是否是我发的
-				if($desc[$d] != '描述') {
-					spClass("attach") -> update(array('id' => $id), array('blogdesc' => $desc));
-				}//如果有描述则更新描述
-				return true;
-			} else {
-				return false;
-			}
-		}
-
+		
 		//获得编辑器实际使用的图片
 		private function _localImgParse($body) {
-			preg_match_all( "/<img.[^>]*?(src|SRC)=\"[\"|'| ]{0,}([^>]*\\.(gif|jpg|jpeg|bmp|png))([\"|'|\\s]).*[\\/]?>/isU", stripslashes($body) , $info);
+			preg_match_all( "/<img.[^>]*?(src|SRC)=\"[\"|'| ]{0,}([^>]*\\.(gif|jpg|jpeg|bmp|png))([\"|'|\\s]).*[\\/]?>/isU", stripslashes($body), $info);
 			$info = array_unique($info[2]);
 
 			$str = '';
 			if(is_array($info)) {
 				foreach($info as $d) {
-					if (substr($d,0,4) != 'http') {//非本地连接不管
-						if(substr($d,0,7) == 'attachs') {//如果不是 attachs开头不管
+					if(substr($d, 0, 4) != 'http') {//本地图片
+						if(substr($d, 0, 7) == 'attachs') {
 							$path = pathinfo($d);
 							if(substr($path['basename'], 0, 2) == 't_') {
 								$d = $path['dirname'] . '/' . substr($path['basename'], 2, 99);
@@ -430,6 +410,26 @@
 						spClass('attach') -> delById($d['id'], $_SESSION['uid']);
 					}
 				}
+			}
+		}
+
+		/**
+		 * 进行发布音乐的处理
+		 * id  附件id
+		 * desc 描述
+		 * 需要判断是否归所属人
+		 * 如果此id没查出来则返回false 接到的方法要删除这个id
+		 */
+		private function _localMediaParse($id, $desc) {
+			$id = str_replace("attach_", "", $id);
+			$result = spClass("attach") -> findById($id); //检出文件是否存在
+			if($result['uid'] == $_SESSION['uid']) {//判断是否是我发的
+				if($desc[$d] != '描述') {
+					spClass("attach") -> update(array('id' => $id), array('blogdesc' => $desc));
+				}//如果有描述则更新描述
+				return true;
+			} else {
+				return false;
 			}
 		}
 

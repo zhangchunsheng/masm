@@ -51,6 +51,7 @@
 		isIE = $.browser.msie,
 		isMozilla = $.browser.mozilla,
 		isSafari = $.browser.safari,
+		isWebkit = $.browser.webkit,
 		isOpera = $.browser.opera,
 		bShowPanel = false,
 		bClickCancel = true,
@@ -386,7 +387,7 @@
 	var toolsThemes = {
 		smallmail: 'Emot,|,FontColor',
 		mini: 'Bold,Italic,Underline,Strikethrough,|,Align,List,|,Link,Img',
-		simple: 'Fontface,FontSize,|,Bold,FontColor,BackColor,|,Align,List,Outdent,Indent,|,addImage,Flash,Source,Fullscreen',
+		simple: 'Fontface,FontSize,|,Bold,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Unlink,addImage,Emot,Fullscreen',
 		full: 'Cut,Copy,Paste,Pastetext,|,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,Align,List,Outdent,Indent,|,Link,Unlink,Anchor,Img,Flash,Media,Hr,Emot,Table,|,Source,Preview,Print,Fullscreen'
 	};
 	toolsThemes.mfull = toolsThemes.full.replace(/\|(,Align)/i, '/$1');
@@ -687,7 +688,7 @@
 				if(settings.blur)
 					settings.blur();
 			});
-			if(isSafari)
+			if(isSafari || isWebkit)
 				_jWin.click(fixAppleSel);
 			_jDoc.mousedown(clickCancelPanel).keydown(checkShortcuts).keypress(forcePtag).dblclick(checkDblClick).bind('mousedown click', function (ev) {
 				_jText.trigger(ev.type);
@@ -1029,11 +1030,11 @@
 							tag = 'b';
 						else if(tag === 'em')
 							tag = 'i';
-					} else if(isSafari) {
+					} else if(isSafari || isWebkit) {
 						if(tag === 'strong') {
-							tag = 'span';
+							/*tag = 'span';
 							if(!end1)
-								attr += appleClass + ' style="font-weight: bold;"';
+								attr += appleClass + ' style="font-weight: bold;"';*/
 						} else if(tag === 'em') {
 							tag = 'span';
 							if(!end1)
@@ -1098,7 +1099,7 @@
 							addClass = '';
 						}
 						//处理Safari style值
-						if(isSafari && n === 'style') {
+						if((isSafari || isWebkit) && n === 'style') {
 							if(tag === 'span' && v.match(/(^|;)\s*(font-family|font-size|color|background-color)\s*:\s*[^;]+\s*(;|$)/i))
 								bAppleClass = true;
 						}
@@ -1121,7 +1122,7 @@
 				if(isIE)
 					sHtml = sHtml.replace(/&apos;/ig, '&#39;');
 
-				if(!isSafari) {
+				if(!(isSafari || isWebkit)) {
 					//style转font
 					function style2font(all, tag, style, content) {
 						var attrs = '',
@@ -1167,7 +1168,7 @@
 				//表格单元格处理
 				sHtml = sHtml.replace(/<(td|th)(\s+[^>]*?)?>(\s|&nbsp;)*<\/\1>/ig, '<$1$2>' + (isIE ? '' : '<br />') + '</$1>');
 			} else { //read
-				if(isSafari) {
+				if(isSafari || isWebkit) {
 					//转换apple的style为strong,em等
 					var arrAppleSpan = [{
 						r: /font-weight:\sbold/ig,
@@ -2569,6 +2570,9 @@
 						_this.showMenu(menuFontname, function (v) {
 							_this._exec('fontname', v);
 						});
+						break;
+					case 'bold':
+						_this._exec(cmd);
 						break;
 					case 'fontsize':
 						var menuFontsize = [];
