@@ -87,38 +87,14 @@
 			if($limit == "all") {
 				echo $content;
 			} else {
-				if($attr != "") {
-					if(file_exists($attr)) {
-						//echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
-					}
-				}
-				
-				if(utf8_strlen($content) > 700) {
-					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
-					$text_content = utf8_substr($content, 700, strlen($content));
-					$pos = stripos($text_content, "</") || stripos($text_content, "/>");
-					$content = utf8_substr($content, 0, (700 + $pos));
-					$more = 1;
-				} else {
-					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
-				}
+				$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
 				echo $content;
 			}
 		} if($type == 2) {//文字
 			if($limit == 'all') {
 				echo $content;
 			} else {
-				if($attr != '') {
-					if(file_exists($attr)) {
-						//echo '<img src="' . $site_uri . '/' . $attr . '" alt="" />';
-					}
-				}
-
-				if(utf8_strlen($content) > 700) {
-					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
-				} else {
-					$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
-				}
+				$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
 				echo $content;
 			}
 		} elseif($type == 4) {//图片
@@ -143,15 +119,7 @@
 				}
 				$img .= '</div>';
 				
-				if(utf8_strlen($content) > 700) {
-					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
-					$text_content = utf8_substr($content, 700, strlen($content));
-					$pos = stripos($text_content, "</") || stripos($text_content, "/>");
-					$content = utf8_substr($content, 0, (700 + $pos));
-					$more = 1;
-				} else {
-					$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
-				}
+				$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
 				echo $img . $content;
 				if($more == 1) {
 					echo '<p>共' . $attr['count'] . '张图</p>';
@@ -164,15 +132,7 @@
 					$more = 1;
 					$attr = arrayPage($attr, $limit);
 				}
-				if(utf8_strlen($content) > 700) {//如果内容超过700字则标记
-					$content = strip_tags($content, "<div><p><ul><li><br><img><a><span><br>");
-					$text_content = utf8_substr($content, 700, strlen($content));
-					$pos = stripos($text_content, "</") || stripos($text_content, "/>");
-					$content = utf8_substr($content, 0, (700 + $pos));
-					$more = 1;
-				} else {
-					$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
-				}
+				$content = strip_tags($content, '<div><p><ul><li><br><img><a><span><br>');
 			}
 			
 			foreach($attr as $rs) {
