@@ -28,12 +28,58 @@
 						.luomor.com
 					</div>
 					<div>
+						<h3 class="usettitle">所在地 <span>请选择生活在的城市名称</span></h3>
+						<div class="imageInputWrapper">
+							<input type="hidden" id="livecity_code" name="livecity_code" value="{$user.livecity_code}" />
+							<input type="text" id="livecity_name" name="livecity_name" class="inputWithImge" value="{$user.livecity_name}" readonly="readonly" />
+							<img id="showCitys" src="tpl/images/comm/combobox.png" alt="选择城市" class="inputImage" onclick="" />
+							<div id="popupWindow" style="display:none">
+								<span class="button bClose">
+									<span>X</span>
+								</span>
+								<table>
+									<tbody>
+										<tr>
+											<td width="40px">省份</td>
+											<td>
+												<select id="province">
+													{foreach from=$provinces item=province}
+													{if $province.code == $currentProvinceCode}
+														<option data-id="{$province.id}" data-code="{$province.code}" value="{$province.id}" selected="selected">{$province.name}</option>
+													{else}
+														<option data-id="{$province.id}" data-code="{$province.code}" value="{$province.id}">{$province.name}</option>
+													{/if}
+													{/foreach}
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td>城市</td>
+											<td>
+												<ul id="citys" class="citys">
+													{foreach from=$citys item=city}
+													<li>
+														<a href="javascript:void(0)" onclick="selectCity('{$city.code}','{$city.name}')">{$city.name}</a>
+													</li>
+													{/foreach}
+												</ul>
+											<td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div>
 						<h3 class="usettitle"> 博客关键字 <span>用最多三个关键词描述他的主题。例如：小吃、美食、音乐、汽车等。</span> </h3>
 						<div id="post-tag2" style="width:98%; height:45px; overflow:hidden">
 							<ul class="clearfix" id="post-tag-list">
 								<!--动态插入标签-->
 								{foreach from=$myTag item=d}
-								<li tag="{$d}"><span>{$d}</span><a title="&#21024;&#38500;" onclick="remTags(this)" href="javascript:;">x</a></li>
+								<li tag="{$d}">
+									<span>{$d}</span>
+									<a title="&#21024;&#38500;" onclick="remTags(this)" href="javascript:;">x</a>
+								</li>
 								{/foreach}
 							</ul>
 							<div id="post-tag-input-holder">
@@ -77,7 +123,10 @@
 				<div class="aside-item" id="post-privacy-holder">
 					<h4>
 						我的头像  
-						<div class="uploadBtn" id="upload_photo"><span>上传头像</span><input type="file" size="1" name="filedata" ext="jpg,jpeg,gif,png" /></div>
+						<div class="uploadBtn" id="upload_photo">
+							<span>上传头像</span>
+							<input type="file" size="1" name="filedata" ext="jpg,jpeg,gif,png" />
+						</div>
 					</h4>
 					<hr class="separator" />
 					<img name="" src="{avatar uid=$smarty.session.uid size=big time=1}" alt="" style="max-width:170px" />
@@ -93,7 +142,9 @@
 					<h4>推荐标签</h4>
 					<ul class="clearfix" id="recommand-tag-list">
 						{foreach from=$tags item=d}
-						<li tag="{$d.catename}"><a href="javascript:void(0)" onclick="tuiTag('{$d.catename}',this)">{$d.catename}</a></li>
+						<li tag="{$d.catename}">
+							<a href="javascript:void(0)" onclick="tuiTag('{$d.catename}',this)">{$d.catename}</a>
+						</li>
 						{/foreach}
 					</ul>
 					<div class="clear"></div>
@@ -114,5 +165,10 @@
 		</div>
 	</form>
 	<iframe id="_parse" name="_parse" style="display:none"></iframe>
+	<script type="text/javascript">
+		$("#showCitys").bind("click", function() {
+			$("#popupWindow").bPopup();
+		});
+	</script>
 </div>
 {include file="require_footer.html"}

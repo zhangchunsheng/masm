@@ -197,7 +197,7 @@
 			return true;
 		}
 		
-		//用户注册,11.6.29验收完毕
+		//用户注册
 		function userReg($row) {
 			$ip = $_SERVER["REMOTE_ADDR"];
 			$salt = randstr();
@@ -205,8 +205,10 @@
 			$arr = array(
 				'password' => $password,
 				'salt' => $salt,
-				'regtime'=> time(),
-				'regip'=> $ip
+				'regtime' => time(),
+				'regip' => $ip,
+				"livecity_code" => "001001",
+				"livecity_name" => "徐州"
 			);
 			$row = array_merge($row, $arr);
 

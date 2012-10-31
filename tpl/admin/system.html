@@ -5,7 +5,7 @@
 <div id="content">
 	<h2><a href="{spUrl c=admin a=clearcache}">缓存删除</a></h2>
 	<h2>站点设置</h2>
-	<form id="form1" name="form1" method="post" action="">
+	<form id="form_system" name="form_system" method="post" action="">
 		<table width="100%" class="table">
 			<tr>
 				<td width="60">站点标题</td>
@@ -218,7 +218,7 @@
 					开启<input name="val[openlogin_qq_open]" type="radio" value="1"  {if $conf.openlogin_qq_open == 1} checked="checked" {/if}/>&nbsp;&nbsp;
 					关闭 <input name="val[openlogin_qq_open]" type="radio" value="0" {if $conf.openlogin_qq_open == 0} checked="checked" {/if}/>
 				</td>
-				<td width="1188" valign="middle">是否开启QQ登录按钮及登录功能，开启后填写下面内容。<a href="http://connect.opensns.qq.com/apply" target="_blank">获取如下内容请点击</a></td>
+				<td width="1188" valign="middle">是否开启QQ登录按钮及登录功能，开启后填写下面内容。<a href="http://connect.qq.com/" target="_blank">获取如下内容请点击</a></td>
 			</tr>
 			<tr>
 				<td>APPID</td>
@@ -247,7 +247,7 @@
 					开启<input name="val[openlogin_weib_open]" type="radio" value="1"  {if $conf.openlogin_weib_open == 1} checked="checked" {/if}/>&nbsp;&nbsp;
 					关闭 <input name="val[openlogin_weib_open]" type="radio" value="0" {if $conf.openlogin_weib_open == 0} checked="checked" {/if}/>
 				</td>
-				<td width="689" valign="middle">是否开启weib登录按钮及登录功能，开启后填写下面内容。<a href="http://open.weibo.com/apps/new?sort=website" target="_blank">获取如下内容请点击</a></td>
+				<td width="689" valign="middle">是否开启weib登录按钮及登录功能，开启后填写下面内容。<a href="http://open.weibo.com/webmaster/console" target="_blank">获取如下内容请点击</a></td>
 			</tr>
 			<tr>
 				<td>APPkey</td>

@@ -18,6 +18,17 @@
 			$this -> user = spClass('member') -> find(array('uid' => $_SESSION['uid'])); //用户信息
 			$this -> tags = spClass('category') -> findCate(); //获取系统级别标签
 			$this -> __parse_mytag($this -> user['blogtag']); //获取我的标签
+			$this -> currentCityCode = $this -> user["livecity_code"];
+			$this -> currentProvinceCode = substr($this -> currentCityCode, 0, strlen($this -> currentCityCode) - 3);
+			$this -> showPopupWindow = "yes";
+			$this -> provinces = spClass("mCity") -> findAll(array("parentId" => 0), "", "id,code,name");
+			foreach($this -> provinces as $key => $value) {
+				if($value["code"] == $this -> currentProvinceCode) {
+					$this -> currentProvinceId = $value["id"];
+					break;
+				}
+			}
+			$this -> citys = spClass("mCity") -> findAll(array("parentId" => $this -> currentProvinceId), "", "id,code,name");
 
 			$this -> display('user_setting.html');
 		}
@@ -234,7 +245,9 @@
 				'sign' => $this -> spArgs('textarea'),
 				'm_rep' => $_mrep,
 				'm_fow' => $_mfow,
-				'm_pm' => $_mpm
+				'm_pm' => $_mpm,
+				"livecity_code" => $this -> spArgs("livecity_code"),
+				"livecity_name" => $this -> spArgs("livecity_name")
 			);
 			
 			if(spClass('member') -> update(array('uid' => $_SESSION['uid']), $row)) {

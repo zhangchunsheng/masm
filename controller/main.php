@@ -79,7 +79,7 @@
 				if($this -> spArgs('local')) {
 					$local = spClass('member') -> escape('%' . urldecode($this -> spArgs('local')) . '%');
 					$_SESSION['discover_local'] = TRUE;
-					$where = "`local` like $cname ";
+					$where = "`local` like $cname";
 				} else {
 					unset($_SESSION['discover_local']);
 				}
@@ -99,6 +99,10 @@
 			if($_SESSION['discover_local']) {
 				$cname = spClass('member') -> escape('%' . urldecode($_SESSION['discover_catename']) . '%');
 				$where = "`local` like $cname ";
+			}
+			
+			if($_SESSION["uid"]) {
+				$where .= " and uid<>" . $_SESSION["uid"];
 			}
 
 			if($this -> spArgs('cateall')) {

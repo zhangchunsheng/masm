@@ -1,11 +1,13 @@
 {include file='admin/header.html'}
 <div id="content">
 	<h2>搜索</h2>
-	<form id="form1" name="form1" method="post" action="">
+	<form id="form_user" name="form_user" method="post" action="">
 		<table width="100%" class="table">
 			<tr>
 				<td width="25%">用户邮箱、用户昵称、用户域名</td>
-				<td valign="middle"><input name="where" type="text" value="{$get.niname}" /></td>
+				<td valign="middle">
+					<input name="where" type="text" value="{$get.niname}" />
+				</td>
 			</tr>
 		</table>
 		<input name="submit" type="submit" value="&#25628;&#32034;" />

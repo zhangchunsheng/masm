@@ -68,13 +68,21 @@
 								</div>
 								{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weib_open == 1}
 								<div id="openconnent">
-									<h1>用合作账户登录</h1>
+									<h1>使用合作网站帐号登录</h1>
 									<div id="area">
 										{if $luomor.openlogin_qq_open == 1}
-										<li><a href="{spUrl c=openconnect a=qq}"><img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" /></a></li>
+										<li>
+											<a href="{spUrl c=openconnect a=qq}">
+												<img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" />
+											</a>
+										</li>
 										{/if}
 										{if $luomor.openlogin_weib_open == 1}
-										<li> <a href="{spUrl c=openconnect a=weibo}"><img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" /></a></li>
+										<li>
+											<a href="{spUrl c=openconnect a=weibo}">
+												<img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" />
+											</a>
+										</li>
 										{/if}
 									</div>
 								</div>

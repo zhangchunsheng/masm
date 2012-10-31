@@ -7,6 +7,7 @@
 		<meta name="description" content="{$luomor.site_desc}" />
 		<meta name="keywords" content="{$luomor.site_keyword}" />
 		{include file="require_js.html" login=yes}
+		<script type="text/javascript" src="{$url}/tpl/js/luomor.js"></script>
 		<link href="{$url}/tpl/images/css/login.css" rel="stylesheet" type="text/css" class="cssfx" />
 		<link rel="shortcut icon" href="{$url}/tpl/images/favicon.ico" type="images/x-icon" />
 	</head>
@@ -53,23 +54,26 @@
 								<input type="hidden" value="{$callback}" name="callback" />
 							</form>
 						</td>
-						<td height="53">
-							<div><span><a href="{spUrl c=masm a=service}" target="_blank">注册将视为您同意服务条款</a></span> </div>
-							&nbsp;
-						</td>
 					</tr>
-					<tr></tr>
 					<tr>
 						<td width="261" valign="top">
 							{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weib_open == 1}
 							<div id="openconnent">
-								<h1>用合作账户登录</h1>
+								<h1>使用合作网站帐号登录</h1>
 								<div id="area">
 									{if $luomor.openlogin_qq_open == 1}
-									<li><a href="javascript:void(0)" onClick="openconnect('{spUrl c=openconnect a=qq}')"><img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" /></a></li>
+									<li>
+										<a href="javascript:void(0)" onclick="openconnect('{spUrl c=openconnect a=qq}')">
+											<img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" />
+										</a>
+									</li>
 									{/if}
 									{if $luomor.openlogin_weib_open == 1}
-									<li> <a href="javascript:void(0)" onClick="openconnect('{spUrl c=openconnect a=weibo}')"><img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" /></a></li>
+									<li>
+										<a href="javascript:void(0)" onclick="openconnect('{spUrl c=openconnect a=weibo}')">
+											<img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" />
+										</a>
+									</li>
 									{/if}
 								</div>
 							</div>

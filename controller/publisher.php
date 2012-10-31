@@ -27,7 +27,7 @@
 			$this -> getCreateBid();
 			$this -> attach();
 			$this -> myTagUsually();
-			$this -> city = spClass("city") -> findBy("code", $livecity_code);
+			$this -> city = spClass("mCity") -> findBy("code", $livecity_code);
 			$this -> display("publish_map.html");
 		}
 
@@ -114,7 +114,7 @@
 			$address = "";
 			if($this -> spArgs("blog-types") == 1) {
 				$positionInfo = getPositionInfo($this -> spArgs("pb-text-latitude"), $this -> spArgs("pb-text-longitude"));
-				$cityInfo = spClass("city") -> findByGoogleName($positionInfo);
+				$cityInfo = spClass("mCity") -> findByGoogleName($positionInfo);
 				$cityCode = $cityInfo["code"];
 				$cityName = $cityInfo["name"];
 				$address_type = $positionInfo -> addressType;

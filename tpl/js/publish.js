@@ -221,14 +221,8 @@ $(document).ready(function () {
 			return false;
 		}
 		$('#tag').val(tag_str); //写入标签
-
 		$('#userSetting').submit();
-
 		$('#pb-submiting-tip,#submit_baseinfo,#chgpwd,#cancel').toggle();
-		/*$.post($('#submit_baseinfo').attr('submiturl'),{'niname':niname,'domain':domain,'sign':signss,'tag':tag_str,'m_rep':m_reps,'m_fow':m_fows,'m_pm':m_pms},function(result){ 
-			$('#pb-submiting-tip,#submit_baseinfo,#chgpwd,#cancel').toggle();
-			$.dialog({id:'alerts',icon: 'face-smile', content: result,time:2});							
-		})*/
 	});
 	
 	//修改密码弹出框

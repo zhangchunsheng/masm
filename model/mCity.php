@@ -4,7 +4,7 @@
 	 * 日期：2012-10-10
 	 * 说明：城市
 	 */
-	class city extends spModel {
+	class mCity extends spModel {
 		public $pk = "id"; //数据库表主键
 		public $table = "city";
 		

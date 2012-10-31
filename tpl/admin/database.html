@@ -2,7 +2,7 @@
 <div id="content">
 	<h2>数据库管理</h2>
 	<div>数据恢复请使用PHPMYADMIN的导入功能，将备份的SQL数据导入。</div>
-	<form id="form1" name="form1" method="post" action="">
+	<form id="form_backup" name="form_backup" method="post" action="">
 		{if $get.chk}
 		<div>已检查所有表，请对有问题的表点击修复操作进行修复</div>
 		<input type="button" value="&#36820;&#22238;" onclick="window.location.href='{spUrl c=admin a=database}'" />
@@ -14,7 +14,7 @@
 	</tr>
 	</table>
 	<h2>使用中</h2>
-	<form id="form1" name="form1" method="post" action="">
+	<form id="form_database" name="form_database" method="post" action="">
 		<table width="100%" class="table2">
 			<tr>
 				<th align="center" valign="middle">数据表</th>

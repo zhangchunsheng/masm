@@ -184,7 +184,65 @@ a:hover {color: #568D99;text-decoration: underline;}
 /*feeds ajax page*/
 .feedajax {margin-top:5px;background-color: #FFFFFF; border-radius:7px;margin-left:90px;padding:10px;width:510px;text-align:center;}
 .feedajax .loading {vertical-align:middle; margin-right:10px}
-.feedimg {max-width:248px}
+#popupWindow, .bMulti {
+	background-color: white;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 0 0 25px 5px #999;
+	color: #111;
+	display: none;
+	min-width: 450px;
+	width: 450px;
+	min-height: 250px;
+	padding: 25px;
+}
+.button.bClose {
+	border-radius: 7px 7px 7px 7px;
+	box-shadow: none;
+	font: bold 131% sans-serif;
+	padding: 0 6px 2px;
+	position: absolute;
+	right: -7px;
+	top: -7px;
+}
+.button {
+	background-color: #2B91AF;
+	border-radius: 10px;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 20px;
+	text-align: center;
+	text-decoration: none;
+}
+
+#province {
+	border: solid 1px #BBB;
+	width: 200px;
+	height: 36px;
+	padding: 5px;
+	font-size: 14px;
+}
+.citys {
+	display: block;
+}
+.citys li {
+	background: none repeat scroll 0 0 #2C93D9;
+	border-radius: 2px 2px 2px 2px;
+	color: #CCC;
+	float: left;
+	height: 22px;
+	line-height: 22px;
+	margin: 0 5px 5px 0;
+	padding: 0 5px;
+}
+.citys li a {
+	color: whiteSmoke;
+}
+.citys li a:hover {
+	color: whiteSmoke;
+	text-decoration: none;
+}
 
 /*发布内容*/
 #postblog {width:605px; height:124px;clear:both; position:relative}

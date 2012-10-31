@@ -224,9 +224,8 @@ hr.separator {border-bottom: 1px solid #FEFFFE;border-top: 1px solid #E2E6E8;bor
 #listBody .hover {background:#F0F0F0;}
 #listBody .select {background:#DFE8F6;}
 #listBody td {padding:5px;border-bottom:1px solid #EDEDED;}
-/*setting*/
+/*user_setting*/
 #upload_photo {padding-left:68px}
-
 #addMores {display:none; float:left}
 .delitem {text-align:right; margin:5px 0px;}
 .ipta {width:380px;font-size:14px; padding:5px; background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #BBBBBB; margin-bottom:5px; color:#999; padding-right:5px}
@@ -234,7 +233,25 @@ hr.separator {border-bottom: 1px solid #FEFFFE;border-top: 1px solid #E2E6E8;bor
 /*”√ªß…Ë÷√*/
 h3.usettitle {color: #5B6772;font-size: 14px;font-weight: normal;margin: 20px 0 5px;}
 h3.usettitle span {color: #AAB5C1;font-size: 12px;margin-left: 5px;}
+.imageInputWrapper {
+	width: 202px;
+	border: solid 1px #BBB;
+	padding: 2px;
+}
 .ipt {font-size:14px; padding:5px; background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #BBBBBB;}
+input.inputWithImge{
+	width: 155px;
+	border: none;
+	margin-right: 5px;
+	font-size: 14px;
+	padding: 5px;
+	vertical-align: middle;
+	background: none repeat scroll 0 0 white;
+}
+img.inputImage {
+	vertical-align: middle;
+	cursor: pointer;
+}
 form input[type='checkbox'] {
 	vertical-align::text-top;
 }

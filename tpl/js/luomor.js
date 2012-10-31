@@ -108,6 +108,29 @@ $(document).ready(function () {
 			$($(this).parent().children()[1]).css("top", (height / 2 - 33 / 2) + "px");
 		});
 	});
+	$("#province").bind("change", function(e) {
+		var provinceId = $(this).val();
+		var getCitysUrl = "index.php?c=city&a=getCitys&provinceId=" + provinceId;
+		$.ajax({
+			type: "GET",
+			url: getCitysUrl,
+			dataType: "json",
+			success: function(data) {
+				var citys = data.citys;
+				var html = "";
+				for(var i = 0 ; i < citys.length ; i++) {
+					html += '<li>';
+					html += '<a href="javascript:void(0)" onclick="selectCity(\'' + citys[i].id + '\',\'' + citys[i].name + '\')">' + citys[i].name + '</a>';
+					html += '</li>';
+				}
+				$("#citys>li").remove();
+				$("#citys").html(html);
+			},
+			error: function(data, status) {
+				
+			}
+		});
+	});
 	$('#menuSideBtn').click(function () {
 		$('#menuSide').toggle();
 		$(this).toggleClass('curr');
@@ -449,6 +472,12 @@ function follows(uid, url) {
 			tiper(result);
 		}
 	});
+}
+
+function selectCity(code, name) {
+	$("#livecity_code").val(code);
+	$("#livecity_name").val(name);
+	$("#popupWindow").bPopup().close();
 }
 
 //加标签
