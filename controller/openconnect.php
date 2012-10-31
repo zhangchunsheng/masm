@@ -30,7 +30,7 @@
 				if(!$_SESSION['qq']['openid']) {
 					exit('登录状态失效,请重新登录');
 				}
-				$type = 'QQ';  //获取类型为QQ
+				$type = 'QQ'; //获取类型为QQ
 				$this -> user = $_SESSION['qq'];
 				$this -> type = $this -> spArgs('type', 'reg');
 
@@ -78,7 +78,7 @@
 				$user = spClass('memberex') -> spLinker() -> find(array('openid' => $this -> user['openid'])); //获取用户数据
 				if($user['expires'] != 0 && time() > $user['expires']) {
 					$msg = '您的绑定信息与' . date('Y-m-d', $user['expires']) . '已过期，请您重新使用连接功能，并绑定已有账号。';
-					spClass('memberex') -> CancelBind($type, $_SESSION['uid']);
+					spClass('memberex') -> cancelBind($type, $_SESSION['uid']);
 					unset($_SESSION['openconnect'][$type]);
 					spClass('memberex') -> delete(array('openid' => $this -> user['openid']));
 					$this -> error($msg, spUrl('main', 'index'));
@@ -96,10 +96,10 @@
 			spClass('qqConnect') -> getLoginUrl();
 		}
 
-		public function CancelConnect() {
+		public function cancelConnect() {
 			if($this -> spArgs('type')) {
 				$type = $this -> spArgs('type');
-				spClass('memberex') -> CancelBind($type, $_SESSION['uid']);
+				spClass('memberex') -> cancelBind($type, $_SESSION['uid']);
 				unset($_SESSION['openconnect'][$type]);
 				echo 1;
 			}

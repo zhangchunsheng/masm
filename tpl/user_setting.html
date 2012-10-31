@@ -154,10 +154,10 @@
 					<h4>连接微薄</h4>
 					<hr class="separator" />
 					{if $smarty.session.openconnect.WEIB}
-					<div>已经连接新浪微博 <a href="javascript:void(0)" onclick="cancelConnect('{spUrl c=openconnect a=CancelConnect type=WEIB}')">[取消连接]</a></div>
+					<div>已经连接新浪微博 <a href="javascript:void(0)" onclick="cancelConnect('{spUrl c=openconnect a=cancelConnect type=WEIB}')">[取消连接]</a></div>
 					{/if}
 					{if $smarty.session.openconnect.QQ}
-					<div>已经连接腾讯QQ <a href="javascript:void(0)" onclick="cancelConnect('{spUrl c=openconnect a=CancelConnect type=QQ}')">[取消连接]</a></div>
+					<div>已经连接腾讯QQ <a href="javascript:void(0)" onclick="cancelConnect('{spUrl c=openconnect a=cancelConnect type=QQ}')">[取消连接]</a></div>
 					{/if}
 				</div>
 			</div>
