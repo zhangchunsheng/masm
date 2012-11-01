@@ -63,7 +63,7 @@
 			}
 		}
 
-		/*发送评论邮件*/
+		//发送评论邮件
 		function sendReplay($imuid,$uid,$msga,$bid) {
 			if($imuid == $_SESSION['uid']) {
 				return true;
@@ -85,7 +85,7 @@
 			$this -> emailReady($rs['email'], $title, $body);
 		}
 
-		/*发送注册邮件*/
+		//发送注册邮件
 		function sendRegisgtr($uid) {
 			$rs = spClass('member') -> find(array('uid' => $uid));
 			$title = '亲爱的会员,这是一封来自' . $GLOBALS['LUOMOR']['site_title'] . '的注册通知';
@@ -94,7 +94,7 @@
 			$this -> emailReady($rs['email'], $title, $body);
 		}
 
-		/*发送私信*/
+		//发送私信
 		function sendPm($imuid, $uid, $info) {
 			$rs = spClass('member') -> find(array('uid' => $uid));
 			$for = spClass('member') -> find(array('uid' => $imuid));
@@ -110,7 +110,7 @@
 			$this -> emailReady($rs['email'], $title, $body);
 		}
 
-		/*发送关注邮件*/
+		//发送关注邮件
 		function sendFollow($uid, $imuid) {
 			$rs = spClass('member') -> find(array('uid' => $uid));
 			$for = spClass('member') -> find(array('uid' => $imuid));
