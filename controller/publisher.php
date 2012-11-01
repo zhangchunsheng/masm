@@ -319,12 +319,12 @@
 
 		//发布到其他媒体通过内部api
 		private function postToConnect($args) {
-			if($args['openconnect']['WEIB']) {
+			if($args['openconnect']['WEIBO']) {
 				import('sinaConnect.php');
 				$sina = new sinaConnect();
-				$sina -> init($this -> luomor['openlogin_weib_appid'], $this -> luomor['openlogin_weib_appkey'], $this -> luomor['openlogin_weib_callback']);
-				$keys = $_SESSION['openconnect']['WEIB'];
-				$c = new WeiboClient($this -> luomor['openlogin_weib_appid'], $this -> luomor['openlogin_weib_appkey'], $keys['token'], $keys['secret']);
+				$sina -> init($this -> luomor['openlogin_weibo_appid'], $this -> luomor['openlogin_weibo_appkey'], $this -> luomor['openlogin_weibo_callback']);
+				$keys = $_SESSION['openconnect']['WEIBO'];
+				$c = new WeiboClient($this -> luomor['openlogin_weibo_appid'], $this -> luomor['openlogin_weibo_appkey'], $keys['access_token'], $keys['client_secret']);
 
 				if($args['filedata']) {
 					$title = $args['pb-text-title'];

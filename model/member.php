@@ -318,9 +318,9 @@
 		 function _getActionToken($uid) {
 			$rs = spClass('memberex') -> spLinker() -> findAll(array('uid' => $uid));
 			foreach($rs as $d) {
-				$_SESSION['openconnect'][$d['types']]['openid'] = $d['openid'];
-				$_SESSION['openconnect'][$d['types']]['token'] = $d['token'];
-				$_SESSION['openconnect'][$d['types']]['secret'] = $d['secret'];
+				$_SESSION['openconnect'][$d['platform']]['openid'] = $d['openid'];
+				$_SESSION['openconnect'][$d['platform']]['access_token'] = $d['access_token'];
+				$_SESSION['openconnect'][$d['platform']]['client_secret'] = $d['client_secret'];
 			}
 		}
 	}

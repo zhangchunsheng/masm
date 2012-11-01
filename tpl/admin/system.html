@@ -244,24 +244,24 @@
 			<tr>
 				<td width="78">是否开启</td>
 				<td width="168" valign="middle">
-					开启<input name="val[openlogin_weib_open]" type="radio" value="1"  {if $conf.openlogin_weib_open == 1} checked="checked" {/if}/>&nbsp;&nbsp;
-					关闭 <input name="val[openlogin_weib_open]" type="radio" value="0" {if $conf.openlogin_weib_open == 0} checked="checked" {/if}/>
+					开启<input name="val[openlogin_weibo_open]" type="radio" value="1"  {if $conf.openlogin_weibo_open == 1} checked="checked" {/if}/>&nbsp;&nbsp;
+					关闭 <input name="val[openlogin_weibo_open]" type="radio" value="0" {if $conf.openlogin_weibo_open == 0} checked="checked" {/if}/>
 				</td>
 				<td width="689" valign="middle">是否开启weib登录按钮及登录功能，开启后填写下面内容。<a href="http://open.weibo.com/webmaster/console" target="_blank">获取如下内容请点击</a></td>
 			</tr>
 			<tr>
 				<td>APPkey</td>
-				<td valign="middle"><input name="val[openlogin_weib_appid]" type="text" value="{$conf.openlogin_weib_appid}" /></td>
+				<td valign="middle"><input name="val[openlogin_weibo_appid]" type="text" value="{$conf.openlogin_weibo_appid}" /></td>
 				<td valign="middle">新浪提供的APPkey&nbsp;</td>
 			</tr>
 			<tr>
 				<td>APPsecret</td>
-				<td valign="middle"><input name="val[openlogin_weib_appkey]" type="text" value="{$conf.openlogin_weib_appkey}" /></td>
+				<td valign="middle"><input name="val[openlogin_weibo_appkey]" type="text" value="{$conf.openlogin_weibo_appkey}" /></td>
 				<td valign="middle">新浪提供的APP secret</td>
 			</tr>
 			<tr>
 				<td>回调地址</td>
-				<td valign="middle"><input name="val[openlogin_weib_callback]" type="text" value="{$conf.openlogin_weib_callback}" /></td>
+				<td valign="middle"><input name="val[openlogin_weibo_callback]" type="text" value="{$conf.openlogin_weibo_callback}" /></td>
 				<td valign="middle">请将回调地址写成如下形式，将我们的域名换成你的域名:(注意不要粘贴空格)<br />
 					http://www.luomor.com/index.php?c=openconnect&a=weibo&callback=true 
 				</td>

@@ -7,6 +7,10 @@
 		<meta name="description" content="{$luomor.site_desc}" />
 		<meta name="keywords" content="{$luomor.site_keyword}" />
 		{include file="require_js.html" login=yes}
+		<script type="text/javascript" src="{$url}/tpl/js/dialog/dialog.js?skin=mac"></script>
+		<script type="text/javascript" src="{$url}/tpl/js/dialog/dialogTools.js"></script>
+		<script type="text/javascript" src="{$url}/tpl/swf/player.js"></script>
+		<script type="text/javascript" src="{$url}/tpl/js/luomor.js"></script>
 		<link href="{$url}/tpl/images/css/login.css" rel="stylesheet" type="text/css" class="cssfx" />
 		<link rel="shortcut icon" href="{$url}/tpl/images/favicon.ico" type="images/x-icon" />
 	</head>
@@ -66,20 +70,20 @@
 									</table>
 									{/if}
 								</div>
-								{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weib_open == 1}
+								{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weibo_open == 1}
 								<div id="openconnent">
 									<h1>使用合作网站帐号登录</h1>
 									<div id="area">
 										{if $luomor.openlogin_qq_open == 1}
 										<li>
-											<a href="{spUrl c=openconnect a=qq}">
+											<a href="javascript:void(0)" onclick="openconnect('{spUrl c=openconnect a=qq}')">
 												<img src="tpl/images/qq_login.png" border="0" style="margin-top:10px" />
 											</a>
 										</li>
 										{/if}
-										{if $luomor.openlogin_weib_open == 1}
+										{if $luomor.openlogin_weibo_open == 1}
 										<li>
-											<a href="{spUrl c=openconnect a=weibo}">
+											<a href="javascript:void(0)" onclick="openconnect('{spUrl c=openconnect a=weibo}')">
 												<img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" />
 											</a>
 										</li>

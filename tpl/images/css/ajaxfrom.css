@@ -20,76 +20,80 @@ input {
 	font-size:16px;
 	padding:3px;
 }
-
 input.ipt {
-    box-shadow: 0 -32px 3px #FFFFFF inset, 0 0 3px rgba(0, 0, 0, 0.5) inset;
-    height: 25px;
+	box-shadow: 0 -32px 3px #FFFFFF inset, 0 0 3px rgba(0, 0, 0, 0.5) inset;
+	height: 25px;
 }
-
 .ipt {
-    border: 1px solid #BBBBBB;
-    color: #333333;
-    font-size: 14px;
-    line-height: 20px;
-    outline: medium none;
-    padding: 4px;
+	border: 1px solid #BBBBBB;
+	color: #333333;
+	font-size: 14px;
+	line-height: 20px;
+	outline: medium none;
+	padding: 4px;
 }
-
 .input-button, .blue-button {
-    background: url(../blue-button.png) repeat-x scroll 0 0 transparent;
-    border: 1px solid #006DAB;
-    border-radius: 4px 4px 4px 4px;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: block;
-    font-size: 14px;
-    height: 36px;
-	margin:0px;
-    line-height: 36px;
-    padding: 0 20px;
-	_padding:5px 10px 10px 10px;
+	background: url(../blue-button.png) repeat-x scroll 0 0 transparent;
+	border: 1px solid #006DAB;
+	border-radius: 4px 4px 4px 4px;
+	color: #FFFFFF;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	height: 36px;
+	margin: 0px;
+	line-height: 36px;
+	padding: 0 20px;
 }
 .input-button:hover, .blue-button:hover {
-    background-position: 0 -36px;
+	background-position: 0 -36px;
 }
 .input-button.disabled, .blue-button.disabled {
-    background-position: 0 -72px;
-    border-color: #A9ABAB;
-    color: #999999;
+	background-position: 0 -72px;
+	border-color: #A9ABAB;
+	color: #999999;
 }
-
 .submit {
-    float: right;
-    height: 32px;
-    line-height: 32px;
-    margin-left: 15px;
+	float: right;
+	height: 32px;
+	line-height: 32px;
+	margin-left: 15px;
 }
-
 .indexsubmit {
 	display:inline;
-    height: 32px;
-    line-height: 32px;
+	height: 32px;
+	line-height: 32px;
 }
-
 #submit_tip {
-    background: url(../small_loading.gif) no-repeat scroll left center transparent;
-    color: #666666;
-    float: right;
-    height: 32px;
-    line-height: 32px;
-    padding-left: 20px;
+	background: url(../small_loading.gif) no-repeat scroll left center transparent;
+	color: #666666;
+	float: right;
+	height: 32px;
+	line-height: 32px;
+	padding-left: 20px;
 	display:none;
 }
-
-
-.vericode {float:left;margin-right:0px;margin-top:3px;}
+.vericode {
+	float:left;
+	margin-right:0px;
+	margin-top:3px;
+}
+.title {
+	
+}
+.content {
+	
+}
 fieldset {
 	padding:10px;
 	margin-top:10px;
 	border:1px solid #A4CDF2;
+	border-radius: 4px 4px 4px 4px;
 	background:#fff;
 	font-size:12px;
-	width:400px;
+	width: 360px;
+	margin-left: auto;
+	margin-right: auto;
 }
 fieldset label {
 	float:left;
@@ -111,6 +115,9 @@ fieldset div {
 .err {
 	color:#F00;
 }
-
-.linkselect {margin:10px 0px;}
-#login{display:none}
+.linkselect {
+	margin:10px 0px;
+}
+#login {
+	display:none
+}

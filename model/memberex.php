@@ -21,7 +21,7 @@
 		);
 
 		function cancelBind($type, $uid) {
-			return $this -> delete(array('uid' => $uid), array('types' => $type));
+			return $this -> delete(array('uid' => $uid), array('platform' => $type));
 		}
 	}
 ?>

@@ -46,7 +46,6 @@
 						<div class="nav_arrow"></div>
 					{/if}
 				</li>
-				<!--<li><a href="{$url}/group.php"  target="_blank">论坛</a></li>-->
 			</div>
 
 			<div id="tool">
@@ -66,8 +65,12 @@
 					</li>
 				</ul>
 				<ul id="side">
-					<div id="img"><img src="{avatar uid=$smarty.session.uid size=middle}" alt="{$smarty.session.username}" width="30" height="30"/></div>
-					<div id="name"><a href="{goUserHome domain=$smarty.session.domain uid=$smarty.session.uid}" target="_blank" title="我的主页">{$smarty.session.username}</a></div>
+					<div id="img">
+						<img src="{avatar uid=$smarty.session.uid size=middle time=1}" alt="{$smarty.session.username}" width="30" height="30"/>
+					</div>
+					<div id="name">
+						<a href="{goUserHome domain=$smarty.session.domain uid=$smarty.session.uid}" target="_blank" title="我的主页">{$smarty.session.username}</a>
+					</div>
 					<a href="javascript:void(0)" id="menuSideBtn"></a>
 					<ul id="menuSide" style="display:none">
 						<a href="{spUrl c=user a=setting}">设置</a>
@@ -81,19 +84,18 @@
 			</div>
 
 			<!--
-				<div  class="tool">
+				<div class="tool">
 				{if $smarty.session.uid ==''}
 					<a href="javascript:void(0)" onClick="loginBox('{spUrl c=main a=login}')">登录</a>
 					<a href="javascript:void(0)" onClick="regBox('{spUrl c=main a=reg}')">注册</a>
 				{else}
-				  <a href="{goUserHome domain=$smarty.session.domain uid=$smarty.session.uid}" target="_blank" title="我的主页">{$smarty.session.username}</a>
-				   <a href="{spUrl c=user a=pm}">{$pmCount}私信</a>
-				   <a href="{spUrl c=user a=setting}">设置</a>
-				  {if $smarty.session.admin ==1}<a href="{spUrl c=admin}">后台</a>{/if}
-				  <a href="javascript:void(0)" onClick="logout('{spUrl c=main a=logout}')">退出</a>
-
+					<a href="{goUserHome domain=$smarty.session.domain uid=$smarty.session.uid}" target="_blank" title="我的主页">{$smarty.session.username}</a>
+					<a href="{spUrl c=user a=pm}">{$pmCount}私信</a>
+					<a href="{spUrl c=user a=setting}">设置</a>
+					{if $smarty.session.admin ==1}<a href="{spUrl c=admin}">后台</a>{/if}
+					<a href="javascript:void(0)" onClick="logout('{spUrl c=main a=logout}')">退出</a>
 				{/if}
-				  <a href="{spUrl c=site a=about}">关于</a>
+				<a href="{spUrl c=masm a=about}">关于</a>
 				</div>
 			-->
 		</div>

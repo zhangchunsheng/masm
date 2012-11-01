@@ -106,8 +106,8 @@
 					exit;
 				}
 				$_SESSION['qq']['openid'] = $user -> openid;
-				$_SESSION['qq']['oauth_token'] = $params['access_token'];
-				$_SESSION['qq']['expires'] = (time() + $params['expires_in']);
+				$_SESSION['qq']['access_token'] = $params['access_token'];
+				$_SESSION['qq']['expires_in'] = (time() + $params['expires_in']);
 
 				$rs = $this -> get_user_info($params['access_token'], $user -> openid);
 
@@ -150,11 +150,11 @@
 		 * "is_yellow_year_vip":"1"
 		 * }
 		 */
-		private function get_user_info($token, $openid) {
+		private function get_user_info($access_token, $openid) {
 			$uri    = 'https://graph.qq.com/user/get_user_info?';
 			$post = array(
-				'access_token' => $token,
-				'oauth_consumer_key' => $this->appid,
+				'access_token' => $access_token,
+				'oauth_consumer_key' => $this -> appid,
 				'openid' => $openid,
 				'format' => 'json'
 			);
@@ -181,6 +181,7 @@
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($ch, CURLOPT_POST, 1);
 			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
 			$result = curl_exec($ch);

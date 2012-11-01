@@ -56,7 +56,7 @@
 					</tr>
 					<tr>
 						<td width="261" valign="top">
-							{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weib_open == 1}
+							{if $luomor.openlogin_qq_open == 1 || $luomor.openlogin_weibo_open == 1}
 							<div id="openconnent">
 								<h1>使用合作网站帐号登录</h1>
 								<div id="area">
@@ -67,7 +67,7 @@
 										</a>
 									</li>
 									{/if}
-									{if $luomor.openlogin_weib_open == 1}
+									{if $luomor.openlogin_weibo_open == 1}
 									<li>
 										<a href="javascript:void(0)" onclick="openconnect('{spUrl c=openconnect a=weibo}')">
 											<img src="tpl/images/weib_login.png" border="0" style="margin-top:10px" />

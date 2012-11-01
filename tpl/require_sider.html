@@ -1,16 +1,26 @@
 <!--右侧菜单组件-->
 {if $smarty.session.uid !=''}
 {if !$in_tagindex}
-<div id="search"><input type="text" value="&#25628;&#32034;&#26631;&#31614;,&#21457;&#29616;&#20852;&#36259;" class="ipt" /><input type="button" class="btn" value="" onClick="searchTag()" /></div>
+<div id="search">
+	<input type="text" value="&#25628;&#32034;&#26631;&#31614;,&#21457;&#29616;&#20852;&#36259;" class="ipt" /><input type="button" class="btn" value="" onClick="searchTag()" />
+</div>
 <div class="hr"></div>
 <div id="sidetop">
 	<div class="myfollow"><a href="{spUrl c=main}">我关注{$user.flow}个博客</a></div>
 	<div class="showfollow"><a href="{spUrl c=user a=myfollow}">管理我的关注</a></div>
 </div>
 <div id="dasbard">
-	<div class="item"><a href="{spUrl c=user a=mylikes}">我的最爱</a><span>{$user.likenum}</span></div>
-	<div class="item"><a href="{spUrl c=user a=mypost}">我发布的</a><span>{$user.num}</span></div>
-	<div class="item"><a href="{spUrl c=user a=myreply}">我回复的</a></div>
+	<div class="item">
+		<a href="{spUrl c=user a=mylikes}">我的最爱</a>
+		<span>{$user.likenum}</span>
+	</div>
+	<div class="item">
+		<a href="{spUrl c=user a=mypost}">我发布的</a>
+		<span>{$user.num}</span>
+	</div>
+	<div class="item">
+		<a href="{spUrl c=user a=myreply}">我回复的</a>
+	</div>
 </div>
 <div class="hr"></div>
 {/if}
@@ -44,7 +54,9 @@
 </div>
 {else}
 <div id="menu">
-	<li class="end"><a href="{spUrl c=main a=recommend}">没有关注标签,发现一下吧</a></li>
+	<li class="end">
+		<a href="{spUrl c=main a=recommend}">没有关注标签,发现一下吧</a>
+	</li>
 	<div class="clear"></div>
 </div>
 {/if}

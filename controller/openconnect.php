@@ -7,7 +7,7 @@
 	class openconnect extends base {
 		function __construct() {
 			parent :: __construct();
-			//认证返回的信息统一命名为 [openid] [oauth_token]  [oauth_token_secret]
+			//认证返回的信息统一命名为 [openid] [access_token]  [client_secret]
 			//不一样的名字请自行在LoginCallback方法中修改session名字
 		}
 
@@ -30,7 +30,7 @@
 				if(!$_SESSION['qq']['openid']) {
 					exit('登录状态失效,请重新登录');
 				}
-				$type = 'QQ'; //获取类型为QQ
+				$platform = 'QQ'; //获取类型为QQ
 				$this -> user = $_SESSION['qq'];
 				$this -> type = $this -> spArgs('type', 'reg');
 
@@ -42,10 +42,10 @@
 							$uid = $userobj -> userReg($this -> spArgs());
 							$params = array(
 								'openid' => $_SESSION['qq']['openid'],
-								'token'  => $_SESSION['qq']['oauth_token'],
-								'types'  => $type,
+								'access_token'  => $_SESSION['qq']['access_token'],
+								'platform'  => $platform,
 								'uid'    => $uid,
-								'expires'=> $_SESSION['qq']['expires']
+								'expires_in' => $_SESSION['qq']['expires_in']
 							);
 							$this -> activeLogin($params);
 							if($this -> spArgs('face'))
@@ -60,10 +60,10 @@
 						if($userobj -> spVerifier($this -> spArgs()) == false) {
 							$params = array(
 								'openid' => $_SESSION['qq']['openid'],
-								'token'  => $_SESSION['qq']['oauth_token'],
-								'types'  => $type,
+								'access_token'  => $_SESSION['qq']['access_token'],
+								'platform'  => $platform,
 								'uid'    => $_SESSION['uid'],
-								'expires'=> $_SESSION['qq']['expires']
+								'expires_in' => $_SESSION['qq']['expires_in']
 							);
 							$this -> activeLogin($params);
 							if($this -> spArgs('face'))
@@ -76,10 +76,10 @@
 				}
 
 				$user = spClass('memberex') -> spLinker() -> find(array('openid' => $this -> user['openid'])); //获取用户数据
-				if($user['expires'] != 0 && time() > $user['expires']) {
-					$msg = '您的绑定信息与' . date('Y-m-d', $user['expires']) . '已过期，请您重新使用连接功能，并绑定已有账号。';
-					spClass('memberex') -> cancelBind($type, $_SESSION['uid']);
-					unset($_SESSION['openconnect'][$type]);
+				if($user['expires_in'] != 0 && time() > $user['expires_in']) {
+					$msg = '您的绑定信息与' . date('Y-m-d', $user['expires_in']) . '已过期，请您重新使用连接功能，并绑定已有账号。';
+					spClass('memberex') -> cancelBind($platform, $_SESSION['uid']);
+					unset($_SESSION['openconnect'][$platform]);
 					spClass('memberex') -> delete(array('openid' => $this -> user['openid']));
 					$this -> error($msg, spUrl('main', 'index'));
 				}
@@ -94,6 +94,91 @@
 				exit;
 			}
 			spClass('qqConnect') -> getLoginUrl();
+		}
+		
+		//连接qq
+		public function weibo() {
+			if($this -> luomor['openlogin_weibo_open'] == 0) {
+				exit('系统管理员没有开启QQ登录功能');
+			}
+			$this -> app = 'weibo';
+			spClass('sinaConnect') -> init($this -> luomor['openlogin_weibo_appid'], $this -> luomor['openlogin_weibo_appkey'], $this -> luomor['openlogin_weibo_callback']);
+
+			if($this -> spArgs('callback')) {
+				if(spClass('sinaConnect') -> LoginCallback()) {
+					header("Location:index.php?c=openconnect&a=weibo&login=yes");
+				}
+				exit;
+			}
+
+			if($this -> spArgs('login')) {
+				if(!$_SESSION['weibo']['openid']) {
+					exit('登录状态失效,请重新登录');
+				}
+				$platform = 'WEIBO'; //获取类型为QQ
+				$this -> user = $_SESSION['weibo'];
+				$this -> type = $this -> spArgs('type', 'reg');
+
+				if($this -> spArgs('linkSubmit')) {
+					if($this -> spArgs('type') != 'login') {
+						$userobj = spClass('member'); //验证注册
+						$userobj -> verifier = $userobj -> verifier_openConnect_Reg;
+						if($userobj -> spVerifier($this -> spArgs()) == false) {
+							$uid = $userobj -> userReg($this -> spArgs());
+							$params = array(
+								'openid' => $_SESSION['weibo']['openid'],
+								'access_token'  => $_SESSION['weibo']['access_token'],
+								'platform'  => $platform,
+								'uid'    => $uid,
+								'expires_in' => $_SESSION['weibo']['expires_in']
+							);
+							$this -> activeLogin($params);
+							if($this -> spArgs('face'))
+								$this -> getUserFace($this -> user['pic'], $uid);
+							$this -> jslocation(spUrl('main', 'index'));
+						} else {
+							$this -> errmsg_arr = $userobj -> spVerifier($this -> spArgs());
+						}
+					} else {
+						$userobj = spClass('member'); //验证登录
+						$userobj -> verifier = $userobj -> verifier_openConnect_Login;
+						if($userobj -> spVerifier($this -> spArgs()) == false) {
+							$params = array(
+								'openid' => $_SESSION['weibo']['openid'],
+								'access_token'  => $_SESSION['weibo']['access_token'],
+								'platform'  => $platform,
+								'uid'    => $_SESSION['uid'],
+								'expires_in' => $_SESSION['weibo']['expires_in']
+							);
+							$this -> activeLogin($params);
+							if($this -> spArgs('face'))
+								$this -> getUserFace($this -> user['pic'], $_SESSION['uid']);
+							$this -> jslocation(spUrl('main', 'index'));
+						} else {
+							$this -> errmsg_arr = $userobj -> spVerifier($this -> spArgs());
+						}
+					}
+				}
+
+				$user = spClass('memberex') -> spLinker() -> find(array('openid' => $this -> user['openid'])); //获取用户数据
+				if($user['expires_in'] != 0 && time() > $user['expires_in']) {
+					$msg = '您的绑定信息与' . date('Y-m-d', $user['expires_in']) . '已过期，请您重新使用连接功能，并绑定已有账号。';
+					spClass('memberex') -> cancelBind($platform, $_SESSION['uid']);
+					unset($_SESSION['openconnect'][$platform]);
+					spClass('memberex') -> delete(array('openid' => $this -> user['openid']));
+					$this -> error($msg, spUrl('main', 'index'));
+				}
+
+				if($user) {
+					$this -> setLoginInfo($user['user']);
+					$this -> jslocation(spUrl('main', 'index'));
+				} else {
+					//如果不存在 提示绑定
+					$this -> display('oauth/login.html');
+				}
+				exit;
+			}
+			spClass('sinaConnect') -> getLoginUrl();
 		}
 
 		public function cancelConnect() {
@@ -130,9 +215,9 @@
 		private function _getActionToken($uid) {
 			$rs = spClass('memberex') -> spLinker() -> findAll(array('uid' => $uid));
 			foreach($rs as $d) {
-				$_SESSION['openconnect'][$d['types']]['openid'] = $d['openid'];
-				$_SESSION['openconnect'][$d['types']]['token'] = $d['token'];
-				$_SESSION['openconnect'][$d['types']]['secret'] = $d['secret'];
+				$_SESSION['openconnect'][$d['platform']]['openid'] = $d['openid'];
+				$_SESSION['openconnect'][$d['platform']]['access_token'] = $d['access_token'];
+				$_SESSION['openconnect'][$d['platform']]['client_secret'] = $d['client_secret'];
 			}
 		}
 
@@ -156,7 +241,7 @@
 					$big = 'big_' . $uids . '.jpg';
 					$middle = 'middle_' . $uids . '.jpg';
 					$small = 'small_' . $uids . '.jpg';
-					$imghd = spClass('image');
+					$imghd = spClass('imageUtil');
 					$imghd -> load($tempfile);
 					$imghd -> resizeToWidth(200);
 					$imghd -> save($filepath . $big);
