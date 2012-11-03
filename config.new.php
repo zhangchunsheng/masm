@@ -26,7 +26,7 @@
 
 		'url' => array(
 			'url_path_info' => false,
-			'url_path_base' => APP_NAME.'index.php'
+			'url_path_base' => APP_NAME . 'index.php'
 		),
 
 		'ext' => array(
